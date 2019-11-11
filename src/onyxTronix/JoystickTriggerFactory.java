@@ -11,7 +11,7 @@ public class JoystickTriggerFactory {
     this.joystickTriggerType=joystickTriggerType;
   }
 
-  public Trigger createJoystickButton(final GenericHID joystick, final int triggerNumber){
+  public Trigger createJoystickTrigger(final GenericHID joystick, final int triggerNumber){
     switch (joystickTriggerType) {
       case Button:
         return new JoystickButton(joystick, triggerNumber);

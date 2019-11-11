@@ -1,16 +1,16 @@
 package sensors.Switch;
 
 public class InvertibleSwitch implements Switch {
-    private final Switch m_switch;
-    private final boolean m_isInverted;
+    private final Switch aSwitch;
+    private final boolean isInverted;
 
     public InvertibleSwitch(final Switch aSwitch, final boolean isInverted) {
-        m_switch = aSwitch;
-        m_isInverted = isInverted;
+        this.aSwitch = aSwitch;
+        this.isInverted = isInverted;
     }
 
     @Override
     public boolean isOpen() {
-        return m_switch.isOpen() ^ m_isInverted;
+        return aSwitch.isOpen() ^ isInverted;
     }
 }
