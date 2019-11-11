@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.buttons.Trigger;
 
 public class JoystickAxis extends Trigger {
-  private final static double DEFAULT_DEAD_BAND = 0.15;
+  private final static double DEFAULT_DEAD_BAND = 0.08;
   private final GenericHID m_joystick;
   private final int m_axisNumber;
   private final double m_deadBand;
@@ -14,7 +14,7 @@ public class JoystickAxis extends Trigger {
   /**
    * Create a joystick axis for triggering commands.
    *
-   * @param joystick     The GenericHID object that has the button (e.g. Joystick, KinectStick,
+   * @param joystick     The GenericHID object that has the axis (e.g. Joystick, KinectStick,
    *                     etc)
    * @param axisNumber The axis number (see {@link Axis}
    */
