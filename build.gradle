@@ -6,6 +6,7 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2019.3.2"
 }
 
+apply plugin: 'maven-publish'
 group=libraryGroupId
 version=libraryVersion
 allprojects {
@@ -52,3 +53,5 @@ publishing {
         }
     }
 }
+apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'
+
