@@ -8,12 +8,12 @@ plugins {
 
 group=libraryGroupId
 version=libraryVersion
-
-repositories {
-    mavenCentral()
-    maven { url 'https://www.jitpack.io' }
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
 }
-
 sourceSets {
     main {
         java {
