@@ -6,7 +6,6 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2019.3.2"
 }
 
-apply plugin: 'maven-publish'
 group=libraryGroupId
 version=libraryVersion
 allprojects {
@@ -33,7 +32,7 @@ dependencies {
 }
 
 wrapper {
-    gradleVersion = '5.0'
+    gradleVersion = '5.1'
 }
 
 task sourcesJar(type: Jar) {
@@ -53,5 +52,3 @@ publishing {
         }
     }
 }
-apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'
-
