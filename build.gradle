@@ -3,7 +3,7 @@ plugins {
     id "idea"
     id 'maven-publish'
     id "com.jfrog.artifactory" version "4.8.1"
-    id "edu.wpi.first.GradleRIO" version "2019.3.2"
+    id "edu.wpi.first.GradleRIO" version "2020.1.1"
 }
 
 group=libraryGroupId
@@ -32,7 +32,7 @@ dependencies {
 }
 
 wrapper {
-    gradleVersion = '5.0'
+    gradleVersion = '6.0.1'
 }
 
 task sourcesJar(type: Jar) {
