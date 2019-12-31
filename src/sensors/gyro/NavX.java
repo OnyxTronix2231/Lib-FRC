@@ -1,30 +1,25 @@
 package sensors.gyro;
 
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 import java.util.function.Supplier;
 
-public class NavX implements Gyro, PIDSource {
+public class NavX implements Gyro {
     private final AHRS ahrs;
     private final Supplier<Double> getAngle;
     private final Supplier<Double> getRate;
-    private PIDSourceType pidSourceType;
 
     public NavX(final AHRS ahrs) {
         this.ahrs = ahrs;
         getAngle = this.ahrs::getAngle;
         getRate = this.ahrs::getRate;
-        pidSourceType = PIDSourceType.kDisplacement;
     }
 
     public NavX(final AHRS ahrs, final Supplier<Double> getAngle, final Supplier<Double> getRate) {
         this.ahrs = ahrs;
         this.getAngle = getAngle;
         this.getRate = getRate;
-        pidSourceType = PIDSourceType.kDisplacement;
     }
 
     /**
@@ -83,31 +78,13 @@ public class NavX implements Gyro, PIDSource {
         ahrs.reset();
     }
 
-    /**
-     * Free the resources used by this object.
-     */
     @Deprecated
     @Override
-    public void free() {
-        ahrs.free();
-    }
-
-    @Override
     public void close() {
-        ahrs.close();
+        // not available anymore
     }
 
-    @Override
-    public PIDSourceType getPIDSourceType() {
-        return pidSourceType;
-    }
-
-    @Override
-    public void setPIDSourceType(PIDSourceType pidSourceType) {
-        this.pidSourceType = pidSourceType;
-    }
-
-    @Override
+    @Deprecated
     public double pidGet() {
         return getAngle();
     }

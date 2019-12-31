@@ -1,7 +1,7 @@
 package onyxTronix;
 
 import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class JoystickAxis extends Trigger {
   private final static double DEFAULT_DEAD_BAND = 0.08;
