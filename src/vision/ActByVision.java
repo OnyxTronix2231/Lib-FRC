@@ -1,8 +1,8 @@
-package robot;
+package vision;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import onyxTronix.SetPointCommand;
 
-import edu.wpi.first.wpilibj.command.Command;
 import vision.VisionSubsystem;
 import vision.grip.VisionSensorGrip;
 
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 /**
  *
  */
-public class ActByVision extends Command {
+public class ActByVision extends CommandBase {
     protected VisionSubsystem visionSubsystem;
     private Supplier<Number> getVisionCalculationResult;
     private Supplier<Number> getTolerance;
@@ -33,18 +33,18 @@ public class ActByVision extends Command {
         this.setPointCommand = setPointCommand;
         this.getTolerance = getTolerance;
         this.isContinues = isContinuous;
-    	requires(visionSubsystem);
+        addRequirements(visionSubsystem);
     }
  
     @Override
-    protected void initialize() {
+    public void initialize() {
     	isFinished = false;
         hasRunOnce = false;
     }
     
     @Override
-    protected void execute() {
-        if (visionSubsystem.isVisionRunning() || setPointCommand.isRunning()) {
+    public void execute() {
+        if (visionSubsystem.isVisionRunning() || !setPointCommand.isFinished()) {
             return;
         }
 
@@ -62,26 +62,21 @@ public class ActByVision extends Command {
                 System.out.println("Vision on target");
             } else {
                 setPointCommand.setSetPoint(error);
-                setPointCommand.start();
+                setPointCommand.schedule();
                 hasRunOnce = true;
             }
         }
     }
 
     @Override
-	protected boolean isFinished() {
+    public boolean isFinished() {
 		return isFinished;
 	}
 
-	@Override
-	protected void end() {
-        setPointCommand.cancel();
-	}
-
-	@Override
-    protected void interrupted() {
-		end();
-	}
+  @Override
+  public void end(boolean interrupted) {
+    setPointCommand.cancel();
+  }
 
 	protected boolean isOnTarget(double error){
         return Math.abs(error) <= getTolerance.get().doubleValue();
