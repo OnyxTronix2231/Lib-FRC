@@ -6,8 +6,8 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2020.1.1"
 }
 
-group=libraryGroupId
-version=libraryVersion
+//group=libraryGroupId
+//version=libraryVersion
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
