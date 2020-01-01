@@ -9,9 +9,12 @@ plugins {
 group=libraryGroupId
 version=libraryVersion
 
+sourceCompatibility = 11 
+targetCompatibility = 11
+
 repositories {
     mavenCentral()
-    maven { url 'https://jitpack.io' }
+    maven { url 'https://www.jitpack.io' }
 }
 
 sourceSets {
