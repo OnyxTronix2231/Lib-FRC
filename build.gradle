@@ -6,16 +6,10 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2020.1.1"
 }
 
-//group=libraryGroupId
-//version=libraryVersion
-
 repositories {
     mavenCentral()
     maven { url 'https://www.jitpack.io' }
 }
-
-//compileJava.options.fork = true
-//compileJava.options.forkOptions.executable = "https://github.com/wpilibsuite/frc-openjdk-roborio"
 
 sourceSets {
     main {
