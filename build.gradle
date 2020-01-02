@@ -14,8 +14,8 @@ repositories {
     maven { url 'https://www.jitpack.io' }
 }
 
-compileJava.options.fork = true
-compileJava.options.forkOptions.executable = "https://github.com/wpilibsuite/frc-openjdk-roborio"
+//compileJava.options.fork = true
+//compileJava.options.forkOptions.executable = "https://github.com/wpilibsuite/frc-openjdk-roborio"
 
 sourceSets {
     main {
