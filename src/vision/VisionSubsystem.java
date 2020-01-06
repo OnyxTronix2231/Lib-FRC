@@ -1,9 +1,9 @@
 package vision;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import vision.grip.VisionSensorGrip;
 
-public abstract class VisionSubsystem extends Subsystem {
+public abstract class VisionSubsystem extends SubsystemBase {
 
     protected final VisionSensorGrip m_visionSensor;
 
