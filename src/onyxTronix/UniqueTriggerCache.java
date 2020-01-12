@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 import java.util.ArrayList;
 
-public abstract class UniqueTriggerCache {
+public abstract class UniqueTriggerCache<T extends Trigger> {
 
   protected final GenericHID joystick;
   private final ArrayList<Integer> usedTriggerNumbers;
@@ -15,7 +15,7 @@ public abstract class UniqueTriggerCache {
     this.usedTriggerNumbers = new ArrayList<>();
   }
 
-  public Trigger cacheAndCreateJoystickTrigger(final int triggerNumber) {
+  public T cacheAndCreateJoystickTrigger(final int triggerNumber) {
     if (isTriggerUsed(triggerNumber)) {
       throw new IllegalArgumentException(
           String.format("The Trigger %d in Joystick %d is already used", triggerNumber, joystick.getPort()));
@@ -24,7 +24,7 @@ public abstract class UniqueTriggerCache {
     return createJoystickTrigger(triggerNumber);
   }
 
-  protected abstract Trigger createJoystickTrigger(final int triggerNumber);
+  protected abstract T createJoystickTrigger(final int triggerNumber);
 
   private boolean isTriggerUsed(final int triggerNumber) {
     return this.usedTriggerNumbers.contains(triggerNumber);
