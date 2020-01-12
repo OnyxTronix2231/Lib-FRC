@@ -15,16 +15,22 @@ public abstract class UniqueTriggerCache<T extends Trigger> {
     this.usedTriggerNumbers = new ArrayList<>();
   }
 
-  public T cacheAndCreateJoystickTrigger(final int triggerNumber) {
-    if (isTriggerUsed(triggerNumber)) {
-      throw new IllegalArgumentException(
-          String.format("The Trigger %d in Joystick %d is already used", triggerNumber, joystick.getPort()));
-    }
-    usedTriggerNumbers.add(triggerNumber);
-    return createJoystickTrigger(triggerNumber);
+  public T createJoystickTrigger(final int triggerNumber) {
+    return createJoystickTrigger(triggerNumber, true);
   }
 
-  protected abstract T createJoystickTrigger(final int triggerNumber);
+  public T createJoystickTrigger(final int triggerNumber, final boolean shouldBeCached) {
+    if(shouldBeCached) {
+      if (isTriggerUsed(triggerNumber)) {
+        throw new IllegalArgumentException(
+            String.format("The Trigger %d in Joystick %d is already used", triggerNumber, joystick.getPort()));
+      }
+      usedTriggerNumbers.add(triggerNumber);
+    }
+    return getJoystickTrigger(triggerNumber);
+  }
+
+  protected abstract T getJoystickTrigger(final int triggerNumber);
 
   private boolean isTriggerUsed(final int triggerNumber) {
     return this.usedTriggerNumbers.contains(triggerNumber);

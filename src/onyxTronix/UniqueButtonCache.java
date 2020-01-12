@@ -14,7 +14,7 @@ public class UniqueButtonCache extends UniqueTriggerCache<JoystickButton> {
   }
 
   @Override
-  protected JoystickButton createJoystickTrigger(final int triggerNumber) {
+  protected JoystickButton getJoystickTrigger(final int triggerNumber) {
     return new JoystickButton(joystick, triggerNumber);
   }
 }

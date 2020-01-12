@@ -10,7 +10,7 @@ public class UniqueAxisCache extends UniqueTriggerCache<JoystickAxis> {
   }
 
   @Override
-  protected JoystickAxis createJoystickTrigger(int triggerNumber) {
+  protected JoystickAxis getJoystickTrigger(int triggerNumber) {
     return new JoystickAxis(joystick, triggerNumber);
   }
 }
