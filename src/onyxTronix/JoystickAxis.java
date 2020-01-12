@@ -28,8 +28,8 @@ public class JoystickAxis extends Trigger {
   /**
    * Create a joystick axis for triggering commands.
    *
-   * @param joystick     The GenericHID object that has the axis (e.g. Joystick, KinectStick,
-   *                     etc)
+   * @param joystick   The GenericHID object that has the axis (e.g. Joystick, KinectStick,
+   *                   etc)
    * @param axisNumber The axis number (see {@link Axis}
    */
   public JoystickAxis(final GenericHID joystick, final int axisNumber, final double deadBand) {

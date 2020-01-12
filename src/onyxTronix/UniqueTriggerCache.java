@@ -20,7 +20,7 @@ public abstract class UniqueTriggerCache<T extends Trigger> {
   }
 
   public T createJoystickTrigger(final int triggerNumber, final boolean shouldBeCached) {
-    if(shouldBeCached) {
+    if (shouldBeCached) {
       if (isTriggerUsed(triggerNumber)) {
         throw new IllegalArgumentException(
             String.format("The Trigger %d in Joystick %d is already used", triggerNumber, joystick.getPort()));
