@@ -40,15 +40,15 @@ public class Limelight {
   /**
    * Sets the pipeline limelight would use to process the target
    *
-   * @exception IndexOutOfBoundsException
    * @param pipelineIndex index of pipeline. Must be between 0 - 9
+   * @throws IndexOutOfBoundsException
    */
   public void setPipeline(final int pipelineIndex) {
-    if(pipelineIndex >= 0 || pipelineIndex <=9) {
+    if (pipelineIndex >= 0 && pipelineIndex <= 9) {
       networkTable.getEntry("pipeline").setNumber(pipelineIndex);
     } else {
       throw new IndexOutOfBoundsException(String.format("Index %d is invalid. Pipeline indices must be between 0 - 9",
-        pipelineIndex));
+          pipelineIndex));
     }
   }
 
@@ -65,6 +65,7 @@ public class Limelight {
 
   /**
    * Sets The Led Mode
+   *
    * @param ledMode Desired Led Mode
    */
   public void setLedMode(final LimelightLedMode ledMode) {
@@ -80,6 +81,7 @@ public class Limelight {
    *   <li>PiP Main - The secondary camera stream is placed in the lower-right corner of the primary camera stream</li>
    *   <li>PiP Secondary - The primary camera stream is placed in the lower-right corner of the secondary camera stream</li>
    * </ul></p>
+   *
    * @param streamMode Desired Stream Mode
    */
   public void setStreamMode(final LimelightStreamMode streamMode) {
@@ -90,6 +92,7 @@ public class Limelight {
    * Set whether To Take Snapshots or not.
    * <p>Limelight can take snapshots during the match.
    * If parameter is set to True, then Limelight would take two snapshots per second</p>
+   *
    * @param takeSnapshots
    */
   public void setTakeSnapshots(final boolean takeSnapshots) {
@@ -102,7 +105,7 @@ public class Limelight {
    * @return if target was found return true
    */
   public boolean targetFound() {
-    if(networkTable.getEntry("tv").getDouble(DEFAULT_VALUE) < 1) {
+    if (networkTable.getEntry("tv").getDouble(DEFAULT_VALUE) > 1) {
       return false;
     }
     return true;
@@ -114,23 +117,23 @@ public class Limelight {
    * @return Vision Target retrieved from Limelight
    */
   public LimelightTarget getTarget() {
-    if(targetFound() == false) {
+    if (!targetFound()) {
       return null;
     }
 
-    final double horizontalOffsetToCrosshair = networkTable.getEntry("tx").getDouble(DEFAULT_VALUE);
-    final double verticalOffsetToCrosshair = networkTable.getEntry("ty").getDouble(DEFAULT_VALUE);
-    final double targetArea = networkTable.getEntry("ta").getDouble(DEFAULT_VALUE);
     final double skew = networkTable.getEntry("ts").getDouble(DEFAULT_VALUE);
     final double shortSideOfFittedBoundingBox = networkTable.getEntry("tshort").getDouble(DEFAULT_VALUE);
     final double longSideOfFittedBoundingBox = networkTable.getEntry("tlong").getDouble(DEFAULT_VALUE);
     final double horizontalSideOfRoughBoundingBox = networkTable.getEntry("thor").getDouble(DEFAULT_VALUE);
+    final double horizontalOffsetToCrosshair = networkTable.getEntry("tx").getDouble(DEFAULT_VALUE);
+    final double verticalOffsetToCrosshair = networkTable.getEntry("ty").getDouble(DEFAULT_VALUE);
+    final double targetArea = networkTable.getEntry("ta").getDouble(DEFAULT_VALUE);
     final double verticalSideOfRoughBoundingBox = networkTable.getEntry("tvert").getDouble(DEFAULT_VALUE);
 
     return new LimelightTarget(horizontalOffsetToCrosshair, verticalOffsetToCrosshair,
-      targetArea,skew,
-      shortSideOfFittedBoundingBox, longSideOfFittedBoundingBox,
-      horizontalSideOfRoughBoundingBox, verticalSideOfRoughBoundingBox);
+        targetArea, skew,
+        shortSideOfFittedBoundingBox, longSideOfFittedBoundingBox,
+        horizontalSideOfRoughBoundingBox, verticalSideOfRoughBoundingBox);
   }
 
   /**
@@ -139,14 +142,17 @@ public class Limelight {
    * @return Vision Target With Raw Corners Retrieved from Limelight
    */
   public LimelightTargetWithRawCorners getTargetWithRawCorners() {
+    if (!targetFound()) {
+      return null;
+    }
     final LimelightTarget basicTarget = getTarget();
     final Corner[] corners;
     final double[] xcorners;
     final double[] ycorners;
-    if((xcorners = networkTable.getEntry("tcornx").getDoubleArray(new double[] {-999}))[0] == -999) {
+    if ((xcorners = networkTable.getEntry("tcornx").getDoubleArray(new double[]{-999}))[0] == -999) {
       return null;
     }
-    ycorners = networkTable.getEntry("tcorny").getDoubleArray(new double[] {-999});
+    ycorners = networkTable.getEntry("tcorny").getDoubleArray(new double[]{-999});
     corners = new Corner[xcorners.length];
     for (int i = 0; i < xcorners.length; i++) {
       corners[i] = new Corner(xcorners[i], ycorners[i]);
@@ -154,4 +160,5 @@ public class Limelight {
 
     return new LimelightTargetWithRawCorners(basicTarget, corners);
   }
+
 }

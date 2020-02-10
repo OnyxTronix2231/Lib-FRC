@@ -15,4 +15,5 @@ public enum LimelightStreamMode {
   LimelightStreamMode(int value) {
     this.value = value;
   }
+
 }

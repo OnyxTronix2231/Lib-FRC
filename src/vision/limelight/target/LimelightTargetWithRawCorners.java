@@ -22,7 +22,7 @@ public class LimelightTargetWithRawCorners extends LimelightTarget implements IR
    * Default Constructor
    *
    * @param limelightTarget target to be copied to create the  members of super.
-   * @param corners Array of the raw corners of the target.
+   * @param corners         Array of the raw corners of the target.
    */
   public LimelightTargetWithRawCorners(LimelightTarget limelightTarget, Corner[] corners) {
     super(limelightTarget);
@@ -32,7 +32,6 @@ public class LimelightTargetWithRawCorners extends LimelightTarget implements IR
   public LimelightTargetWithRawCorners(LimelightTargetWithRawCorners limelightTargetWithRawCorners) {
     super(limelightTargetWithRawCorners);
     corners = limelightTargetWithRawCorners.getRawCorners();
-
   }
 
   @Override

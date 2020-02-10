@@ -16,4 +16,5 @@ public enum LimelightLedMode {
   LimelightLedMode(int value) {
     this.value = value;
   }
+
 }

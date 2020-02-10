@@ -14,4 +14,5 @@ public enum LimelightOperationMode {
   LimelightOperationMode(int value) {
     this.value = value;
   }
+
 }
