@@ -1,4 +1,4 @@
-package robot.vision.limelight.target;
+package vision.limelight.target;
 
 /**
  * Represents a raw corner of A Vision Target

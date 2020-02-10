@@ -1,15 +1,15 @@
-package robot.vision.limelight;
+package vision.limelight;
 
-import static robot.vision.limelight.LimelightConstants.DEFAULT_VALUE;
+import static vision.limelight.LimelightConstants.DEFAULT_VALUE;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import robot.vision.limelight.enums.LimelightLedMode;
-import robot.vision.limelight.enums.LimelightOperationMode;
-import robot.vision.limelight.enums.LimelightStreamMode;
-import robot.vision.limelight.target.Corner;
-import robot.vision.limelight.target.LimelightTarget;
-import robot.vision.limelight.target.LimelightTargetWithRawCorners;
+import vision.limelight.enums.LimelightLedMode;
+import vision.limelight.enums.LimelightOperationMode;
+import vision.limelight.enums.LimelightStreamMode;
+import vision.limelight.target.Corner;
+import vision.limelight.target.LimelightTarget;
+import vision.limelight.target.LimelightTargetWithRawCorners;
 
 /**
  * Limelight is a wrapper singleton for interacting with the Limelight camera.

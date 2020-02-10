@@ -1,4 +1,4 @@
-package robot.vision.limelight.enums;
+package vision.limelight.enums;
 
 /**
  * This emun Represents Mode of Limelight's led

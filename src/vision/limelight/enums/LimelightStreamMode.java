@@ -1,4 +1,4 @@
-package robot.vision.limelight.enums;
+package vision.limelight.enums;
 
 /**
  * This enum represents the different streaming modes of limelight when a USB webcam is attached.
