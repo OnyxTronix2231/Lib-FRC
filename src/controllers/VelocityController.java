@@ -2,15 +2,16 @@ package controllers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorController;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class VelocityController implements SpeedController {
 
   private final double maxVelocity;
   private final int pidSlot;
-  private final IMotorController motor;
+  private final BaseTalon motor;
 
-  public VelocityController(final double maxVelocity, final int pidSlot, final IMotorController motor){
+  public VelocityController(final double maxVelocity, final int pidSlot, final BaseTalon motor){
     this.maxVelocity = maxVelocity;
     this.pidSlot = pidSlot;
     this.motor = motor;
