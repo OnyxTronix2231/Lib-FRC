@@ -11,17 +11,17 @@ public class VelocityController implements SpeedController {
   private final int pidSlot;
   private final BaseTalon motor;
 
-  public VelocityController(final double maxVelocity, final int pidSlot, final BaseTalon motor){
+  public VelocityController(final double maxVelocity, final int pidSlot, final BaseTalon motor) {
     this.maxVelocity = maxVelocity;
     this.pidSlot = pidSlot;
     this.motor = motor;
   }
 
   public void initVelocityController() {
-    motor.selectProfileSlot(pidSlot,0);
+    motor.selectProfileSlot(pidSlot, 0);
   }
 
-  private double getVelocityBySpeed(final double speed){
+  private double getVelocityBySpeed(final double speed) {
     return maxVelocity * speed;
   }
 
@@ -53,7 +53,7 @@ public class VelocityController implements SpeedController {
 
   @Override
   public void stopMotor() {
-    motor.set(ControlMode.PercentOutput,0);
+    motor.set(ControlMode.PercentOutput, 0);
   }
 
   @Override
