@@ -142,14 +142,11 @@ public class Limelight {
    * @return Vision Target With Raw Corners Retrieved from Limelight
    */
   public LimelightTargetWithRawCorners getTargetWithRawCorners() {
-    if (!targetFound()) {
-      return null;
-    }
     final LimelightTarget basicTarget = getTarget();
     final Corner[] corners;
     final double[] xcorners;
     final double[] ycorners;
-    if ((xcorners = networkTable.getEntry("tcornx").getDoubleArray(new double[]{-999}))[0] == -999) {
+    if (!targetFound() || (xcorners = networkTable.getEntry("tcornx").getDoubleArray(new double[]{-999}))[0] == -999) {
       return null;
     }
     ycorners = networkTable.getEntry("tcorny").getDoubleArray(new double[]{-999});
