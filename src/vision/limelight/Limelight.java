@@ -105,7 +105,7 @@ public class Limelight {
    * @return if target was found return true
    */
   public boolean targetFound() {
-    if (networkTable.getEntry("tv").getDouble(DEFAULT_VALUE) > 1) {
+    if (networkTable.getEntry("tv").getDouble(DEFAULT_VALUE) < 1) {
       return false;
     }
     return true;
