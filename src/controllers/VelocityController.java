@@ -7,18 +7,27 @@ import edu.wpi.first.wpilibj.SpeedController;
 
 public class VelocityController implements SpeedController {
 
+  private final BaseTalon motor;
   private final double maxVelocity;
   private final int pidSlot;
-  private final BaseTalon motor;
+  private final int pidIdx;
 
-  public VelocityController(final double maxVelocity, final int pidSlot, final BaseTalon motor) {
+  public VelocityController(final BaseTalon motor, final double maxVelocity, final int pidSlot) {
+    this.motor = motor;
     this.maxVelocity = maxVelocity;
     this.pidSlot = pidSlot;
+    pidIdx = 0;
+  }
+
+  public VelocityController(final BaseTalon motor, final double maxVelocity, final int pidSlot, final int pidIdx) {
     this.motor = motor;
+    this.maxVelocity = maxVelocity;
+    this.pidSlot = pidSlot;
+    this.pidIdx = pidIdx;
   }
 
   public void initVelocityController() {
-    motor.selectProfileSlot(pidSlot, 0);
+    motor.selectProfileSlot(pidSlot, pidIdx);
   }
 
   private double getVelocityBySpeed(final double speed) {
@@ -32,7 +41,7 @@ public class VelocityController implements SpeedController {
 
   @Override
   public double get() {
-    return motor.getSelectedSensorVelocity(pidSlot);
+    return motor.getSelectedSensorVelocity(pidIdx);
   }
 
   @Override
@@ -48,7 +57,6 @@ public class VelocityController implements SpeedController {
   @Override
   public void disable() {
     motor.set(ControlMode.Disabled, 0);
-    motor.set(ControlMode.PercentOutput, 0.0);
   }
 
   @Override
@@ -58,6 +66,6 @@ public class VelocityController implements SpeedController {
 
   @Override
   public void pidWrite(final double output) {
-    motor.set(ControlMode.PercentOutput, 0);
+    motor.set(ControlMode.PercentOutput, output);
   }
 }
