@@ -4,11 +4,9 @@ import edu.wpi.first.wpilibj.Encoder;
 
 public class RoboRioEncoder implements Counter {
     private final Encoder encoder;
-    private final double distancePerUnit;
 
-    public RoboRioEncoder(final Encoder encoder, final double distancePerUnit) {
+    public RoboRioEncoder(final Encoder encoder) {
         this.encoder = encoder;
-        this.distancePerUnit = distancePerUnit;
     }
 
     @Override
