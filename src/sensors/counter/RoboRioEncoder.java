@@ -3,26 +3,24 @@ package sensors.counter;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class RoboRioEncoder implements Counter {
-    private final Encoder m_encoder;
-    private final double m_distancePerUnit;
+    private final Encoder encoder;
 
-    public RoboRioEncoder(final Encoder encoder, final double distancePerUnit) {
-        m_encoder = encoder;
-        m_distancePerUnit = distancePerUnit;
+    public RoboRioEncoder(final Encoder encoder) {
+        this.encoder = encoder;
     }
 
     @Override
     public int getCount() {
-        return m_encoder.get();
+        return encoder.get();
     }
 
     @Override
     public double getRate() {
-        return m_encoder.getRate();
+        return encoder.getRate();
     }
 
     @Override
     public void reset() {
-        m_encoder.reset();
+        encoder.reset();
     }
 }
