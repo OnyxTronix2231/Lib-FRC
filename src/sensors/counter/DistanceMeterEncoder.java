@@ -1,36 +1,36 @@
 package sensors.counter;
 
 public class DistanceMeterEncoder implements Counter, DistanceMeter {
-    private final Counter m_counter;
-    private final double m_distancePerCount;
+    private final Counter counter;
+    private final double distancePerCount;
 
     public DistanceMeterEncoder(final Counter counter, final double distancePerCount) {
-        m_counter = counter;
-        m_distancePerCount = distancePerCount;
+        this.counter = counter;
+        this.distancePerCount = distancePerCount;
     }
 
     @Override
     public int getCount() {
-        return m_counter.getCount();
+        return counter.getCount();
     }
 
     @Override
     public double getRate() {
-        return m_counter.getCount();
+        return counter.getCount();
     }
 
     @Override
     public void reset() {
-        m_counter.reset();
+        counter.reset();
     }
 
     @Override
     public double getDistance() {
-        return m_counter.getCount() * m_distancePerCount;
+        return counter.getCount() * distancePerCount;
     }
 
     @Override
     public double getVelocity() {
-        return m_counter.getRate() * m_distancePerCount;
+        return counter.getRate() * distancePerCount;
     }
 }
