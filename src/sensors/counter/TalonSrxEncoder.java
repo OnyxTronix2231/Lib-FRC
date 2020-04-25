@@ -3,26 +3,26 @@ package sensors.counter;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class TalonSrxEncoder implements Counter {
-    private final TalonSRX talonSRX;
-    private final int pidSlot;
+    private final TalonSRX m_talonSRX;
+    private final int m_pidSlot;
 
     public TalonSrxEncoder(final TalonSRX talonSRX, final int pidSlot) {
-        this.talonSRX = talonSRX;
-        this.pidSlot = pidSlot;
+        m_talonSRX = talonSRX;
+        m_pidSlot = pidSlot;
     }
 
     @Override
     public int getCount() {
-        return talonSRX.getSelectedSensorPosition(pidSlot);
+        return m_talonSRX.getSelectedSensorPosition(m_pidSlot);
     }
 
     @Override
     public double getRate() {
-        return talonSRX.getSelectedSensorVelocity(pidSlot);
+        return m_talonSRX.getSelectedSensorVelocity(m_pidSlot);
     }
 
     @Override
     public void reset() {
-        talonSRX.setSelectedSensorPosition(0, pidSlot, 100);
+        m_talonSRX.setSelectedSensorPosition(0, m_pidSlot, 100);
     }
 }
