@@ -1,3 +1,6 @@
+package sensors.counter;
+
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class TalonSrxEncoder implements Counter {
     private final TalonSRX talonSRX;
