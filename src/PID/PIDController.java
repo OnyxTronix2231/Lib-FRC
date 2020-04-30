@@ -5,12 +5,12 @@ public interface PIDController {
   double getI();
   double getD();
   double getF();
-  double getSetPoint();
+  double getSetpoint();
   double getProcessVariable();
   double getLastError();
   void setP(double kP);
   void setI(double kI);
   void setD(double kD);
   void setF(double kF);
-  void setSetPoint(double setPoint);
+  void setSetpoint(double setPoint);
 }

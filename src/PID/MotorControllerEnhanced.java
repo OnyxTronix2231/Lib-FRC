@@ -3,15 +3,15 @@ package PID;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
-public class OnyxPIDController implements PIDController {
+public class MotorControllerEnhanced implements PIDController {
   private final IMotorControllerEnhanced motorControllerEnhanced;
 
-  public OnyxPIDController(IMotorControllerEnhanced motorControllerEnhanced) {
+  public MotorControllerEnhanced(IMotorControllerEnhanced motorControllerEnhanced) {
     this.motorControllerEnhanced = motorControllerEnhanced;
   }
 
-  public OnyxPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI, double kD,
-                           double kF) {
+  public MotorControllerEnhanced(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI, double kD,
+                                 double kF) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.setP(kP);
     this.setI(kI);
@@ -19,14 +19,14 @@ public class OnyxPIDController implements PIDController {
     this.setF(kF);
   }
 
-  public OnyxPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI, double kD,
-                           double kF, double setPoint) {
+  public MotorControllerEnhanced(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI, double kD,
+                                 double kF, double setpoint) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.setP(kP);
     this.setI(kI);
     this.setD(kD);
     this.setF(kF);
-    this.setSetPoint(setPoint);
+    this.setSetpoint(setpoint);
   }
 
   @Override
@@ -50,7 +50,7 @@ public class OnyxPIDController implements PIDController {
   }
 
   @Override
-  public double getSetPoint() {
+  public double getSetpoint() {
     return 0;
   }
 
@@ -91,8 +91,8 @@ public class OnyxPIDController implements PIDController {
   }
 
   @Override
-  public void setSetPoint(double setPoint) {
-    motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(), setPoint);
+  public void setSetpoint(double setpoint) {
+    motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(), setpoint);
   }
 
 }
