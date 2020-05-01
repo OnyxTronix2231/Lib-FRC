@@ -35,7 +35,7 @@ public class MotorControllerEnhanced implements PIDController {
 
   @Override
   public double getSetpoint() {
-    return 0;
+    return motorControllerEnhanced.getClosedLoopTarget(0);
   }
 
   @Override
