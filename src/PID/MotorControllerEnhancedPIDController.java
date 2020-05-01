@@ -2,6 +2,8 @@ package PID;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
+import com.ctre.phoenix.motorcontrol.can.BaseTalon;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotorControllerEnhancedPIDController implements PIDController {
   private IMotorControllerEnhanced motorControllerEnhanced;
@@ -82,6 +84,14 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidfTerms.setP(kI);
     this.pidfTerms.setP(kD);
     this.pidfTerms.setP(kF);
+  }
+
+  public void startPIDLoop(){
+    this.motorControllerEnhanced.set(this.motorControllerEnhanced.getControlMode(), this. getSetpoint());
+  }
+
+  public void stopPIDLoop(double speedAfterStop){
+    this.motorControllerEnhanced.set(ControlMode.PercentOutput, speedAfterStop);
   }
 
 }
