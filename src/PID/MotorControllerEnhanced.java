@@ -4,49 +4,33 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
 public class MotorControllerEnhanced implements PIDController {
-  private final IMotorControllerEnhanced motorControllerEnhanced;
+  private IMotorControllerEnhanced motorControllerEnhanced;
+  private PIDFTerms pidfTerms;
 
   public MotorControllerEnhanced(IMotorControllerEnhanced motorControllerEnhanced) {
     this.motorControllerEnhanced = motorControllerEnhanced;
+    this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
   }
 
   public MotorControllerEnhanced(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI, double kD,
                                  double kF) {
     this.motorControllerEnhanced = motorControllerEnhanced;
-    this.setP(kP);
-    this.setI(kI);
-    this.setD(kD);
-    this.setF(kF);
+    this.pidfTerms = new PIDFTerms(kP, kI, kD, kF);
+    this.setPID(kP, kI, kD, kF);
   }
 
   public MotorControllerEnhanced(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI, double kD,
                                  double kF, double setpoint) {
     this.motorControllerEnhanced = motorControllerEnhanced;
-    this.setP(kP);
-    this.setI(kI);
-    this.setD(kD);
-    this.setF(kF);
+    PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
+    this.setPID(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
   }
 
-  @Override
-  public double getP() {
-    return 0;
-  }
 
   @Override
-  public double getI() {
-    return 0;
-  }
-
-  @Override
-  public double getD() {
-    return 0;
-  }
-
-  @Override
-  public double getF() {
-    return 0;
+  public PIDFTerms getPID() {
+    return this.pidfTerms;
   }
 
   @Override
@@ -55,8 +39,13 @@ public class MotorControllerEnhanced implements PIDController {
   }
 
   @Override
+  public void setSetpoint(double setpoint) {
+    motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(), setpoint);
+  }
+
+  @Override
   public double getProcessVariable() {
-    if(motorControllerEnhanced.getControlMode() == ControlMode.Velocity) {
+    if (motorControllerEnhanced.getControlMode() == ControlMode.Velocity) {
       return motorControllerEnhanced.getSelectedSensorVelocity(0);
     } else if (motorControllerEnhanced.getControlMode() == ControlMode.Position) {
       return motorControllerEnhanced.getSelectedSensorPosition(0);
@@ -70,29 +59,15 @@ public class MotorControllerEnhanced implements PIDController {
   }
 
   @Override
-  public void setP(double kP) {
+  public void setPID(double kP, double kI, double kD, double kF) {
     motorControllerEnhanced.config_kP(0, kP, 100);
-  }
-
-  @Override
-  public void setI(double kI) {
     motorControllerEnhanced.config_kI(0, kI, 100);
-
-  }
-
-  @Override
-  public void setD(double kD) {
     motorControllerEnhanced.config_kD(0, kD, 100);
-  }
-
-  @Override
-  public void setF(double kF) {
     motorControllerEnhanced.config_kF(0, kF, 100);
-  }
-
-  @Override
-  public void setSetpoint(double setpoint) {
-    motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(), setpoint);
+    this.pidfTerms.setP(kP);
+    this.pidfTerms.setP(kI);
+    this.pidfTerms.setP(kD);
+    this.pidfTerms.setP(kF);
   }
 
 }
