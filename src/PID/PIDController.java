@@ -1,10 +1,10 @@
 package PID;
 
 public interface PIDController {
-  PIDFTerms getPID();
+  PIDFTerms getPIDFTerms();
   double getSetpoint();
   double getProcessVariable();
   double getLastError();
-  void setPID(double kP, double kI, double kD, double kF);
+  void setPIDFTerms(double kP, double kI, double kD, double kF);
   void setSetpoint(double setPoint);
 }
