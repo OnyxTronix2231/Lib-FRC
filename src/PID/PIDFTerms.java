@@ -29,19 +29,20 @@ public class PIDFTerms {
     return kF;
   }
 
-  public void setP(double kP){
+  public void setP(double kP) {
     this.kP = kP;
   }
 
-  public void setI(double kI){
+  public void setI(double kI) {
     this.kI = kI;
   }
 
-  public void setD(double kD){
+  public void setD(double kD) {
     this.kD = kD;
   }
 
-  public void setF(double kF){
+  public void setF(double kF) {
     this.kF = kF;
   }
+
 }
