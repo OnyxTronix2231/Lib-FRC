@@ -2,8 +2,6 @@ package PID;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
-import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public class MotorControllerEnhancedPIDController implements PIDController {
   private IMotorControllerEnhanced motorControllerEnhanced;
