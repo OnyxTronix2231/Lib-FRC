@@ -92,4 +92,13 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.motorControllerEnhanced.set(ControlMode.PercentOutput, speedAfterStop);
   }
 
+  public boolean isOnTarget(double tolerance){
+    return ((this.getSetpoint() - Math.abs(this.getLastError())) > (this.getSetpoint() - tolerance));
+  }
+
+  public boolean isOnTarget(double belowTolerance, double aboveTolerance){
+    return ((this.getSetpoint() - this.getLastError()) > (this.getSetpoint() - belowTolerance)) &&
+        ((this.getSetpoint() + this.getLastError()) < (this.getSetpoint() + aboveTolerance));
+  }
+
 }
