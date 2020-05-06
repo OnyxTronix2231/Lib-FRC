@@ -7,12 +7,16 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   private IMotorControllerEnhanced motorControllerEnhanced;
   private PIDFTerms pidfTerms;
   private int PIDSlot;
+  private double sumOfErrors;
+  private double lastError;
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.PIDSlot = 0;
+    this.sumOfErrors = 0;
+    lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
@@ -21,6 +25,8 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.PIDSlot = PIDSlot;
+    this.sumOfErrors = 0;
+    lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
@@ -30,6 +36,8 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
     this.PIDSlot = 0;
+    this.sumOfErrors = 0;
+    lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
@@ -68,7 +76,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   }
 
   @Override
-  public double getLastError() {
+  public double getCurrentError() {
     return motorControllerEnhanced.getClosedLoopError(PIDSlot);
   }
 
@@ -93,12 +101,17 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   }
 
   public boolean isOnTarget(double tolerance){
-    return ((this.getSetpoint() - Math.abs(this.getLastError())) > (this.getSetpoint() - tolerance));
+    return ((this.getSetpoint() - Math.abs(this.getCurrentError())) > (this.getSetpoint() - tolerance));
   }
 
   public boolean isOnTarget(double belowTolerance, double aboveTolerance){
-    return ((this.getSetpoint() - this.getLastError()) > (this.getSetpoint() - belowTolerance)) &&
-        ((this.getSetpoint() + this.getLastError()) < (this.getSetpoint() + aboveTolerance));
+    return ((this.getSetpoint() - this.getCurrentError()) > (this.getSetpoint() - belowTolerance)) &&
+        ((this.getSetpoint() + this.getCurrentError()) < (this.getSetpoint() + aboveTolerance));
+  }
+
+  public double calculate(){
+    return pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() * this.sumOfErrors +
+        pidfTerms.getKd() * this.lastError;
   }
 
 }
