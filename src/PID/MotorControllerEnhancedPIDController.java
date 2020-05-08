@@ -26,7 +26,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.setSetpoint(setpoint);
     this.PIDSlot = PIDSlot;
     this.sumOfErrors = 0;
-    lastError = setpoint;
+    this.lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
@@ -37,7 +37,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.setSetpoint(setpoint);
     this.PIDSlot = 0;
     this.sumOfErrors = 0;
-    lastError = setpoint;
+    this.lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
@@ -92,14 +92,6 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidfTerms.setP(kF);
   }
 
-  public void startPIDLoop(){
-    this.motorControllerEnhanced.set(this.motorControllerEnhanced.getControlMode(), this. getSetpoint());
-  }
-
-  public void stopPIDLoop(double speedAfterStop){
-    this.motorControllerEnhanced.set(ControlMode.PercentOutput, speedAfterStop);
-  }
-
   public boolean isOnTarget(double tolerance){
     return ((this.getSetpoint() - Math.abs(this.getCurrentError())) > (this.getSetpoint() - tolerance));
   }
@@ -109,9 +101,15 @@ public class MotorControllerEnhancedPIDController implements PIDController {
         ((this.getSetpoint() + this.getCurrentError()) < (this.getSetpoint() + aboveTolerance));
   }
 
-  public double calculate(){
+  public void resetSumOfErrors(){
+    this.sumOfErrors = 0;
+  }
+
+  public double calculate(double timeBetweenMeasurements){
+    this.sumOfErrors += this.getCurrentError();
+    double derivative = (this.lastError + this.getCurrentError()) / timeBetweenMeasurements;
     return pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() * this.sumOfErrors +
-        pidfTerms.getKd() * this.lastError;
+        pidfTerms.getKd() * derivative + this.pidfTerms.getKf();
   }
 
 }
