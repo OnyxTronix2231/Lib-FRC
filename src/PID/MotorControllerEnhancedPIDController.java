@@ -6,7 +6,7 @@ import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 public class MotorControllerEnhancedPIDController implements PIDController {
   private IMotorControllerEnhanced motorControllerEnhanced;
   private PIDFTerms pidfTerms;
-  private int PIDSlot;
+  private int pidSlot;
   private double sumOfErrors;
   private double lastError;
 
@@ -14,17 +14,17 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
-    this.PIDSlot = 0;
+    this.pidSlot = 0;
     this.sumOfErrors = 0;
     lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
-                                              int PIDSlot) {
+                                              int pidSlot) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
-    this.PIDSlot = PIDSlot;
+    this.pidSlot = pidSlot;
     this.sumOfErrors = 0;
     this.lastError = setpoint;
   }
@@ -35,18 +35,18 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
-    this.PIDSlot = 0;
+    this.pidSlot = 0;
     this.sumOfErrors = 0;
     this.lastError = setpoint;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint, int PIDSlot) {
+                                              double kD, double kF, double setpoint, int pidSlot) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
-    this.PIDSlot = PIDSlot;
+    this.pidSlot = pidSlot;
   }
 
 
@@ -57,7 +57,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
 
   @Override
   public double getSetpoint() {
-    return motorControllerEnhanced.getClosedLoopTarget(PIDSlot);
+    return motorControllerEnhanced.getClosedLoopTarget(pidSlot);
   }
 
   @Override
@@ -68,24 +68,24 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   @Override
   public double getProcessVariable() {
     if (motorControllerEnhanced.getControlMode() == ControlMode.Velocity) {
-      return motorControllerEnhanced.getSelectedSensorVelocity(PIDSlot);
+      return motorControllerEnhanced.getSelectedSensorVelocity(pidSlot);
     } else if (motorControllerEnhanced.getControlMode() == ControlMode.Position) {
-      return motorControllerEnhanced.getSelectedSensorPosition(PIDSlot);
+      return motorControllerEnhanced.getSelectedSensorPosition(pidSlot);
     }
     return -1;
   }
 
   @Override
   public double getCurrentError() {
-    return motorControllerEnhanced.getClosedLoopError(PIDSlot);
+    return motorControllerEnhanced.getClosedLoopError(pidSlot);
   }
 
   @Override
   public void setPIDFTerms(double kP, double kI, double kD, double kF) {
-    motorControllerEnhanced.config_kP(PIDSlot, kP, 100);
-    motorControllerEnhanced.config_kI(PIDSlot, kI, 100);
-    motorControllerEnhanced.config_kD(PIDSlot, kD, 100);
-    motorControllerEnhanced.config_kF(PIDSlot, kF, 100);
+    motorControllerEnhanced.config_kP(pidSlot, kP, 100);
+    motorControllerEnhanced.config_kI(pidSlot, kI, 100);
+    motorControllerEnhanced.config_kD(pidSlot, kD, 100);
+    motorControllerEnhanced.config_kF(pidSlot, kF, 100);
     this.pidfTerms.setP(kP);
     this.pidfTerms.setP(kI);
     this.pidfTerms.setP(kD);
