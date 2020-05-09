@@ -12,35 +12,34 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   private double sumOfErrors;
   private double lastError;
 
-  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
-                                              double currentProcessVariable) {
+  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.pidSlot = 0;
     this.sumOfErrors = 0;
-    if (currentProcessVariable > setpoint)
-      lastError = setpoint + currentProcessVariable;
+    if (this.getProcessVariable() > setpoint)
+      lastError = setpoint + this.getProcessVariable();
     else
-      lastError = setpoint - currentProcessVariable;
+      lastError = setpoint - this.getProcessVariable();
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
-                                              int pidSlot, double currentProcessVariable) {
+                                              int pidSlot) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
     this.sumOfErrors = 0;
     this.lastError = setpoint;
-    if (currentProcessVariable > setpoint)
-      lastError = setpoint + currentProcessVariable;
+    if (this.getProcessVariable() > setpoint)
+      lastError = setpoint + this.getProcessVariable();
     else
-      lastError = setpoint - currentProcessVariable;
+      lastError = setpoint - this.getProcessVariable();
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint, double currentProcessVariable) {
+                                              double kD, double kF, double setpoint) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
@@ -48,24 +47,23 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidSlot = 0;
     this.sumOfErrors = 0;
     this.lastError = setpoint;
-    if (currentProcessVariable > setpoint)
-      lastError = setpoint + currentProcessVariable;
+    if (this.getProcessVariable() > setpoint)
+      lastError = setpoint + this.getProcessVariable();
     else
-      lastError = setpoint - currentProcessVariable;
+      lastError = setpoint - this.getProcessVariable();
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint, int pidSlot,
-                                              double currentProcessVariable) {
+                                              double kD, double kF, double setpoint, int pidSlot) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
-    if (currentProcessVariable > setpoint)
-      lastError = setpoint + currentProcessVariable;
+    if (this.getProcessVariable() > setpoint)
+      lastError = setpoint + this.getProcessVariable();
     else
-      lastError = setpoint - currentProcessVariable;
+      lastError = setpoint - this.getProcessVariable();
   }
 
 
@@ -126,9 +124,14 @@ public class MotorControllerEnhancedPIDController implements PIDController {
 
   public double calculate(double timeBetweenMeasurements){
     this.sumOfErrors += this.getCurrentError();
+    this.updateLastError();
     double derivative = (this.lastError + this.getCurrentError()) / timeBetweenMeasurements;
     return pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() * this.sumOfErrors +
         pidfTerms.getKd() * derivative + this.pidfTerms.getKf();
+  }
+
+  private void updateLastError() {
+
   }
 
 }
