@@ -106,7 +106,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidfTerms.setP(kP);
     this.pidfTerms.setI(kI);
     this.pidfTerms.setD(kD);
-    this.pidfTerms.setP(kF);
+    this.pidfTerms.setF(kF);
   }
 
   public boolean isOnTarget(double tolerance){
