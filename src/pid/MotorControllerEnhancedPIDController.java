@@ -54,13 +54,13 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     return motorControllerEnhanced.getClosedLoopTarget(pidSlot);
   }
 
-  public int getPidSlot(){
-    return this.pidSlot;
-  }
-
   @Override
   public void setSetpoint(double setpoint) {
     motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(), setpoint);
+  }
+
+  public int getPidSlot() {
+    return this.pidSlot;
   }
 
   @Override
@@ -91,7 +91,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   }
 
   public boolean isOnTarget(double tolerance) {
-    return ((this.getSetpoint() - Math.abs(this.getCurrentError())) > (this.getSetpoint() - tolerance));
+    return Math.abs(getCurrentError()) < tolerance;
   }
 
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
