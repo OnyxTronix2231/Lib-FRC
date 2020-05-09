@@ -9,19 +9,12 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   private IMotorControllerEnhanced motorControllerEnhanced;
   private PIDFTerms pidfTerms;
   private int pidSlot;
-  private double sumOfErrors;
-  private double previousError;
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.pidSlot = 0;
-    this.sumOfErrors = 0;
-    if (this.getProcessVariable() > setpoint)
-      previousError = setpoint + this.getProcessVariable();
-    else
-      previousError = setpoint - this.getProcessVariable();
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
@@ -30,12 +23,6 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
-    this.sumOfErrors = 0;
-    this.previousError = setpoint;
-    if (this.getProcessVariable() > setpoint)
-      previousError = setpoint + this.getProcessVariable();
-    else
-      previousError = setpoint - this.getProcessVariable();
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
@@ -45,12 +32,6 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
     this.pidSlot = 0;
-    this.sumOfErrors = 0;
-    this.previousError = setpoint;
-    if (this.getProcessVariable() > setpoint)
-      previousError = setpoint + this.getProcessVariable();
-    else
-      previousError = setpoint - this.getProcessVariable();
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
@@ -60,10 +41,6 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
-    if (this.getProcessVariable() > setpoint)
-      previousError = setpoint + this.getProcessVariable();
-    else
-      previousError = setpoint - this.getProcessVariable();
   }
 
 
@@ -75,6 +52,10 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   @Override
   public double getSetpoint() {
     return motorControllerEnhanced.getClosedLoopTarget(pidSlot);
+  }
+
+  public int getPidSlot(){
+    return this.pidSlot;
   }
 
   @Override
@@ -118,21 +99,10 @@ public class MotorControllerEnhancedPIDController implements PIDController {
         ((this.getSetpoint() + this.getCurrentError()) < (this.getSetpoint() + aboveTolerance));
   }
 
-  public void resetSumOfErrors() {
-    this.sumOfErrors = 0;
-  }
-
-  public double calculate(double intervalBetweenMeasurements) {
-    this.sumOfErrors += this.getCurrentError();
-    double derivative = (this.previousError + this.getCurrentError()) / intervalBetweenMeasurements;
-    double output = pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() * this.sumOfErrors +
-        pidfTerms.getKd() * derivative + this.pidfTerms.getKf();
-    this.updateLastError();
-    return output;
-  }
-
-  private void updateLastError() {
-    this.previousError = this.getCurrentError();
+  public double calculate() {
+    return pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() *
+        this.motorControllerEnhanced.getIntegralAccumulator(this.pidSlot) + pidfTerms.getKd() *
+        this.motorControllerEnhanced.getErrorDerivative(this.pidSlot) + this.pidfTerms.getKf();
   }
 
 }
