@@ -1,4 +1,4 @@
-package PID;
+package pid;
 
 public class PIDConstants {
   final static int TIMEOUT = 100;

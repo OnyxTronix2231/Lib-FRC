@@ -1,4 +1,4 @@
-package PID;
+package pid;
 
 public interface PIDController {
   PIDFTerms getPIDFTerms();

@@ -1,7 +1,6 @@
-package PID;
+package pid;
 
-import static PID.PIDConstants.INTERVAL_BETWEEN_MEASUREMENTS;
-import static PID.PIDConstants.TIMEOUT;
+import static pid.PIDConstants.TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
