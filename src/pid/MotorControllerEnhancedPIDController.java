@@ -95,8 +95,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   }
 
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    return ((this.getSetpoint() - this.getCurrentError()) > (this.getSetpoint() - belowTolerance)) &&
-        ((this.getSetpoint() + this.getCurrentError()) < (this.getSetpoint() + aboveTolerance));
+    return getCurrentError() > belowTolerance && getCurrentError() < aboveTolerance;
   }
 
   public double calculate() {
