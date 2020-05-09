@@ -104,8 +104,8 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     motorControllerEnhanced.config_kD(pidSlot, kD, TIMEOUT);
     motorControllerEnhanced.config_kF(pidSlot, kF, TIMEOUT);
     this.pidfTerms.setP(kP);
-    this.pidfTerms.setP(kI);
-    this.pidfTerms.setP(kD);
+    this.pidfTerms.setI(kI);
+    this.pidfTerms.setD(kD);
     this.pidfTerms.setP(kF);
   }
 
