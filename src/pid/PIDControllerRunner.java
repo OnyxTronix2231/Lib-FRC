@@ -16,8 +16,7 @@ public class PIDControllerRunner implements PIDRunner {
   }
 
   public void startPIDLoop() {
-    this.motorControllerEnhancedPIDRunner.setIntegralAccumulator(0,
-        this.motorControllerEnhancedPIDController.getPidSlot(), TIMEOUT);
+    this.motorControllerEnhancedPIDController.resetAccumulatorAndPreviousError();
     motorControllerEnhancedPIDRunner.set(motorControllerEnhancedPIDRunner.getControlMode(),
         motorControllerEnhancedPIDController.calculate());
   }
