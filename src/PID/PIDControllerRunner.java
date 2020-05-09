@@ -1,5 +1,7 @@
 package PID;
 
+import static PID.PIDConstants.INTERVAL_BETWEEN_MEASUREMENTS;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
@@ -14,6 +16,13 @@ public class PIDControllerRunner {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.motorControllerEnhancedPIDController = motorControllerEnhancedPIDController;
     this.timeBetweenMeasurements = timeBetweenMeasurements;
+  }
+
+  public PIDControllerRunner(IMotorControllerEnhanced motorControllerEnhanced,
+                             MotorControllerEnhancedPIDController motorControllerEnhancedPIDController){
+    this.motorControllerEnhanced = motorControllerEnhanced;
+    this.motorControllerEnhancedPIDController = motorControllerEnhancedPIDController;
+    this.timeBetweenMeasurements = INTERVAL_BETWEEN_MEASUREMENTS;
   }
 
   public void startPIDLoop(){

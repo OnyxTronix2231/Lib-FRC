@@ -1,5 +1,6 @@
 package PID;
 
+import static PID.PIDConstants.INTERVAL_BETWEEN_MEASUREMENTS;
 import static PID.PIDConstants.TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -12,27 +13,35 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   private double sumOfErrors;
   private double lastError;
 
-  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint) {
+  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
+                                              double currentProcessVariable) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.pidSlot = 0;
     this.sumOfErrors = 0;
-    lastError = setpoint;
+    if (currentProcessVariable > setpoint)
+      lastError = setpoint + currentProcessVariable;
+    else
+      lastError = setpoint - currentProcessVariable;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
-                                              int pidSlot) {
+                                              int pidSlot, double currentProcessVariable) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
     this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
     this.sumOfErrors = 0;
     this.lastError = setpoint;
+    if (currentProcessVariable > setpoint)
+      lastError = setpoint + currentProcessVariable;
+    else
+      lastError = setpoint - currentProcessVariable;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint) {
+                                              double kD, double kF, double setpoint, double currentProcessVariable) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
@@ -40,15 +49,24 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidSlot = 0;
     this.sumOfErrors = 0;
     this.lastError = setpoint;
+    if (currentProcessVariable > setpoint)
+      lastError = setpoint + currentProcessVariable;
+    else
+      lastError = setpoint - currentProcessVariable;
   }
 
   public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint, int pidSlot) {
+                                              double kD, double kF, double setpoint, int pidSlot,
+                                              double currentProcessVariable) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
     this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
+    if (currentProcessVariable > setpoint)
+      lastError = setpoint + currentProcessVariable;
+    else
+      lastError = setpoint - currentProcessVariable;
   }
 
 
