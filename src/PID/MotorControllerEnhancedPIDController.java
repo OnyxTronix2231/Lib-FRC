@@ -1,5 +1,7 @@
 package PID;
 
+import static PID.PIDConstants.TIMEOUT;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
@@ -82,10 +84,10 @@ public class MotorControllerEnhancedPIDController implements PIDController {
 
   @Override
   public void setPIDFTerms(double kP, double kI, double kD, double kF) {
-    motorControllerEnhanced.config_kP(pidSlot, kP, 100);
-    motorControllerEnhanced.config_kI(pidSlot, kI, 100);
-    motorControllerEnhanced.config_kD(pidSlot, kD, 100);
-    motorControllerEnhanced.config_kF(pidSlot, kF, 100);
+    motorControllerEnhanced.config_kP(pidSlot, kP, TIMEOUT);
+    motorControllerEnhanced.config_kI(pidSlot, kI, TIMEOUT);
+    motorControllerEnhanced.config_kD(pidSlot, kD, TIMEOUT);
+    motorControllerEnhanced.config_kF(pidSlot, kF, TIMEOUT);
     this.pidfTerms.setP(kP);
     this.pidfTerms.setP(kI);
     this.pidfTerms.setP(kD);
