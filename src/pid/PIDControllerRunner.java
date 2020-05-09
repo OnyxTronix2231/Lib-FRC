@@ -5,33 +5,34 @@ import static pid.PIDConstants.INTERVAL_BETWEEN_MEASUREMENTS;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
-public class PIDControllerRunner {
-  private IMotorControllerEnhanced motorControllerEnhanced;
+public class PIDControllerRunner implements PIDRunner {
+  private IMotorControllerEnhanced MotorControllerEnhancedPIDRunner;
   private MotorControllerEnhancedPIDController motorControllerEnhancedPIDController;
   private double intervalBetweenMeasurements;
 
-  public PIDControllerRunner(IMotorControllerEnhanced motorControllerEnhanced,
+  public PIDControllerRunner(IMotorControllerEnhanced MotorControllerEnhancedPIDRunner,
                              MotorControllerEnhancedPIDController motorControllerEnhancedPIDController,
                              double intervalBetweenMeasurements) {
-    this.motorControllerEnhanced = motorControllerEnhanced;
+    this.MotorControllerEnhancedPIDRunner = MotorControllerEnhancedPIDRunner;
     this.motorControllerEnhancedPIDController = motorControllerEnhancedPIDController;
     this.intervalBetweenMeasurements = intervalBetweenMeasurements;
   }
 
-  public PIDControllerRunner(IMotorControllerEnhanced motorControllerEnhanced,
+  public PIDControllerRunner(IMotorControllerEnhanced MotorControllerEnhancedPIDRunner,
                              MotorControllerEnhancedPIDController motorControllerEnhancedPIDController) {
-    this.motorControllerEnhanced = motorControllerEnhanced;
+    this.MotorControllerEnhancedPIDRunner = MotorControllerEnhancedPIDRunner;
     this.motorControllerEnhancedPIDController = motorControllerEnhancedPIDController;
     this.intervalBetweenMeasurements = INTERVAL_BETWEEN_MEASUREMENTS;
   }
 
   public void startPIDLoop() {
     motorControllerEnhancedPIDController.resetSumOfErrors();
-    motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(),
+    MotorControllerEnhancedPIDRunner.set(MotorControllerEnhancedPIDRunner.getControlMode(),
         motorControllerEnhancedPIDController.calculate(intervalBetweenMeasurements));
   }
 
   public void stopPIDLoop(double speedAfterStop) {
-    this.motorControllerEnhanced.set(ControlMode.PercentOutput, speedAfterStop);
+    this.MotorControllerEnhancedPIDRunner.set(ControlMode.PercentOutput, speedAfterStop);
   }
+  
 }
