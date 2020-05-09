@@ -8,27 +8,27 @@ import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 public class PIDControllerRunner {
   private IMotorControllerEnhanced motorControllerEnhanced;
   private  MotorControllerEnhancedPIDController motorControllerEnhancedPIDController;
-  private double timeBetweenMeasurements;
+  private double intervalBetweenMeasurements;
 
   public PIDControllerRunner(IMotorControllerEnhanced motorControllerEnhanced,
                              MotorControllerEnhancedPIDController motorControllerEnhancedPIDController,
-                             double timeBetweenMeasurements){
+                             double intervalBetweenMeasurements){
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.motorControllerEnhancedPIDController = motorControllerEnhancedPIDController;
-    this.timeBetweenMeasurements = timeBetweenMeasurements;
+    this.intervalBetweenMeasurements = intervalBetweenMeasurements;
   }
 
   public PIDControllerRunner(IMotorControllerEnhanced motorControllerEnhanced,
                              MotorControllerEnhancedPIDController motorControllerEnhancedPIDController){
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.motorControllerEnhancedPIDController = motorControllerEnhancedPIDController;
-    this.timeBetweenMeasurements = INTERVAL_BETWEEN_MEASUREMENTS;
+    this.intervalBetweenMeasurements = INTERVAL_BETWEEN_MEASUREMENTS;
   }
 
   public void startPIDLoop(){
     motorControllerEnhancedPIDController.resetSumOfErrors();
     motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(),
-        motorControllerEnhancedPIDController.calculate(timeBetweenMeasurements));
+        motorControllerEnhancedPIDController.calculate(intervalBetweenMeasurements));
   }
 
   public void stopPIDLoop(double speedAfterStop){

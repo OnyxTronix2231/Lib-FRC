@@ -122,9 +122,9 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.sumOfErrors = 0;
   }
 
-  public double calculate(double timeBetweenMeasurements){
+  public double calculate(double intervalBetweenMeasurements){
     this.sumOfErrors += this.getCurrentError();
-    double derivative = (this.previousError + this.getCurrentError()) / timeBetweenMeasurements;
+    double derivative = (this.previousError + this.getCurrentError()) / intervalBetweenMeasurements;
     double output = pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() * this.sumOfErrors +
         pidfTerms.getKd() * derivative + this.pidfTerms.getKf();
     this.updateLastError();
