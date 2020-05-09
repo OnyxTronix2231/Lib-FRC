@@ -109,20 +109,20 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     this.pidfTerms.setF(kF);
   }
 
-  public boolean isOnTarget(double tolerance){
+  public boolean isOnTarget(double tolerance) {
     return ((this.getSetpoint() - Math.abs(this.getCurrentError())) > (this.getSetpoint() - tolerance));
   }
 
-  public boolean isOnTarget(double belowTolerance, double aboveTolerance){
+  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
     return ((this.getSetpoint() - this.getCurrentError()) > (this.getSetpoint() - belowTolerance)) &&
         ((this.getSetpoint() + this.getCurrentError()) < (this.getSetpoint() + aboveTolerance));
   }
 
-  public void resetSumOfErrors(){
+  public void resetSumOfErrors() {
     this.sumOfErrors = 0;
   }
 
-  public double calculate(double intervalBetweenMeasurements){
+  public double calculate(double intervalBetweenMeasurements) {
     this.sumOfErrors += this.getCurrentError();
     double derivative = (this.previousError + this.getCurrentError()) / intervalBetweenMeasurements;
     double output = pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() * this.sumOfErrors +
