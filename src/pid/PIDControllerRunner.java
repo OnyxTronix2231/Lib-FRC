@@ -1,7 +1,5 @@
 package pid;
 
-import static pid.PIDConstants.TIMEOUT;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
@@ -16,7 +14,7 @@ public class PIDControllerRunner implements PIDRunner {
   }
 
   public void startPIDLoop() {
-    this.motorControllerEnhancedPIDController.resetAccumulatorAndPreviousError();
+    this.motorControllerEnhancedPIDController.resetAccumulator();
     motorControllerEnhancedPIDRunner.set(motorControllerEnhancedPIDRunner.getControlMode(),
         motorControllerEnhancedPIDController.calculate());
   }

@@ -104,7 +104,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
         this.motorControllerEnhanced.getErrorDerivative(this.pidSlot) + this.pidfTerms.getKf();
   }
 
-  public void resetAccumulatorAndPreviousError() {
+  public void resetAccumulator() {
     this.motorControllerEnhanced.setIntegralAccumulator(0,
         this.pidSlot, TIMEOUT);
   }
