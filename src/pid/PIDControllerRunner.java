@@ -19,7 +19,7 @@ public class PIDControllerRunner implements PIDRunner {
         motorControllerEnhancedPIDController.calculate());
   }
 
-  public void stopPIDLoop(int remainOrStop) {
+  public void terminatePIDLoop(int remainOrStop) {
     if (remainOrStop == 0) {
       motorControllerEnhancedPIDRunner.set(ControlMode.PercentOutput, 0);
     } else {
