@@ -14,18 +14,17 @@ public class PIDControllerRunner implements PIDRunner {
   }
 
   public void startPIDLoop() {
-    this.motorControllerEnhancedPIDController.resetAccumulator();
+    motorControllerEnhancedPIDController.resetAccumulator();
     motorControllerEnhancedPIDRunner.set(motorControllerEnhancedPIDRunner.getControlMode(),
         motorControllerEnhancedPIDController.calculate());
   }
 
   public void stopPIDLoop(int remainOrStop) {
     if (remainOrStop == 0) {
-      this.motorControllerEnhancedPIDRunner.set(ControlMode.PercentOutput, 0);
+      motorControllerEnhancedPIDRunner.set(ControlMode.PercentOutput, 0);
     } else {
-      this.motorControllerEnhancedPIDRunner.set(ControlMode.PercentOutput,
-          this.motorControllerEnhancedPIDRunner.getSelectedSensorVelocity(
-              this.motorControllerEnhancedPIDController.getPidSlot()));
+      motorControllerEnhancedPIDRunner.set(ControlMode.PercentOutput,
+          motorControllerEnhancedPIDRunner.getMotorOutputPercent());
     }
   }
 
