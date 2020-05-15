@@ -102,6 +102,7 @@ public class MotorControllerEnhancedPIDController implements PIDController {
     return pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() *
         this.motorControllerEnhanced.getIntegralAccumulator(this.pidSlot) + pidfTerms.getKd() *
         this.motorControllerEnhanced.getErrorDerivative(this.pidSlot) + this.pidfTerms.getKf();
+    // p*error+i*sumOfErrors+d*(error-previousError)/interval between measurements + f
   }
 
   public void resetAccumulator() {
