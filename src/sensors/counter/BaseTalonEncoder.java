@@ -3,7 +3,7 @@ package sensors.counter;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 
 public class BaseTalonEncoder implements Counter {
-  private  final IMotorControllerEnhanced baseTalon;
+  private final IMotorControllerEnhanced baseTalon;
   private final int pidSlot;
   private final int timeoutResetMs;
 
@@ -32,6 +32,11 @@ public class BaseTalonEncoder implements Counter {
 
   @Override
   public void reset() {
-    baseTalon.setSelectedSensorPosition(0, pidSlot, timeoutResetMs);
+    setCount(0);
+  }
+
+  @Override
+  public void setCount(int count) {
+    baseTalon.setSelectedSensorPosition(count, pidSlot, timeoutResetMs);
   }
 }

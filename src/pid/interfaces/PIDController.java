@@ -1,11 +1,15 @@
-package pid;
+package pid.interfaces;
+
+import pid.PIDFTerms;
 
 public interface PIDController {
   PIDFTerms getPIDFTerms();
 
   double getSetpoint();
 
-  void setSetpoint(double setPoint);
+  void setVelocitySetpoint(double setpoint);
+
+  void setPositionSetpoint(double setpoint);
 
   double getProcessVariable();
 

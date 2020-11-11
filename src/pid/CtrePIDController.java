@@ -4,42 +4,38 @@ import static pid.PIDConstants.TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
+import pid.interfaces.PIDController;
 
-public class MotorControllerEnhancedPIDController implements PIDController {
+public class CtrePIDController implements PIDController {
   private IMotorControllerEnhanced motorControllerEnhanced;
   private PIDFTerms pidfTerms;
   private int pidSlot;
 
-  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint) {
+  public CtrePIDController(IMotorControllerEnhanced motorControllerEnhanced) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
-    this.setSetpoint(setpoint);
     this.pidSlot = 0;
   }
 
-  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double setpoint,
-                                              int pidSlot) {
+  public CtrePIDController(IMotorControllerEnhanced motorControllerEnhanced, int pidSlot) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
-    this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
   }
 
-  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint) {
+  public CtrePIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
+                           double kD, double kF) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
-    this.setSetpoint(setpoint);
     this.pidSlot = 0;
   }
 
-  public MotorControllerEnhancedPIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
-                                              double kD, double kF, double setpoint, int pidSlot) {
+  public CtrePIDController(IMotorControllerEnhanced motorControllerEnhanced, double kP, double kI,
+                           double kD, double kF, int pidSlot) {
     this.motorControllerEnhanced = motorControllerEnhanced;
     PIDFTerms pidfTerms = new PIDFTerms(kP, kI, kD, kF);
     this.setPIDFTerms(kP, kI, kD, kF);
-    this.setSetpoint(setpoint);
     this.pidSlot = pidSlot;
   }
 
@@ -55,8 +51,13 @@ public class MotorControllerEnhancedPIDController implements PIDController {
   }
 
   @Override
-  public void setSetpoint(double setpoint) {
-    motorControllerEnhanced.set(motorControllerEnhanced.getControlMode(), setpoint);
+  public void setVelocitySetpoint(double setpoint) {
+    motorControllerEnhanced.set(ControlMode.Velocity, setpoint);
+  }
+
+  @Override
+  public void setPositionSetpoint(double setpoint) {
+    motorControllerEnhanced.set(ControlMode.Position, setpoint);
   }
 
   public int getPidSlot() {
@@ -96,13 +97,6 @@ public class MotorControllerEnhancedPIDController implements PIDController {
 
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
     return getCurrentError() > belowTolerance && getCurrentError() < aboveTolerance;
-  }
-
-  public double calculate() {
-    return pidfTerms.getKp() * this.getCurrentError() + pidfTerms.getKi() *
-        this.motorControllerEnhanced.getIntegralAccumulator(this.pidSlot) + pidfTerms.getKd() *
-        this.motorControllerEnhanced.getErrorDerivative(this.pidSlot) + this.pidfTerms.getKf();
-    // p*error+i*sumOfErrors+d*(error-previousError)/interval between measurements + f
   }
 
   public void resetAccumulator() {

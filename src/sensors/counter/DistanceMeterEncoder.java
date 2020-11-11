@@ -20,6 +20,11 @@ public class DistanceMeterEncoder implements Counter, DistanceMeter {
     }
 
     @Override
+    public void setCount(int count) {
+
+    }
+
+    @Override
     public void reset() {
         counter.reset();
     }
