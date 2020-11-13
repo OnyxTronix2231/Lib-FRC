@@ -1,19 +1,15 @@
 package pid.interfaces;
 
-import pid.PIDFTerms;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import pid.CustomizeControlMode;
 
-public interface PIDController {
-  PIDFTerms getPIDFTerms();
-
+public interface PIDController extends Controller {
   double getSetpoint();
 
-  void setVelocitySetpoint(double setpoint);
-
-  void setPositionSetpoint(double setpoint);
+  void setSetpoint(double setpoint);
 
   double getProcessVariable();
 
   double getCurrentError();
-
-  void setPIDFTerms(double kP, double kI, double kD, double kF);
+  void enable(CustomizeControlMode controlMode);
 }

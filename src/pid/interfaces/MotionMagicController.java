@@ -1,5 +1,5 @@
 package pid.interfaces;
 
-public interface MotionMagicController {
+public interface MotionMagicController extends Controller {
 
 }

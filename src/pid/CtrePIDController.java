@@ -14,48 +14,29 @@ public class CtrePIDController extends CtreController implements PIDController {
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           int pidSlot) {
-    super(ctreMotorController, ctreEncoder, pidSlot);
+                           int pidSlot, int timeoutMs) {
+    super(ctreMotorController, ctreEncoder, pidSlot, timeoutMs);
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           double kP, double kI, double kD, double kF) {
-    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF);
+                           double kP, double kI, double kD, double kF, int pidSlot, int timeoutMs) {
+    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, pidSlot, timeoutMs);
   }
 
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           double kP, double kI, double kD, double kF, int pidSlot) {
-    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, pidSlot);
-  }
-
-  @Override
-  public double getSetpoint() {
-    return ctreMotorController.getClosedLoopTarget(pidSlot);
-  }
-
-  @Override
-  public void setVelocitySetpoint(double setpoint) {
-    ctreMotorController.set(ControlMode.Velocity, setpoint);
-  }
-
-  @Override
-  public void setPositionSetpoint(double setpoint) {
-    ctreMotorController.set(ControlMode.Position, setpoint);
-  }
 
   @Override
   public double getProcessVariable() {
-    if (ctreMotorController.getControlMode() == ControlMode.Velocity) {
-      return ctreMotorController.getSelectedSensorVelocity(pidSlot);
-    } else if (ctreMotorController.getControlMode() == ControlMode.Position) {
-      return ctreMotorController.getSelectedSensorPosition(pidSlot);
+    if (this.ctreMotorController.getControlMode() == ControlMode.Velocity) {
+      return this.ctreMotorController.getSelectedSensorVelocity(pidSlot);
+    } else if (this.ctreMotorController.getControlMode() == ControlMode.Position) {
+      return this.ctreMotorController.getSelectedSensorPosition(pidSlot);
     }
     return -1;
   }
 
   @Override
   public double getCurrentError() {
-    return ctreMotorController.getClosedLoopError(pidSlot);
+    return this.ctreMotorController.getClosedLoopError(pidSlot);
   }
 
   public boolean isOnTarget(double tolerance) {
@@ -68,6 +49,21 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   public void resetAccumulator() {
     this.ctreMotorController.setIntegralAccumulator(0,
-        this.pidSlot, TIMEOUT);
+        this.pidSlot, this.timeoutMs);
+  }
+
+  @Override
+  public void enable(CustomizeControlMode controlMode) {
+    if (controlMode == CustomizeControlMode.Position) {
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint);
+    }
+    else {
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
+    }
+  }
+
+  @Override
+  public void enable() {
+    this.ctreMotorController.set(this.ctreMotorController.getControlMode(), this.setpoint);
   }
 }

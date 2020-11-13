@@ -1,6 +1,6 @@
 package pid.interfaces;
 
-public interface MotionProfilerController {
+public interface MotionProfilerController extends Controller {
 
 
 }

@@ -2,6 +2,7 @@ package pid;
 
 import static pid.PIDConstants.TIMEOUT;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -102,5 +103,10 @@ public abstract class CtreController extends AbstractController implements Contr
                   new SupplyCurrentLimitConfiguration(enable, currentLimit, triggerThresholdCurrent,
                       triggerThresholdTime), this.timeoutMs);
     }
+  }
+
+  @Override
+  public void disable() {
+    this.ctreMotorController.set(ControlMode.PercentOutput, 0);
   }
 }
