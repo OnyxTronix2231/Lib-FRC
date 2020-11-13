@@ -69,10 +69,10 @@ public abstract class CtreController extends AbstractController implements Contr
   @Override
   public void setPIDFTerms(double kP, double kI, double kD, double kF) {
     super.setPIDFTerms(kP, kI, kD, kF);
-    ctreMotorController.config_kP(pidSlot, kP, TIMEOUT);
-    ctreMotorController.config_kI(pidSlot, kI, TIMEOUT);
-    ctreMotorController.config_kD(pidSlot, kD, TIMEOUT);
-    ctreMotorController.config_kF(pidSlot, kF, TIMEOUT);
+    ctreMotorController.config_kP(pidSlot, kP, this.timeoutMs);
+    ctreMotorController.config_kI(pidSlot, kI, this.timeoutMs);
+    ctreMotorController.config_kD(pidSlot, kD, this.timeoutMs);
+    ctreMotorController.config_kF(pidSlot, kF, this.timeoutMs);
   }
 
   public void setRampSec(double rampSec) {

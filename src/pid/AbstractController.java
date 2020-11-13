@@ -8,6 +8,7 @@ public abstract class AbstractController implements Controller {
 
   public AbstractController(double kP, double kI, double kD, double kF) {
     this.pidfTerms = new PIDFTerms(kP, kI, kD, kF);
+    this.setpoint = 0;
   }
 
   public PIDFTerms getPIDFTerms() {
@@ -19,7 +20,6 @@ public abstract class AbstractController implements Controller {
     this.pidfTerms.setI(kI);
     this.pidfTerms.setD(kD);
     this.pidfTerms.setF(kF);
-    this.setpoint = 0;
   }
 
   @Override
