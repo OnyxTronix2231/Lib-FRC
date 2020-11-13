@@ -1,7 +1,5 @@
 package pid;
 
-import static pid.PIDConstants.TIMEOUT;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import pid.interfaces.MotionProfilerController;

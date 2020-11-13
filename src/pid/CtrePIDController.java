@@ -1,7 +1,5 @@
 package pid;
 
-import static pid.PIDConstants.TIMEOUT;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import pid.interfaces.PIDController;
@@ -56,8 +54,7 @@ public class CtrePIDController extends CtreController implements PIDController {
   public void enable(CustomizeControlMode controlMode) {
     if (controlMode == CustomizeControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
-    }
-    else {
+    } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
     }
   }

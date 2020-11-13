@@ -1,6 +1,5 @@
 package pid.interfaces;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import pid.CustomizeControlMode;
 
 public interface PIDController extends Controller {
@@ -11,5 +10,6 @@ public interface PIDController extends Controller {
   double getProcessVariable();
 
   double getCurrentError();
+  
   void enable(CustomizeControlMode controlMode);
 }

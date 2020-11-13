@@ -54,8 +54,16 @@ public abstract class CtreController extends AbstractController implements Contr
     return timeoutMs;
   }
 
+  public void setTimeoutMs(int timeoutMs) {
+    this.timeoutMs = timeoutMs;
+  }
+
   public int getPidSlot() {
     return this.pidSlot;
+  }
+
+  public void setPidSlot(int pidSlot) {
+    this.pidSlot = pidSlot;
   }
 
   @Override
@@ -67,41 +75,32 @@ public abstract class CtreController extends AbstractController implements Contr
     ctreMotorController.config_kF(pidSlot, kF, TIMEOUT);
   }
 
-  public void setRampSec(double rampSec){
+  public void setRampSec(double rampSec) {
     this.ctreMotorController.configClosedloopRamp(rampSec, timeoutMs);
   }
 
-  public void disableRamp(){
+  public void disableRamp() {
     this.setRampSec(0);
   }
 
-  public void setTimeoutMs(int timeoutMs){
-    this.timeoutMs = timeoutMs;
-  }
-
-  public void setPidSlot(int pidSlot) {
-    this.pidSlot = pidSlot;
-  }
-
-  public void setVoltageCompensation(double voltage){
+  public void setVoltageCompensation(double voltage) {
     this.ctreMotorController.configVoltageCompSaturation(voltage, timeoutMs);
     this.ctreMotorController.enableVoltageCompensation(true);
   }
 
-  public void disableVoltageCompensation(){
+  public void disableVoltageCompensation() {
     this.ctreMotorController.enableVoltageCompensation(false);
   }
 
   public void setCurrentLimits(boolean enable, double currentLimit, double triggerThresholdCurrent,
-                               double triggerThresholdTime){
-    if (this.ctreMotorController instanceof TalonFX){
+                               double triggerThresholdTime) {
+    if (this.ctreMotorController instanceof TalonFX) {
       ((TalonFX) this.ctreMotorController).configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(
           enable, currentLimit, triggerThresholdCurrent, triggerThresholdTime), this.timeoutMs);
-    }
-    else if(this.ctreMotorController instanceof TalonSRX){
-              ((TalonSRX) this.ctreMotorController).configSupplyCurrentLimit(
-                  new SupplyCurrentLimitConfiguration(enable, currentLimit, triggerThresholdCurrent,
-                      triggerThresholdTime), this.timeoutMs);
+    } else if (this.ctreMotorController instanceof TalonSRX) {
+      ((TalonSRX) this.ctreMotorController).configSupplyCurrentLimit(
+          new SupplyCurrentLimitConfiguration(enable, currentLimit, triggerThresholdCurrent,
+              triggerThresholdTime), this.timeoutMs);
     }
   }
 
