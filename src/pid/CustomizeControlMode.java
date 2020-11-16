@@ -3,5 +3,9 @@ package pid;
 public enum CustomizeControlMode {
   Position,
 
-  Velocity
+  Velocity,
+
+  MotionMagic,
+
+  MotionProfile
 }

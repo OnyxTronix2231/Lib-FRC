@@ -1,5 +1,6 @@
 package pid.interfaces;
 
+import pid.CustomizeControlMode;
 import pid.PIDFTerms;
 
 public interface Controller {
@@ -11,7 +12,7 @@ public interface Controller {
 
   void setSetpoint(double setpoint);
 
-  void enable();
+  void enable(CustomizeControlMode controlMode);
 
   void disable();
 }

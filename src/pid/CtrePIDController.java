@@ -58,9 +58,4 @@ public class CtrePIDController extends CtreController implements PIDController {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
     }
   }
-
-  @Override
-  public void enable() {
-    this.ctreMotorController.set(this.ctreMotorController.getControlMode(), this.setpoint);
-  }
 }

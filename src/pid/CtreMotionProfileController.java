@@ -21,8 +21,9 @@ public class CtreMotionProfileController extends CtreController implements Motio
     super(motorControllerEnhanced, ctreEncoder, kP, kI, kD, kF, pidSlot, timeoutMs);
   }
 
-  @Override
-  public void enable() {
-    this.ctreMotorController.set(ControlMode.MotionProfile, this.setpoint);
+  public void enable(CustomizeControlMode controlMode) {
+    if (controlMode == CustomizeControlMode.MotionProfile) {
+      this.ctreMotorController.set(ControlMode.MotionProfile, this.setpoint);
+    }
   }
 }

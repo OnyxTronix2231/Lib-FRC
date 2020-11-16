@@ -10,7 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import pid.interfaces.Controller;
 import sensors.counter.CtreEncoder;
 
-public abstract class CtreController extends AbstractController implements Controller {
+public abstract class CtreController extends AbstractController {
   protected IMotorControllerEnhanced ctreMotorController;
   protected CtreEncoder ctreEncoder;
   protected int pidSlot;

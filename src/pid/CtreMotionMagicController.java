@@ -23,8 +23,11 @@ public class CtreMotionMagicController extends CtreController implements MotionM
     super(motorControllerEnhanced, ctreEncoder, kP, kI, kD, kF, pidSlot, timeoutMs);
   }
 
+
   @Override
-  public void enable() {
-    this.ctreMotorController.set(ControlMode.MotionMagic, this.setpoint);
+  public void enable(CustomizeControlMode controlMode) {
+    if (controlMode == CustomizeControlMode.MotionMagic) {
+      this.ctreMotorController.set(ControlMode.MotionMagic, this.setpoint);
+    }
   }
 }
