@@ -25,9 +25,7 @@ public class CtreMotionMagicController extends CtreController implements MotionM
 
 
   @Override
-  public void enable(CustomizeControlMode controlMode) {
-    if (controlMode == CustomizeControlMode.MotionMagic) {
-      this.ctreMotorController.set(ControlMode.MotionMagic, this.setpoint);
-    }
+  public void enable() {
+    this.ctreMotorController.set(ControlMode.MotionMagic, this.setpoint);
   }
 }

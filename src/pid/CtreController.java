@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import pid.interfaces.Controller;
 import sensors.counter.CtreEncoder;
 
 public abstract class CtreController extends AbstractController {
