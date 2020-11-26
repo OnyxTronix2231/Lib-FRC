@@ -20,11 +20,6 @@ public class RoboRioEncoder implements Counter {
     }
 
     @Override
-    public void setCount(int count) {
-
-    }
-
-    @Override
     public void reset() {
         encoder.reset();
     }
