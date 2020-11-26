@@ -1,7 +1,7 @@
 package sensors.counter;
 
 public interface DistanceMeter {
-    double getDistance();
+  double getDistance();
 
-    double getVelocity();
+  double getVelocity();
 }

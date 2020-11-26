@@ -25,16 +25,16 @@ public abstract class AbstractController implements Controller {
     return this.pidfTerms;
   }
 
+  @Override
+  public void setPIDFTerms(PIDFTerms pidfTerms) {
+    this.pidfTerms = pidfTerms;
+  }
+
   public void setPIDFTerms(double kP, double kI, double kD, double kF) {
     this.pidfTerms.setP(kP);
     this.pidfTerms.setI(kI);
     this.pidfTerms.setD(kD);
     this.pidfTerms.setF(kF);
-  }
-
-  @Override
-  public void setPIDFTerms(PIDFTerms pidfTerms) {
-    this.pidfTerms = pidfTerms;
   }
 
   @Override

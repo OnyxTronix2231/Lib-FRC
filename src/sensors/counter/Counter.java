@@ -1,9 +1,9 @@
 package sensors.counter;
 
 public interface Counter {
-    int getCount();
+  int getCount();
 
-    double getRate();
+  double getRate();
 
-    void reset();
+  void reset();
 }
