@@ -7,6 +7,8 @@ public interface Controller {
 
   void setPIDFTerms(double kP, double kI, double kD, double kF);
 
+  void setPIDFTerms(PIDFTerms pidfTerms);
+
   double getSetpoint();
 
   void setSetpoint(double setpoint);

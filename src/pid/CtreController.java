@@ -1,6 +1,6 @@
 package pid;
 
-import static pid.PIDConstants.TIMEOUT;
+import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
@@ -16,16 +16,16 @@ public abstract class CtreController extends AbstractController {
   protected int timeoutMs;
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder) {
-    super(0, 0, 0, 0);
+    super();
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
     this.pidSlot = 0;
-    this.timeoutMs = TIMEOUT;
+    this.timeoutMs = CTRE_DEVICE_CALLS_TIMEOUT;
   }
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                         int pidSlot, int timeoutMs) {
-    super(0, 0, 0, 0);
+    super();
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
     this.pidSlot = pidSlot;
@@ -35,6 +35,15 @@ public abstract class CtreController extends AbstractController {
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                         double kP, double kI, double kD, double kF, int pidSlot, int timeoutMs) {
     super(kP, kI, kD, kF);
+    this.ctreMotorController = motorControllerEnhanced;
+    this.ctreEncoder = ctreEncoder;
+    this.pidSlot = pidSlot;
+    this.timeoutMs = timeoutMs;
+  }
+
+  public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
+                        PIDFTerms pidfTerms, int pidSlot, int timeoutMs) {
+    super(pidfTerms);
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
     this.pidSlot = pidSlot;

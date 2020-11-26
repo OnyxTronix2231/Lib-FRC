@@ -1,11 +1,13 @@
 package pid.interfaces;
 
-import pid.CustomizeControlMode;
+import pid.PIDControlMode;
 
 public interface PIDController extends Controller {
   double getProcessVariable();
 
   double getCurrentError();
 
-  void enable(CustomizeControlMode controlMode);
+  void enable(PIDControlMode controlMode);
+
+  void restartControllerState();
 }

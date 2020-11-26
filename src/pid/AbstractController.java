@@ -11,6 +11,16 @@ public abstract class AbstractController implements Controller {
     this.setpoint = 0;
   }
 
+  public AbstractController(PIDFTerms pidfTerms) {
+    this.pidfTerms = pidfTerms;
+    this.setpoint = 0;
+  }
+
+  public AbstractController() {
+    this.pidfTerms = new PIDFTerms(0, 0, 0, 0);
+    this.setpoint = 0;
+  }
+
   public PIDFTerms getPIDFTerms() {
     return this.pidfTerms;
   }
@@ -20,6 +30,11 @@ public abstract class AbstractController implements Controller {
     this.pidfTerms.setI(kI);
     this.pidfTerms.setD(kD);
     this.pidfTerms.setF(kF);
+  }
+
+  @Override
+  public void setPIDFTerms(PIDFTerms pidfTerms) {
+    this.pidfTerms = pidfTerms;
   }
 
   @Override

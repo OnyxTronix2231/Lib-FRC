@@ -32,11 +32,6 @@ public class CtreEncoder implements Counter {
 
   @Override
   public void reset() {
-    setCount(0);
-  }
-
-  @Override
-  public void setCount(int count) {
-    baseTalon.setSelectedSensorPosition(count, pidSlot, timeoutResetMs);
+    baseTalon.setSelectedSensorPosition(0, pidSlot, timeoutResetMs);
   }
 }

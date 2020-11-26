@@ -21,6 +21,11 @@ public class CtrePIDController extends CtreController implements PIDController {
     super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, pidSlot, timeoutMs);
   }
 
+  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
+                           PIDFTerms pidfTerms, int pidSlot, int timeoutMs) {
+    super(ctreMotorController, ctreEncoder, pidfTerms, pidSlot, timeoutMs);
+  }
+
 
   @Override
   public double getProcessVariable() {
@@ -45,14 +50,14 @@ public class CtrePIDController extends CtreController implements PIDController {
     return getCurrentError() > belowTolerance && getCurrentError() < aboveTolerance;
   }
 
-  public void resetAccumulator() {
+  public void restartControllerState() {
     this.ctreMotorController.setIntegralAccumulator(0,
         this.pidSlot, this.timeoutMs);
   }
 
   @Override
-  public void enable(CustomizeControlMode controlMode) {
-    if (controlMode == CustomizeControlMode.Position) {
+  public void enable(PIDControlMode controlMode) {
+    if (controlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);

@@ -1,6 +1,6 @@
 package pid;
 
-public enum CustomizeControlMode {
+public enum PIDControlMode {
   Position,
 
   Velocity

@@ -1,5 +1,5 @@
 package pid;
 
 public class PIDConstants {
-  final static int TIMEOUT = 20;
+  final static int CTRE_DEVICE_CALLS_TIMEOUT = 20;
 }
