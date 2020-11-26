@@ -1,6 +1,7 @@
 package sensors.counter;
 
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
+import sensors.counter.interfaces.Counter;
 
 public class CtreEncoder implements Counter {
   private final IMotorControllerEnhanced baseTalon;

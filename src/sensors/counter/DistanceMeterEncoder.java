@@ -1,5 +1,8 @@
 package sensors.counter;
 
+import sensors.counter.interfaces.Counter;
+import sensors.counter.interfaces.DistanceMeter;
+
 public class DistanceMeterEncoder implements Counter, DistanceMeter {
   private final Counter counter;
   private final double distancePerCount;

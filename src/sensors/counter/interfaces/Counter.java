@@ -1,4 +1,4 @@
-package sensors.counter;
+package sensors.counter.interfaces;
 
 public interface Counter {
   int getCount();
