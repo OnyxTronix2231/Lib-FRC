@@ -4,9 +4,6 @@ import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
-import com.ctre.phoenix.motorcontrol.SupplyCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import sensors.counter.CtreEncoder;
 
 public abstract class CtreController extends AbstractController {
@@ -15,17 +12,9 @@ public abstract class CtreController extends AbstractController {
   protected int pidSlot;
   protected int timeoutMs;
 
-  public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder) {
-    super();
-    this.ctreMotorController = motorControllerEnhanced;
-    this.ctreEncoder = ctreEncoder;
-    this.pidSlot = 0;
-    this.timeoutMs = CTRE_DEVICE_CALLS_TIMEOUT;
-  }
-
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
-                        int pidSlot, int timeoutMs) {
-    super();
+                        PIDFTerms pidfTerms) {
+    super(pidfTerms);
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
     this.pidSlot = pidSlot;
@@ -34,11 +23,7 @@ public abstract class CtreController extends AbstractController {
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                         double kP, double kI, double kD, double kF, int pidSlot, int timeoutMs) {
-    super(kP, kI, kD, kF);
-    this.ctreMotorController = motorControllerEnhanced;
-    this.ctreEncoder = ctreEncoder;
-    this.pidSlot = pidSlot;
-    this.timeoutMs = timeoutMs;
+    this(motorControllerEnhanced, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), pidSlot, timeoutMs);
   }
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
@@ -81,35 +66,6 @@ public abstract class CtreController extends AbstractController {
     ctreMotorController.config_kI(pidSlot, kI, this.timeoutMs);
     ctreMotorController.config_kD(pidSlot, kD, this.timeoutMs);
     ctreMotorController.config_kF(pidSlot, kF, this.timeoutMs);
-  }
-
-  public void setRampSec(double rampSec) {
-    this.ctreMotorController.configClosedloopRamp(rampSec, timeoutMs);
-  }
-
-  public void disableRamp() {
-    this.setRampSec(0);
-  }
-
-  public void setVoltageCompensation(double voltage) {
-    this.ctreMotorController.configVoltageCompSaturation(voltage, timeoutMs);
-    this.ctreMotorController.enableVoltageCompensation(true);
-  }
-
-  public void disableVoltageCompensation() {
-    this.ctreMotorController.enableVoltageCompensation(false);
-  }
-
-  public void setCurrentLimits(boolean enable, double currentLimit, double triggerThresholdCurrent,
-                               double triggerThresholdTime) {
-    if (this.ctreMotorController instanceof TalonFX) {
-      ((TalonFX) this.ctreMotorController).configSupplyCurrentLimit(new SupplyCurrentLimitConfiguration(
-          enable, currentLimit, triggerThresholdCurrent, triggerThresholdTime), this.timeoutMs);
-    } else if (this.ctreMotorController instanceof TalonSRX) {
-      ((TalonSRX) this.ctreMotorController).configSupplyCurrentLimit(
-          new SupplyCurrentLimitConfiguration(enable, currentLimit, triggerThresholdCurrent,
-              triggerThresholdTime), this.timeoutMs);
-    }
   }
 
   @Override

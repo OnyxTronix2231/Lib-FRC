@@ -7,15 +7,6 @@ import sensors.counter.CtreEncoder;
 
 public class CtrePIDController extends CtreController implements PIDController {
 
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder) {
-    super(ctreMotorController, ctreEncoder);
-  }
-
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           int pidSlot, int timeoutMs) {
-    super(ctreMotorController, ctreEncoder, pidSlot, timeoutMs);
-  }
-
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            double kP, double kI, double kD, double kF, int pidSlot, int timeoutMs) {
     super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, pidSlot, timeoutMs);

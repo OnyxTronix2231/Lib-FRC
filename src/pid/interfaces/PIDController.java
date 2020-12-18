@@ -10,4 +10,8 @@ public interface PIDController extends Controller {
   void enable(PIDControlMode controlMode);
 
   void restartControllerState();
+
+  boolean isOnTarget(double tolerance);
+
+  boolean isOnTarget(double belowTolerance, double aboveTolerance);
 }
