@@ -7,8 +7,7 @@ public abstract class AbstractController implements Controller {
   protected double setpoint;
 
   public AbstractController(double kP, double kI, double kD, double kF) {
-    this.pidfTerms = new PIDFTerms(kP, kI, kD, kF);
-    this.setpoint = 0;
+    this(new PIDFTerms(kP, kI, kD, kF));
   }
 
   public AbstractController(PIDFTerms pidfTerms) {
