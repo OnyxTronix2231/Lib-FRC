@@ -17,8 +17,8 @@ public abstract class CtreController extends AbstractController {
     super(pidfTerms);
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
-    this.pidSlot = pidSlot;
-    this.timeoutMs = timeoutMs;
+    this.pidSlot = 0;
+    this.timeoutMs = CTRE_DEVICE_CALLS_TIMEOUT;
   }
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
