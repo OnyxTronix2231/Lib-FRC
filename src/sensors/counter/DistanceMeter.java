@@ -1,4 +1,4 @@
-package sensors.counter.interfaces;
+package sensors.counter;
 
 public interface DistanceMeter {
   double getDistance();
