@@ -1,8 +1,8 @@
 package onyxTronix;
 
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public abstract class SetPointCommand extends Command {
+public abstract class SetPointCommand extends CommandBase {
 	protected double setPoint;
 	protected boolean isFinished = false;
 
