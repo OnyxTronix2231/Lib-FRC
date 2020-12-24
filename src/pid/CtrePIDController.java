@@ -2,6 +2,7 @@ package pid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
+import exceptions.UnsupportedControlModeException;
 import pid.interfaces.PIDController;
 import sensors.counter.CtreEncoder;
 
@@ -24,13 +25,13 @@ public class CtrePIDController extends CtreController implements PIDController {
 
 
   @Override
-  public double getProcessVariable() {
+  public double getProcessVariable() throws UnsupportedControlModeException {
     if (this.ctreMotorController.getControlMode() == ControlMode.Velocity) {
       return this.ctreMotorController.getSelectedSensorVelocity(pidSlot);
     } else if (this.ctreMotorController.getControlMode() == ControlMode.Position) {
       return this.ctreMotorController.getSelectedSensorPosition(pidSlot);
     }
-    return -1;
+    throw new UnsupportedControlModeException();
   }
 
   @Override
@@ -53,6 +54,7 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   @Override
   public void enable(PIDControlMode controlMode) {
+    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
     if (controlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {

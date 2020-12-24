@@ -1,9 +1,10 @@
 package pid.interfaces;
 
+import exceptions.UnsupportedControlModeException;
 import pid.PIDControlMode;
 
 public interface PIDController extends Controller {
-  double getProcessVariable();
+  double getProcessVariable() throws UnsupportedControlModeException;
 
   double getCurrentError();
 
