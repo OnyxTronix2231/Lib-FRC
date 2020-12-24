@@ -1,6 +1,7 @@
 package pid;
 
 import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+import static pid.PIDConstants.DEFAULT_PID_SLOT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
@@ -14,11 +15,7 @@ public abstract class CtreController extends AbstractController {
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                         PIDFTerms pidfTerms) {
-    super(pidfTerms);
-    this.ctreMotorController = motorControllerEnhanced;
-    this.ctreEncoder = ctreEncoder;
-    this.pidSlot = 0;
-    this.timeoutMs = CTRE_DEVICE_CALLS_TIMEOUT;
+    this(motorControllerEnhanced, ctreEncoder, pidfTerms, DEFAULT_PID_SLOT, CTRE_DEVICE_CALLS_TIMEOUT);
   }
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
