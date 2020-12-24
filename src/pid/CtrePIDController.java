@@ -1,6 +1,7 @@
 package pid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import pid.interfaces.PIDController;
 import sensors.counter.CtreEncoder;
@@ -53,6 +54,10 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   @Override
   public void enable(PIDControlMode controlMode) {
+    if (this.ctreMotorController.getDeviceID() != this.ctreEncoder.getDeviceID()) {
+      this.ctreMotorController.configRemoteFeedbackFilter(ctreEncoder, 0, timeoutMs);
+      this.ctreMotorController.configSelectedFeedbackSensor(FeedbackDevice.RemoteSensor0, 0, timeoutMs);
+    }
     if (controlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {

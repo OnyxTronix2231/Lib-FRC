@@ -1,20 +1,23 @@
 package sensors.counter;
 
+import Constants.CtreConstants;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
+import com.ctre.phoenix.sensors.CANCoder;
 
-public class CtreEncoder implements Counter {
-  private final IMotorControllerEnhanced baseTalon;
+public class CtreEncoder extends CANCoder implements Counter {
   private final int pidSlot;
   private final int timeoutResetMs;
 
-  public CtreEncoder(IMotorControllerEnhanced baseTalon, int pidSlot) {
-    this.baseTalon = baseTalon;
-    this.pidSlot = pidSlot;
-    this.timeoutResetMs = 100;
+  public CtreEncoder(int deviceID, int pidSlot) {
+    this(deviceID, pidSlot, CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT);
   }
 
-  public CtreEncoder(IMotorControllerEnhanced baseTalon, int pidSlot, int timeoutResetMs) {
-    this.baseTalon = baseTalon;
+  public CtreEncoder(IMotorControllerEnhanced baseTalon, int pidSlot) {
+    this(baseTalon.getDeviceID(), pidSlot, CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT);
+  }
+
+  public CtreEncoder(int deviceID, int pidSlot, int timeoutResetMs) {
+    super(deviceID);
     this.pidSlot = pidSlot;
     this.timeoutResetMs = timeoutResetMs;
   }
@@ -22,16 +25,20 @@ public class CtreEncoder implements Counter {
 
   @Override
   public int getCount() {
-    return baseTalon.getSelectedSensorPosition(pidSlot);
+    return (int) super.getPosition();
   }
 
   @Override
   public double getRate() {
-    return baseTalon.getSelectedSensorVelocity(pidSlot);
+    return super.getVelocity();
   }
 
   @Override
   public void reset() {
-    baseTalon.setSelectedSensorPosition(0, pidSlot, timeoutResetMs);
+    super.setPosition(0);
+  }
+
+  public int getDeviceID(){
+    return super.getDeviceID();
   }
 }
