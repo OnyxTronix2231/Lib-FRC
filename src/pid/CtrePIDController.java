@@ -25,7 +25,7 @@ public class CtrePIDController extends CtreController implements PIDController {
 
 
   @Override
-  public double getProcessVariable() throws UnsupportedControlModeException {
+  public double getProcessVariable() {
     if (this.ctreMotorController.getControlMode() == ControlMode.Velocity) {
       return this.ctreMotorController.getSelectedSensorVelocity(pidSlot);
     } else if (this.ctreMotorController.getControlMode() == ControlMode.Position) {

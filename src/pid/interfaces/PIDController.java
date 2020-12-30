@@ -4,7 +4,7 @@ import exceptions.UnsupportedControlModeException;
 import pid.PIDControlMode;
 
 public interface PIDController extends Controller {
-  double getProcessVariable() throws UnsupportedControlModeException;
+  double getProcessVariable();
 
   double getCurrentError();
 
