@@ -1,6 +1,5 @@
 package pid.interfaces;
 
-import exceptions.UnsupportedControlModeException;
 import pid.PIDControlMode;
 
 public interface PIDController extends Controller {
