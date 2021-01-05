@@ -31,7 +31,7 @@ public class CtrePIDController extends CtreController implements PIDController {
     } else if (this.ctreMotorController.getControlMode() == ControlMode.Position) {
       return this.ctreMotorController.getSelectedSensorPosition(pidSlot);
     }
-    throw new UnsupportedControlModeException();
+    throw new UnsupportedControlModeException(this.ctreMotorController.getControlMode().name());
   }
 
   @Override
