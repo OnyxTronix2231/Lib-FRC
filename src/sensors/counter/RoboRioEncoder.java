@@ -10,7 +10,7 @@ public class RoboRioEncoder implements Counter {
     }
 
     @Override
-    public int getCount() {
+    public double getCount() {
         return encoder.get();
     }
 

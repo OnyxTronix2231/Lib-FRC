@@ -21,7 +21,7 @@ public class CtreEncoder implements Counter {
 
 
   @Override
-  public int getCount() {
+  public double getCount() {
     return baseTalon.getSelectedSensorPosition(pidSlot);
   }
 
