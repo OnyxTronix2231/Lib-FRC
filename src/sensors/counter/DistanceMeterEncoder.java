@@ -10,7 +10,7 @@ public class DistanceMeterEncoder implements Counter, DistanceMeter {
     }
 
     @Override
-    public int getCount() {
+    public double getCount() {
         return counter.getCount();
     }
 
