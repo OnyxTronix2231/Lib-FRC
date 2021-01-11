@@ -1,5 +1,7 @@
 package pid;
 
+import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import exceptions.UnsupportedControlModeException;
@@ -67,6 +69,7 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   @Override
   public void setAcceleration(int acceleration) {
     this.acceleration = acceleration;
+    this.ctreMotorController.configMotionAcceleration(acceleration, CTRE_DEVICE_CALLS_TIMEOUT);
   }
 
   @Override
@@ -77,6 +80,7 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   @Override
   public void setCruiseVelocity(int cruiseVelocity) {
     this.cruiseVelocity = cruiseVelocity;
+    this.ctreMotorController.configMotionCruiseVelocity(cruiseVelocity, CTRE_DEVICE_CALLS_TIMEOUT);
   }
 
   @Override
@@ -87,5 +91,6 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   @Override
   public void setAccelerationSmoothing(int accelerationSmoothing) {
     this.accelerationSmoothing = accelerationSmoothing;
+    this.ctreMotorController.configMotionSCurveStrength(accelerationSmoothing, CTRE_DEVICE_CALLS_TIMEOUT);
   }
 }
