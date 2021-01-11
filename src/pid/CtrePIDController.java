@@ -27,16 +27,16 @@ public class CtrePIDController extends CtreController implements PIDController {
   @Override
   public double getProcessVariable() {
     if (this.ctreMotorController.getControlMode() == ControlMode.Velocity) {
-      return this.ctreMotorController.getSelectedSensorVelocity(pidSlot);
+      return this.ctreMotorController.getSelectedSensorVelocity(pidIdx);
     } else if (this.ctreMotorController.getControlMode() == ControlMode.Position) {
-      return this.ctreMotorController.getSelectedSensorPosition(pidSlot);
+      return this.ctreMotorController.getSelectedSensorPosition(pidIdx);
     }
     throw new UnsupportedControlModeException(this.ctreMotorController.getControlMode().name());
   }
 
   @Override
   public double getCurrentError() {
-    return this.ctreMotorController.getClosedLoopError(pidSlot);
+    return this.ctreMotorController.getClosedLoopError(pidIdx);
   }
 
   public boolean isOnTarget(double tolerance) {
@@ -49,7 +49,7 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   public void restartControllerState() {
     this.ctreMotorController.setIntegralAccumulator(0,
-        this.pidSlot, this.timeoutMs);
+        this.pidIdx, this.timeoutMs);
   }
 
   @Override
@@ -60,5 +60,6 @@ public class CtrePIDController extends CtreController implements PIDController {
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
     }
+    throw new UnsupportedControlModeException(this.ctreMotorController.getControlMode().name());
   }
 }

@@ -10,7 +10,7 @@ import sensors.counter.CtreEncoder;
 public abstract class CtreController extends AbstractController {
   protected IMotorControllerEnhanced ctreMotorController;
   protected CtreEncoder ctreEncoder;
-  protected int pidSlot;
+  protected int pidIdx;
   protected int timeoutMs;
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
@@ -28,7 +28,7 @@ public abstract class CtreController extends AbstractController {
     super(pidfTerms);
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
-    this.pidSlot = pidSlot;
+    this.pidIdx = pidSlot;
     this.timeoutMs = timeoutMs;
   }
 
@@ -48,21 +48,21 @@ public abstract class CtreController extends AbstractController {
     this.timeoutMs = timeoutMs;
   }
 
-  public int getPidSlot() {
-    return this.pidSlot;
+  public int getPidIdx() {
+    return this.pidIdx;
   }
 
-  public void setPidSlot(int pidSlot) {
-    this.pidSlot = pidSlot;
+  public void setPidIdx(int pidIdx) {
+    this.pidIdx = pidIdx;
   }
 
   @Override
   public void setPIDFTerms(double kP, double kI, double kD, double kF) {
     super.setPIDFTerms(kP, kI, kD, kF);
-    ctreMotorController.config_kP(pidSlot, kP, this.timeoutMs);
-    ctreMotorController.config_kI(pidSlot, kI, this.timeoutMs);
-    ctreMotorController.config_kD(pidSlot, kD, this.timeoutMs);
-    ctreMotorController.config_kF(pidSlot, kF, this.timeoutMs);
+    ctreMotorController.config_kP(pidIdx, kP, this.timeoutMs);
+    ctreMotorController.config_kI(pidIdx, kI, this.timeoutMs);
+    ctreMotorController.config_kD(pidIdx, kD, this.timeoutMs);
+    ctreMotorController.config_kF(pidIdx, kF, this.timeoutMs);
   }
 
   @Override

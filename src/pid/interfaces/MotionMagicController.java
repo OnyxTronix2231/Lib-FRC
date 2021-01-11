@@ -1,5 +1,23 @@
 package pid.interfaces;
 
-public interface MotionMagicController extends Controller {
+import pid.PIDControlMode;
 
+public interface MotionMagicController extends Controller {
+  double getCurrentError();
+
+  void enable();
+
+  void restartControllerState();
+
+  public int getAcceleration();
+
+  public void setAcceleration(int acceleration);
+
+  public int getCruiseVelocity();
+
+  public void setCruiseVelocity(int cruiseVelocity);
+
+  public int getAccelerationSmoothing();
+
+  public void setAccelerationSmoothing(int accelerationSmoothing);
 }
