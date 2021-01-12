@@ -3,9 +3,13 @@ package pid;
 import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import pid.interfaces.MotionMagicController;
 import sensors.counter.CtreEncoder;
+
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 public class CtreMotionMagicController extends CtreController implements MotionMagicController {
 
@@ -69,6 +73,12 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   public void update(double setpoint) {
     this.setSetpoint(setpoint);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint);
+  }
+
+  @Override
+  public void update(double setpoint, double feedForward) {
+    this.setSetpoint(setpoint);
+    this.ctreMotorController.set(ControlMode.MotionMagic, setpoint, DemandType.ArbitraryFeedForward, feedForward);
   }
 
   @Override
