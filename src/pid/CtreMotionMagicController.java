@@ -3,9 +3,13 @@ package pid;
 import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import pid.interfaces.MotionMagicController;
 import sensors.counter.CtreEncoder;
+
+import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 public class CtreMotionMagicController extends CtreController implements MotionMagicController {
 
@@ -57,18 +61,28 @@ public class CtreMotionMagicController extends CtreController implements MotionM
 
   @Override
   public void enable() {
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
-    this.setAcceleration(acceleration);
-    this.setCruiseVelocity(cruiseVelocity);
-    this.setAccelerationSmoothing(accelerationSmoothing);
+    this.configAll();
     this.ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint);
+  }
+
+  @Override
+  public void enable(double feedForward) {
+    this.configAll();
+    this.ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
+    this.ctreMotorController.set(ControlMode.MotionMagic, setpoint, DemandType.ArbitraryFeedForward, feedForward);
   }
 
   @Override
   public void update(double setpoint) {
     this.setSetpoint(setpoint);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint);
+  }
+
+  @Override
+  public void update(double setpoint, double feedForward) {
+    this.setSetpoint(setpoint);
+    this.ctreMotorController.set(ControlMode.MotionMagic, setpoint, DemandType.ArbitraryFeedForward, feedForward);
   }
 
   @Override
@@ -102,5 +116,12 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   public void setAccelerationSmoothing(int accelerationSmoothing) {
     this.accelerationSmoothing = accelerationSmoothing;
     this.ctreMotorController.configMotionSCurveStrength(accelerationSmoothing, CTRE_DEVICE_CALLS_TIMEOUT);
+  }
+
+  private void configAll(){
+    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+    this.setAcceleration(acceleration);
+    this.setCruiseVelocity(cruiseVelocity);
+    this.setAccelerationSmoothing(accelerationSmoothing);
   }
 }
