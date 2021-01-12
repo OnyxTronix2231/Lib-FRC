@@ -5,7 +5,7 @@ import pid.PIDControlMode;
 public interface MotionMagicController extends Controller {
   double getCurrentError();
 
-  void enable();
+  public void enable(double feedForward);
 
   public int getAcceleration();
 
