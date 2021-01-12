@@ -5,7 +5,7 @@ import pid.PIDControlMode;
 public interface MotionMagicController extends Controller {
   double getCurrentError();
 
-  void enable();
+  public void enable(double feedForward);
 
   public int getAcceleration();
 
@@ -18,4 +18,6 @@ public interface MotionMagicController extends Controller {
   public int getAccelerationSmoothing();
 
   public void setAccelerationSmoothing(int accelerationSmoothing);
+
+  public void update(double setpoint, double feedForward);
 }
