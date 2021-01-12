@@ -7,8 +7,6 @@ public interface MotionMagicController extends Controller {
 
   void enable();
 
-  void restartControllerState();
-
   public int getAcceleration();
 
   public void setAcceleration(int acceleration);

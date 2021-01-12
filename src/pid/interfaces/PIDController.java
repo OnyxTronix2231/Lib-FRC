@@ -7,8 +7,6 @@ public interface PIDController extends Controller {
 
   double getCurrentError();
 
-  void enable(PIDControlMode controlMode);
-
   void restartControllerState();
 
   boolean isOnTarget(double tolerance);

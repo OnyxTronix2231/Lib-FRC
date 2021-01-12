@@ -8,19 +8,31 @@ import sensors.counter.CtreEncoder;
 
 public class CtrePIDController extends CtreController implements PIDController {
 
+  protected final PIDControlMode pidControlMode;
+
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           PIDFTerms pidfTerms) {
+                           PIDFTerms pidfTerms, PIDControlMode pidControlMode) {
     super(ctreMotorController, ctreEncoder, pidfTerms);
+    this.pidControlMode = pidControlMode;
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           double kP, double kI, double kD, double kF, int pidSlot, int timeoutMs) {
-    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, pidSlot, timeoutMs);
+                           double kP, double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs,
+                           PIDControlMode pidControlMode) {
+    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, slotIdx, pidIdx, timeoutMs);
+    this.pidControlMode = pidControlMode;
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
-                           PIDFTerms pidfTerms, int pidSlot, int timeoutMs) {
-    super(ctreMotorController, ctreEncoder, pidfTerms, pidSlot, timeoutMs);
+                           double kP, double kI, double kD, double kF, PIDControlMode pidControlMode) {
+    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF);
+    this.pidControlMode = pidControlMode;
+  }
+
+  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
+                           PIDFTerms pidfTerms, int slotIdx, int pidIdx, int timeoutMs, PIDControlMode pidControlMode) {
+    super(ctreMotorController, ctreEncoder, pidfTerms, slotIdx, pidIdx, timeoutMs);
+    this.pidControlMode = pidControlMode;
   }
 
 
@@ -39,27 +51,39 @@ public class CtrePIDController extends CtreController implements PIDController {
     return this.ctreMotorController.getClosedLoopError(pidIdx);
   }
 
+  @Override
   public boolean isOnTarget(double tolerance) {
     return Math.abs(getCurrentError()) < tolerance;
   }
 
+  @Override
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
     return getCurrentError() > belowTolerance && getCurrentError() < aboveTolerance;
   }
 
+  @Override
   public void restartControllerState() {
-    this.ctreMotorController.setIntegralAccumulator(0,
-        this.pidIdx, this.timeoutMs);
+    this.ctreMotorController.setIntegralAccumulator(0, this.pidIdx, this.timeoutMs);
   }
 
   @Override
-  public void enable(PIDControlMode controlMode) {
+  public void enable() {
     super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
-    if (controlMode == PIDControlMode.Position) {
+    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
+    if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
     }
-    throw new UnsupportedControlModeException(this.ctreMotorController.getControlMode().name());
+  }
+
+  @Override
+  public void update(double setpoint) {
+    this.setSetpoint(setpoint);
+    if (pidControlMode == PIDControlMode.Position) {
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint);
+    } else {
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
+    }
   }
 }

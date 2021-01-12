@@ -13,5 +13,9 @@ public interface Controller {
 
   void setSetpoint(double setpoint);
 
+  void enable();
+
+  void update(double setpoint);
+
   void disable();
 }
