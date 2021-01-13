@@ -1,7 +1,7 @@
 package pid;
 
 public class PIDConstants {
-  final static int CTRE_DEVICE_CALLS_TIMEOUT = 20;
+  public final static int CTRE_DEVICE_CALLS_TIMEOUT = 20;
 
   final static int DEFAULT_SLOT_IDX = 0;
 
