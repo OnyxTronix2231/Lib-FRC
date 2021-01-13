@@ -1,6 +1,6 @@
 package pid;
 
-import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+import static pid.CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;

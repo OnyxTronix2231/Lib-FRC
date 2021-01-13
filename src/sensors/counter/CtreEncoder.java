@@ -1,7 +1,7 @@
 package sensors.counter;
 
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
-import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+import static pid.CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT;
 
 public class CtreEncoder implements Counter {
   private final IMotorControllerEnhanced baseTalon;
