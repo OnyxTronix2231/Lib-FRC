@@ -13,6 +13,12 @@ public interface Controller {
 
   void setSetpoint(double setpoint);
 
+  double getCurrentError();
+
+  boolean isOnTarget(double tolerance);
+
+  boolean isOnTarget(double belowTolerance, double aboveTolerance);
+
   void enable();
 
   void update(double setpoint);

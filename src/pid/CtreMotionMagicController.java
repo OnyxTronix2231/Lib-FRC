@@ -8,9 +8,6 @@ import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import pid.interfaces.MotionMagicController;
 import sensors.counter.CtreEncoder;
 
-import java.util.function.DoubleSupplier;
-import java.util.function.Supplier;
-
 public class CtreMotionMagicController extends CtreController implements MotionMagicController {
 
   private int acceleration;
@@ -51,12 +48,6 @@ public class CtreMotionMagicController extends CtreController implements MotionM
     this.acceleration = acceleration;
     this.cruiseVelocity = cruiseVelocity;
     this.accelerationSmoothing =accelerationSmoothing;
-  }
-
-
-  @Override
-  public double getCurrentError() {
-    return this.ctreMotorController.getClosedLoopError(pidIdx);
   }
 
   @Override

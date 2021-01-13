@@ -67,6 +67,21 @@ public abstract class CtreController extends AbstractController {
   }
 
   @Override
+  public double getCurrentError() {
+    return this.ctreMotorController.getClosedLoopError(pidIdx);
+  }
+
+  @Override
+  public boolean isOnTarget(double tolerance) {
+    return Math.abs(this.getCurrentError()) < tolerance;
+  }
+
+  @Override
+  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
+    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
+  }
+
+  @Override
   public void disable() {
     this.ctreMotorController.set(ControlMode.PercentOutput, 0);
   }

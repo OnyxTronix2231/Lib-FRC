@@ -47,21 +47,6 @@ public class CtrePIDController extends CtreController implements PIDController {
   }
 
   @Override
-  public double getCurrentError() {
-    return this.ctreMotorController.getClosedLoopError(pidIdx);
-  }
-
-  @Override
-  public boolean isOnTarget(double tolerance) {
-    return Math.abs(getCurrentError()) < tolerance;
-  }
-
-  @Override
-  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    return getCurrentError() > belowTolerance && getCurrentError() < aboveTolerance;
-  }
-
-  @Override
   public void restartControllerState() {
     this.ctreMotorController.setIntegralAccumulator(0, this.pidIdx, this.timeoutMs);
   }
