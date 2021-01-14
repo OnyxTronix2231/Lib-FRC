@@ -1,8 +1,8 @@
 package pid;
 
-import static pid.PIDConstants.CTRE_DEVICE_CALLS_TIMEOUT;
-import static pid.PIDConstants.DEFAULT_PID_IDX;
-import static pid.PIDConstants.DEFAULT_SLOT_IDX;
+import static pid.CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+import static pid.CtreConstants.DEFAULT_PID_IDX;
+import static pid.CtreConstants.DEFAULT_SLOT_IDX;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
@@ -64,6 +64,21 @@ public abstract class CtreController extends AbstractController {
     ctreMotorController.config_kI(slotIdx, kI, this.timeoutMs);
     ctreMotorController.config_kD(slotIdx, kD, this.timeoutMs);
     ctreMotorController.config_kF(slotIdx, kF, this.timeoutMs);
+  }
+
+  @Override
+  public double getCurrentError() {
+    return this.ctreMotorController.getClosedLoopError(pidIdx);
+  }
+
+  @Override
+  public boolean isOnTarget(double tolerance) {
+    return Math.abs(this.getCurrentError()) < tolerance;
+  }
+
+  @Override
+  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
+    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
   }
 
   @Override
