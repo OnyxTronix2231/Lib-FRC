@@ -3,7 +3,6 @@ package pid.interfaces;
 import pid.PIDControlMode;
 
 public interface MotionMagicController extends Controller {
-  double getCurrentError();
 
   public void enable(double feedForward);
 
