@@ -14,6 +14,7 @@ public abstract class CtreController extends AbstractController {
   protected int slotIdx;
   protected int pidIdx;
   protected int timeoutMs;
+  protected double firstError;
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                         PIDFTerms pidfTerms) {
@@ -73,11 +74,15 @@ public abstract class CtreController extends AbstractController {
 
   @Override
   public boolean isOnTarget(double tolerance) {
+    if (getCurrentError() == firstError)
+      return false;
     return Math.abs(this.getCurrentError()) < tolerance;
   }
 
   @Override
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
+    if (getCurrentError() == firstError)
+      return false;
     return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
   }
 
