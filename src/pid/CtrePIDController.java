@@ -1,6 +1,7 @@
 package pid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import exceptions.UnsupportedControlModeException;
 import pid.interfaces.PIDController;
@@ -53,12 +54,20 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   @Override
   public void enable() {
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
-    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
+    configPIDFandSlot();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
+    }
+  }
+
+  public void enable(double feedback) {
+    configPIDFandSlot();
+    if (pidControlMode == PIDControlMode.Position) {
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+    } else {
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
     }
   }
 
@@ -70,5 +79,19 @@ public class CtrePIDController extends CtreController implements PIDController {
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
     }
+  }
+
+  public void update(double setpoint,double feedback) {
+    this.setSetpoint(setpoint);
+    if (pidControlMode == PIDControlMode.Position) {
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+    } else {
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+    }
+  }
+
+  private void configPIDFandSlot() {
+    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
 }
