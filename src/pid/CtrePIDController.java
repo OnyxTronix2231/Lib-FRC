@@ -1,6 +1,7 @@
 package pid;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import exceptions.UnsupportedControlModeException;
 import pid.interfaces.PIDController;
@@ -53,12 +54,21 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   @Override
   public void enable() {
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
-    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
+    super.enable();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
+    }
+  }
+
+  @Override
+  public void enable(double feedForward) {
+    super.enable(feedForward);
+    if (pidControlMode == PIDControlMode.Position) {
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
+    } else {
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     }
   }
 
@@ -69,6 +79,16 @@ public class CtrePIDController extends CtreController implements PIDController {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint);
+    }
+  }
+
+  @Override
+  public void update(double setpoint,double feedForward) {
+    this.setSetpoint(setpoint);
+    if (pidControlMode == PIDControlMode.Position) {
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
+    } else {
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     }
   }
 }
