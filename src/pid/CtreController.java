@@ -101,10 +101,17 @@ public abstract class CtreController extends AbstractController {
 
   public void enable(double feedForward){
     firstError = getCurrentError();
+    configVariables();
   }
 
   public void enable(){
     firstError = getCurrentError();
+    configVariables();
+  }
+
+  protected void configVariables() {
+    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
 
   public abstract void update(double setpoint, double feedForward);

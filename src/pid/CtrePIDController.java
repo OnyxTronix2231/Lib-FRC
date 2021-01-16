@@ -55,7 +55,6 @@ public class CtrePIDController extends CtreController implements PIDController {
   @Override
   public void enable() {
     super.enable();
-    configPIDFConstants();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
@@ -63,9 +62,9 @@ public class CtrePIDController extends CtreController implements PIDController {
     }
   }
 
+  @Override
   public void enable(double feedForward) {
     super.enable(feedForward);
-    configPIDFConstants();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     } else {
@@ -83,6 +82,7 @@ public class CtrePIDController extends CtreController implements PIDController {
     }
   }
 
+  @Override
   public void update(double setpoint,double feedForward) {
     this.setSetpoint(setpoint);
     if (pidControlMode == PIDControlMode.Position) {
@@ -90,10 +90,5 @@ public class CtrePIDController extends CtreController implements PIDController {
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     }
-  }
-
-  private void configPIDFConstants() {
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
-    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
 }

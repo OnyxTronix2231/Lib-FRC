@@ -53,7 +53,6 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   @Override
   public void enable() {
     super.enable();
-    this.configMotionMagicConstants();
     this.ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint);
   }
@@ -62,7 +61,6 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   public void enable(double feedForward) {
     super.enable(feedForward);
     firstError = getCurrentError();
-    this.configMotionMagicConstants();
     this.ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint, DemandType.ArbitraryFeedForward, feedForward);
   }
@@ -112,8 +110,9 @@ public class CtreMotionMagicController extends CtreController implements MotionM
     this.ctreMotorController.configMotionSCurveStrength(accelerationSmoothing, CTRE_DEVICE_CALLS_TIMEOUT);
   }
 
-  private void configMotionMagicConstants(){
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+  @Override
+  protected void configVariables(){
+    super.configVariables();
     this.setAcceleration(acceleration);
     this.setCruiseVelocity(cruiseVelocity);
     this.setAccelerationSmoothing(accelerationSmoothing);
