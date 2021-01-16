@@ -55,7 +55,7 @@ public class CtrePIDController extends CtreController implements PIDController {
   @Override
   public void enable() {
     firstError = getCurrentError();
-    configPIDFandSlot();
+    configPIDFConstants();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
     } else {
@@ -63,13 +63,13 @@ public class CtrePIDController extends CtreController implements PIDController {
     }
   }
 
-  public void enable(double feedback) {
+  public void enable(double feedForward) {
     firstError = getCurrentError();
-    configPIDFandSlot();
+    configPIDFConstants();
     if (pidControlMode == PIDControlMode.Position) {
-      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     } else {
-      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     }
   }
 
@@ -84,17 +84,17 @@ public class CtrePIDController extends CtreController implements PIDController {
     }
   }
 
-  public void update(double setpoint,double feedback) {
+  public void update(double setpoint,double feedForward) {
     firstError = getCurrentError();
     this.setSetpoint(setpoint);
     if (pidControlMode == PIDControlMode.Position) {
-      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+      this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     } else {
-      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedback);
+      this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     }
   }
 
-  private void configPIDFandSlot() {
+  private void configPIDFConstants() {
     super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
     ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
