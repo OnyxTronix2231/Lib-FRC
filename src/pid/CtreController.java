@@ -14,6 +14,10 @@ public abstract class CtreController extends AbstractController {
   protected int slotIdx;
   protected int pidIdx;
   protected int timeoutMs;
+  /**
+   To avoid returning true on the first calls of IsOnTarget due to the Talon's
+   slow update rate, we need to make sure that the error has been updated
+   */
   protected double firstError;
 
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
@@ -74,15 +78,19 @@ public abstract class CtreController extends AbstractController {
 
   @Override
   public boolean isOnTarget(double tolerance) {
-    if (getCurrentError() == firstError)
+    if (getCurrentError() == firstError) {
       return false;
+    }
+    firstError = Integer.MIN_VALUE;
     return Math.abs(this.getCurrentError()) < tolerance;
   }
 
   @Override
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    if (getCurrentError() == firstError)
+    if (getCurrentError() == firstError) {
       return false;
+    }
+    firstError = Integer.MIN_VALUE;
     return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
   }
 
@@ -90,4 +98,14 @@ public abstract class CtreController extends AbstractController {
   public void disable() {
     this.ctreMotorController.set(ControlMode.PercentOutput, 0);
   }
+
+  public void enable(double feedForward){
+    firstError = getCurrentError();
+  }
+
+  public void enable(){
+    firstError = getCurrentError();
+  }
+
+  public abstract void update(double setpoint, double feedForward);
 }

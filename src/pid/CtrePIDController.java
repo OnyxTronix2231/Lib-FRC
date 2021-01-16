@@ -54,7 +54,7 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   @Override
   public void enable() {
-    firstError = getCurrentError();
+    super.enable();
     configPIDFConstants();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
@@ -64,7 +64,7 @@ public class CtrePIDController extends CtreController implements PIDController {
   }
 
   public void enable(double feedForward) {
-    firstError = getCurrentError();
+    super.enable(feedForward);
     configPIDFConstants();
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
@@ -75,7 +75,6 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   @Override
   public void update(double setpoint) {
-    firstError = getCurrentError();
     this.setSetpoint(setpoint);
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint);
@@ -85,7 +84,6 @@ public class CtrePIDController extends CtreController implements PIDController {
   }
 
   public void update(double setpoint,double feedForward) {
-    firstError = getCurrentError();
     this.setSetpoint(setpoint);
     if (pidControlMode == PIDControlMode.Position) {
       this.ctreMotorController.set(ControlMode.Position, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);

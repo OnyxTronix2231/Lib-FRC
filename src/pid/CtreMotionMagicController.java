@@ -52,7 +52,7 @@ public class CtreMotionMagicController extends CtreController implements MotionM
 
   @Override
   public void enable() {
-    firstError = getCurrentError();
+    super.enable();
     this.configMotionMagicConstants();
     this.ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint);
@@ -60,6 +60,7 @@ public class CtreMotionMagicController extends CtreController implements MotionM
 
   @Override
   public void enable(double feedForward) {
+    super.enable(feedForward);
     firstError = getCurrentError();
     this.configMotionMagicConstants();
     this.ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
@@ -68,14 +69,12 @@ public class CtreMotionMagicController extends CtreController implements MotionM
 
   @Override
   public void update(double setpoint) {
-    firstError = getCurrentError();
     this.setSetpoint(setpoint);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint);
   }
 
   @Override
   public void update(double setpoint, double feedForward) {
-    firstError = getCurrentError();
     this.setSetpoint(setpoint);
     this.ctreMotorController.set(ControlMode.MotionMagic, setpoint, DemandType.ArbitraryFeedForward, feedForward);
   }
