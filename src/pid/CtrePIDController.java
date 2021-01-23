@@ -36,7 +36,6 @@ public class CtrePIDController extends CtreController implements PIDController {
     this.pidControlMode = pidControlMode;
   }
 
-
   @Override
   public double getProcessVariable() {
     if (this.ctreMotorController.getControlMode() == ControlMode.Velocity) {
@@ -90,5 +89,10 @@ public class CtrePIDController extends CtreController implements PIDController {
     } else {
       this.ctreMotorController.set(ControlMode.Velocity, this.setpoint, DemandType.ArbitraryFeedForward, feedForward);
     }
+  }
+
+  @Override
+  public double getCurrentError() {
+    return this.ctreMotorController.getClosedLoopError(pidIdx);
   }
 }
