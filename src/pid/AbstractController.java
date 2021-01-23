@@ -31,6 +31,8 @@ public abstract class AbstractController implements Controller {
     this.pidfTerms.setF(kF);
   }
 
+  public abstract double getProcessVariable();
+
   @Override
   public double getSetpoint() {
     return this.setpoint;

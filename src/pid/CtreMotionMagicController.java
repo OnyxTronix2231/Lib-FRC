@@ -78,6 +78,16 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   }
 
   @Override
+  public double getProcessVariable() {
+    return this.ctreMotorController.getSelectedSensorPosition(pidIdx);
+  }
+
+  @Override
+  public double getCurrentError() {
+    return this.setpoint - getProcessVariable();
+  }
+
+  @Override
   public int getAcceleration() {
     return acceleration;
   }

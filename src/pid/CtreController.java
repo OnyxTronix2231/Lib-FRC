@@ -72,11 +72,6 @@ public abstract class CtreController extends AbstractController {
   }
 
   @Override
-  public double getCurrentError() {
-    return this.ctreMotorController.getClosedLoopError(pidIdx);
-  }
-
-  @Override
   public boolean isOnTarget(double tolerance) {
     if (getCurrentError() == firstError) {
       return false;
