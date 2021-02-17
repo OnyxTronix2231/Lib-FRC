@@ -39,6 +39,7 @@ public abstract class CtreController extends AbstractController {
   public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                         PIDFTerms pidfTerms, int slotIdx,int pidIdx, int timeoutMs) {
     super(pidfTerms);
+    configVariables();
     this.ctreMotorController = motorControllerEnhanced;
     this.ctreEncoder = ctreEncoder;
     this.slotIdx = slotIdx;
@@ -105,7 +106,7 @@ public abstract class CtreController extends AbstractController {
   }
 
   protected void configVariables() {
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+    this.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
     ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
 

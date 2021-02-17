@@ -1,5 +1,9 @@
 package pid;
 
+import static pid.CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+import static pid.CtreConstants.DEFAULT_PID_IDX;
+import static pid.CtreConstants.DEFAULT_SLOT_IDX;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
@@ -13,21 +17,20 @@ public class CtrePIDController extends CtreController implements PIDController {
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            PIDFTerms pidfTerms, PIDControlMode pidControlMode) {
-    super(ctreMotorController, ctreEncoder, pidfTerms);
-    this.pidControlMode = pidControlMode;
+    this(ctreMotorController, ctreEncoder, pidfTerms, DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
+            CTRE_DEVICE_CALLS_TIMEOUT, pidControlMode);
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            double kP, double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs,
                            PIDControlMode pidControlMode) {
-    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF, slotIdx, pidIdx, timeoutMs);
-    this.pidControlMode = pidControlMode;
+    this(ctreMotorController, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), slotIdx, pidIdx, timeoutMs, pidControlMode);
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            double kP, double kI, double kD, double kF, PIDControlMode pidControlMode) {
-    super(ctreMotorController, ctreEncoder, kP, kI, kD, kF);
-    this.pidControlMode = pidControlMode;
+    this(ctreMotorController, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
+            CTRE_DEVICE_CALLS_TIMEOUT, pidControlMode);
   }
 
   public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
