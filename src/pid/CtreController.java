@@ -44,6 +44,7 @@ public abstract class CtreController extends AbstractController {
     this.slotIdx = slotIdx;
     this.pidIdx = pidIdx;
     this.timeoutMs = timeoutMs;
+    configVariables();
   }
 
   public IMotorControllerEnhanced getCtreMotorController() {
@@ -63,12 +64,12 @@ public abstract class CtreController extends AbstractController {
   }
 
   @Override
-  public void setPIDFTerms(double kP, double kI, double kD, double kF) {
-    super.setPIDFTerms(kP, kI, kD, kF);
-    ctreMotorController.config_kP(slotIdx, kP, this.timeoutMs);
-    ctreMotorController.config_kI(slotIdx, kI, this.timeoutMs);
-    ctreMotorController.config_kD(slotIdx, kD, this.timeoutMs);
-    ctreMotorController.config_kF(slotIdx, kF, this.timeoutMs);
+  public void setPIDFTerms(PIDFTerms pidfTerms) {
+    super.setPIDFTerms(pidfTerms);
+    ctreMotorController.config_kP(slotIdx, pidfTerms.getKp(), this.timeoutMs);
+    ctreMotorController.config_kI(slotIdx, pidfTerms.getKi(), this.timeoutMs);
+    ctreMotorController.config_kD(slotIdx, pidfTerms.getKd(), this.timeoutMs);
+    ctreMotorController.config_kF(slotIdx, pidfTerms.getKf(), this.timeoutMs);
   }
 
   @Override
@@ -105,7 +106,7 @@ public abstract class CtreController extends AbstractController {
   }
 
   protected void configVariables() {
-    super.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+    this.setPIDFTerms(pidfTerms);
     ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
 

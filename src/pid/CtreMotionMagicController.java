@@ -1,6 +1,8 @@
 package pid;
 
 import static pid.CtreConstants.CTRE_DEVICE_CALLS_TIMEOUT;
+import static pid.CtreConstants.DEFAULT_PID_IDX;
+import static pid.CtreConstants.DEFAULT_SLOT_IDX;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
@@ -17,34 +19,29 @@ public class CtreMotionMagicController extends CtreController implements MotionM
   public CtreMotionMagicController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                                    PIDFTerms pidfTerms, int acceleration, int cruiseVelocity,
                                    int accelerationSmoothing) {
-    super(motorControllerEnhanced, ctreEncoder, pidfTerms);
-    this.acceleration = acceleration;
-    this.cruiseVelocity = cruiseVelocity;
-    this.accelerationSmoothing =accelerationSmoothing;
-  }
-
-  public CtreMotionMagicController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder, double kP,
-                                   double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs, int acceleration,
-                                   int cruiseVelocity, int accelerationSmoothing) {
-    super(motorControllerEnhanced, ctreEncoder, kP, kI, kD, kF, slotIdx, pidIdx, timeoutMs);
-    this.acceleration = acceleration;
-    this.cruiseVelocity = cruiseVelocity;
-    this.accelerationSmoothing =accelerationSmoothing;
+    this(motorControllerEnhanced, ctreEncoder, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
+            pidfTerms.getKf(), DEFAULT_SLOT_IDX, DEFAULT_PID_IDX, CTRE_DEVICE_CALLS_TIMEOUT, acceleration,
+            cruiseVelocity, accelerationSmoothing);
   }
 
   public CtreMotionMagicController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder, double kP,
                                    double kI, double kD, double kF, int acceleration,
                                    int cruiseVelocity, int accelerationSmoothing) {
-    super(motorControllerEnhanced, ctreEncoder, kP, kI, kD, kF);
-    this.acceleration = acceleration;
-    this.cruiseVelocity = cruiseVelocity;
-    this.accelerationSmoothing =accelerationSmoothing;
+    this(motorControllerEnhanced, ctreEncoder, kP, kI, kD, kF, DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
+            CTRE_DEVICE_CALLS_TIMEOUT, acceleration, cruiseVelocity, accelerationSmoothing);
   }
 
   public CtreMotionMagicController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
                                    PIDFTerms pidfTerms, int slotIdx, int pidIdx, int timeoutMs, int acceleration,
                                    int cruiseVelocity, int accelerationSmoothing) {
-    super(motorControllerEnhanced, ctreEncoder, pidfTerms, slotIdx, pidIdx, timeoutMs);
+    this(motorControllerEnhanced, ctreEncoder, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
+            pidfTerms.getKf(), slotIdx, pidIdx, timeoutMs, acceleration, cruiseVelocity, accelerationSmoothing);
+  }
+
+  public CtreMotionMagicController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder, double kP,
+                                   double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs,
+                                   int acceleration, int cruiseVelocity, int accelerationSmoothing) {
+    super(motorControllerEnhanced, ctreEncoder, kP, kI, kD, kF, slotIdx, pidIdx, timeoutMs);
     this.acceleration = acceleration;
     this.cruiseVelocity = cruiseVelocity;
     this.accelerationSmoothing =accelerationSmoothing;
