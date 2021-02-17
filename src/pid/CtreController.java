@@ -73,6 +73,11 @@ public abstract class CtreController extends AbstractController {
   }
 
   @Override
+  public void setPIDFTerms(PIDFTerms pidfTerms) {
+    this.setPIDFTerms(pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(), pidfTerms.getKf());
+  }
+
+  @Override
   public boolean isOnTarget(double tolerance) {
     if (getCurrentError() == firstError) {
       return false;
@@ -106,7 +111,7 @@ public abstract class CtreController extends AbstractController {
   }
 
   protected void configVariables() {
-    this.setPIDFTerms(this.pidfTerms.getKp(), this.pidfTerms.getKi(), this.pidfTerms.getKd(), this.pidfTerms.getKf());
+    this.setPIDFTerms(pidfTerms);
     ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
   }
 
