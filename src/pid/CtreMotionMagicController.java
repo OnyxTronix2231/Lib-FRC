@@ -124,24 +124,4 @@ public class CtreMotionMagicController extends CtreController implements MotionM
     this.setCruiseVelocity(cruiseVelocity);
     this.setAccelerationSmoothing(accelerationSmoothing);
   }
-
-  @Override
-  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    double realError = setpoint - ctreEncoder.getCount();
-    if (getCurrentError() == firstError &&  realError > belowTolerance && realError < aboveTolerance) {
-      return false;
-    }
-    firstError = Integer.MIN_VALUE;
-    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
-  }
-
-  @Override
-  public boolean isOnTarget(double tolerance) {
-    double realError = Math.abs(setpoint - ctreEncoder.getCount());
-    if (getCurrentError() == firstError && realError < tolerance) {
-      return false;
-    }
-    firstError = Integer.MIN_VALUE;
-    return Math.abs(this.getCurrentError()) < tolerance;
-  }
 }
