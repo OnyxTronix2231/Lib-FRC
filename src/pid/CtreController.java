@@ -83,7 +83,7 @@ public abstract class CtreController extends AbstractController {
 
   @Override
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    if (getCurrentError() == firstError && !(firstError > belowTolerance && firstError < aboveTolerance)) {
+    if (getCurrentError() == firstError && (firstError < belowTolerance || firstError > aboveTolerance)) {
       return false;
     }
     firstError = Integer.MIN_VALUE;
