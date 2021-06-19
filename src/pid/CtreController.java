@@ -74,20 +74,20 @@ public abstract class CtreController extends AbstractController {
 
   @Override
   public boolean isOnTarget(double tolerance) {
-    if (getCurrentError() == firstError) {
+    if (getCurrentError() == firstError && Math.abs(firstError) > tolerance) {
       return false;
     }
     firstError = Integer.MIN_VALUE;
-    return Math.abs(this.getCurrentError()) < tolerance;
+    return super.isOnTarget(tolerance);
   }
 
   @Override
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    if (getCurrentError() == firstError) {
+    if (getCurrentError() == firstError && (firstError < belowTolerance || firstError > aboveTolerance)) {
       return false;
     }
     firstError = Integer.MIN_VALUE;
-    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
+    return super.isOnTarget(belowTolerance, aboveTolerance);
   }
 
   @Override
