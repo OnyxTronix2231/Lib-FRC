@@ -74,8 +74,7 @@ public abstract class CtreController extends AbstractController {
 
   @Override
   public boolean isOnTarget(double tolerance) {
-    double realError = Math.abs(setpoint - ctreEncoder.getCount());
-    if (getCurrentError() == firstError && realError < tolerance) {
+    if (getCurrentError() == firstError) {
       return false;
     }
     firstError = Integer.MIN_VALUE;
@@ -84,8 +83,7 @@ public abstract class CtreController extends AbstractController {
 
   @Override
   public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    double realError = setpoint - ctreEncoder.getCount();
-    if (getCurrentError() == firstError &&  realError > belowTolerance && realError < aboveTolerance) {
+    if (getCurrentError() == firstError) {
       return false;
     }
     firstError = Integer.MIN_VALUE;
