@@ -38,4 +38,14 @@ public abstract class AbstractController implements Controller {
   public void setSetpoint(double setpoint) {
     this.setpoint = setpoint;
   }
+
+  @Override
+  public boolean isOnTarget(double tolerance) {
+    return Math.abs(this.getCurrentError()) < tolerance;
+  }
+
+  @Override
+  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
+    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
+  }
 }

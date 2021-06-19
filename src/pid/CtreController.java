@@ -78,7 +78,7 @@ public abstract class CtreController extends AbstractController {
       return false;
     }
     firstError = Integer.MIN_VALUE;
-    return Math.abs(this.getCurrentError()) < tolerance;
+    return super.isOnTarget(tolerance);
   }
 
   @Override
@@ -87,7 +87,7 @@ public abstract class CtreController extends AbstractController {
       return false;
     }
     firstError = Integer.MIN_VALUE;
-    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
+    return super.isOnTarget(belowTolerance, aboveTolerance);
   }
 
   @Override
