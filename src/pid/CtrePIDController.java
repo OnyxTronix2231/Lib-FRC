@@ -100,15 +100,14 @@ public class CtrePIDController extends CtreController implements PIDController {
       if (isFirstRun()) {
         return false;
       }
-      return super.isOnTarget(tolerance);
     }
     else {
       if (isFirstRun()) {
         return Math.abs(firstError) < tolerance;
       }
       firstError = Integer.MIN_VALUE;
-      return super.isOnTarget(tolerance);
     }
+    return super.isOnTarget(tolerance);
   }
 
   @Override
@@ -117,15 +116,14 @@ public class CtrePIDController extends CtreController implements PIDController {
       if (isFirstRun()) {
         return false;
       }
-      return super.isOnTarget(belowTolerance, aboveTolerance);
     }
     else {
       if (isFirstRun()) {
         return firstError > belowTolerance && firstError < aboveTolerance;
       }
       firstError = Integer.MIN_VALUE;
-      return super.isOnTarget(belowTolerance, aboveTolerance);
     }
+    return super.isOnTarget(belowTolerance, aboveTolerance);
   }
 
   @Override
