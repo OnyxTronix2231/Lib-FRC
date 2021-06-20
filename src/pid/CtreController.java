@@ -73,7 +73,7 @@ public abstract class CtreController extends AbstractController {
   }
 
   protected boolean isFirstRun() {
-    return getCurrentError() != firstError;
+    return getCurrentError() == firstError;
   }
 
   @Override
