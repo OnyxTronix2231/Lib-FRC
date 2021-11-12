@@ -11,7 +11,7 @@ public class Controller extends GenericHID {
     private final int CENTER_RIGHT;
     private final int CENTER_LEFT;
     private final int STICK_LEFT;
-    private final int STICK_Right;
+    private final int STICK_RIGHT;
     private final int AXIS_LEFT_X;
     private final int AXIS_LEFT_Y;
     private final int AXIS_RIGHT_X;
@@ -20,14 +20,14 @@ public class Controller extends GenericHID {
     private final int RIGHT_TRIGGER;
     private final int BUMPER_RIGHT;
     private final int BUMPER_LEFT;
-    private final int port;
+    private final int PORT;
 
     public Controller(int port, int button_down, int button_up, int button_left, int button_right, int center_right,
                       int center_left, int stick_left, int stick_right, int axis_left_x, int axis_left_y,
                       int axis_right_x, int axis_right_y, int left_trigger, int right_trigger, int bumper_right, int bumper_left) {
         super(port);
 
-        this.port = port;
+        PORT = port;
 
         BUTTON_DOWN = button_down;
         BUTTON_UP = button_up;
@@ -36,7 +36,7 @@ public class Controller extends GenericHID {
         CENTER_RIGHT = center_right;
         CENTER_LEFT = center_left;
         STICK_LEFT = stick_left;
-        STICK_Right = stick_right;
+        STICK_RIGHT = stick_right;
         AXIS_LEFT_X = axis_left_x;
 
         AXIS_LEFT_Y = axis_left_y;
@@ -70,7 +70,7 @@ public class Controller extends GenericHID {
      * Get the port of the controller.
      */
     public int getPort(){
-        return port;
+        return PORT;
     }
 
     /**
@@ -139,7 +139,7 @@ public class Controller extends GenericHID {
         if (hand.equals(Hand.kLeft)) {
             return getRawButton(STICK_LEFT);
         } else {
-            return getRawButton(STICK_Right);
+            return getRawButton(STICK_RIGHT);
         }
     }
 
@@ -153,7 +153,7 @@ public class Controller extends GenericHID {
         if (hand == Hand.kLeft) {
             return getRawButtonPressed(STICK_LEFT);
         } else {
-            return getRawButtonPressed(STICK_Right);
+            return getRawButtonPressed(STICK_RIGHT);
         }
     }
 
@@ -167,7 +167,7 @@ public class Controller extends GenericHID {
         if (hand == Hand.kLeft) {
             return getRawButtonReleased(STICK_LEFT);
         } else {
-            return getRawButtonReleased(STICK_Right);
+            return getRawButtonReleased(STICK_RIGHT);
         }
     }
 
