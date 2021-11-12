@@ -333,4 +333,3 @@ public class Controller extends GenericHID {
         return getRawButtonReleased(CENTER_RIGHT);
     }
 }
-
