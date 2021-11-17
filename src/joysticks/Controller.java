@@ -24,7 +24,8 @@ public class Controller extends GenericHID {
 
     public Controller(int port, int button_down, int button_up, int button_left, int button_right, int center_right,
                       int center_left, int stick_left, int stick_right, int axis_left_x, int axis_left_y,
-                      int axis_right_x, int axis_right_y, int left_trigger, int right_trigger, int bumper_right, int bumper_left) {
+                      int axis_right_x, int axis_right_y, int left_trigger, int right_trigger, int bumper_right,
+                      int bumper_left) {
         super(port);
 
         PORT = port;
@@ -331,5 +332,69 @@ public class Controller extends GenericHID {
      */
     public boolean getCenterRightButtonReleased() {
         return getRawButtonReleased(CENTER_RIGHT);
+    }
+
+    public int getBUTTON_DOWN() {
+        return BUTTON_DOWN;
+    }
+
+    public int getBUTTON_UP() {
+        return BUTTON_UP;
+    }
+
+    public int getBUTTON_LEFT() {
+        return BUTTON_LEFT;
+    }
+
+    public int getBUTTON_RIGHT() {
+        return BUTTON_RIGHT;
+    }
+
+    public int getCENTER_RIGHT() {
+        return CENTER_RIGHT;
+    }
+
+    public int getCENTER_LEFT() {
+        return CENTER_LEFT;
+    }
+
+    public int getSTICK_LEFT() {
+        return STICK_LEFT;
+    }
+
+    public int getSTICK_RIGHT() {
+        return STICK_RIGHT;
+    }
+
+    public int getAXIS_LEFT_X() {
+        return AXIS_LEFT_X;
+    }
+
+    public int getAXIS_LEFT_Y() {
+        return AXIS_LEFT_Y;
+    }
+
+    public int getAXIS_RIGHT_X() {
+        return AXIS_RIGHT_X;
+    }
+
+    public int getAXIS_RIGHT_Y() {
+        return AXIS_RIGHT_Y;
+    }
+
+    public int getLEFT_TRIGGER() {
+        return LEFT_TRIGGER;
+    }
+
+    public int getRIGHT_TRIGGER() {
+        return RIGHT_TRIGGER;
+    }
+
+    public int getBUMPER_RIGHT() {
+        return BUMPER_RIGHT;
+    }
+
+    public int getBUMPER_LEFT() {
+        return BUMPER_LEFT;
     }
 }
