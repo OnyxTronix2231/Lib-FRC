@@ -3,7 +3,7 @@ package joysticks;
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.hal.HAL;
 
-public class PlayStation5Controller extends Controller {
+public class PlayStation5Controller extends ConsoleController {
 
     /**
      * Represents a digital button on an PS5 Controller.

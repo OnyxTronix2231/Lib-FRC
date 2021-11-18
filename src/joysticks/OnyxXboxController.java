@@ -3,7 +3,7 @@ package joysticks;
 import edu.wpi.first.hal.FRCNetComm;
 import edu.wpi.first.hal.HAL;
 
-public class OnyxXboxController extends Controller{
+public class OnyxXboxController extends ConsoleController {
 
     /**
      * Represents a digital button on an XboxController.
