@@ -62,14 +62,4 @@ public class PlayStation5Controller extends ConsoleController {
 
         HAL.report(tResourceType.kResourceType_Joystick, port + 1);
     }
-
-    @Override
-    public double getRawAxis(int axis) {
-        if (axis == Axis.kLeftTrigger.value || axis == Axis.kRightTrigger.value) {
-            return  0;
-        }
-        else {
-            return 0;
-        }
-    }
 }
