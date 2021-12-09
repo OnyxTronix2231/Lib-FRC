@@ -62,4 +62,9 @@ public class PlayStation5Controller extends ConsoleController {
 
         HAL.report(tResourceType.kResourceType_Joystick, port + 1);
     }
+
+    @Override
+    public double getRawTriggerAxis(Hand hand) {
+        return (super.getRawTriggerAxis(hand) + 1) / 2;
+    }
 }
