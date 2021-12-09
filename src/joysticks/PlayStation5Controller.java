@@ -64,7 +64,12 @@ public class PlayStation5Controller extends ConsoleController {
     }
 
     @Override
-    public double getRawTriggerAxis(Hand hand) {
-        return Math.abs((super.getRawTriggerAxis(hand) + 1) / 2);
+    public double getRawAxis(int axis) {
+        if (axis == Axis.kLeftTrigger.value || axis == Axis.kRightTrigger.value) {
+            return (super.getRawAxis(axis) + 1) / 2;
+        }
+        else {
+            return super.getRawAxis(axis);
+        }
     }
 }
