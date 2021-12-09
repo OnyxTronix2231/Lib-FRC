@@ -2,15 +2,16 @@ package onyxTronix;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import joysticks.ConsoleController;
 
 import java.util.ArrayList;
 
 public abstract class UniqueTriggerCache<T extends Trigger> {
 
-  protected final GenericHID joystick;
+  protected final ConsoleController joystick;
   private final ArrayList<Integer> usedTriggerNumbers;
 
-  public UniqueTriggerCache(final GenericHID joystick) {
+  public UniqueTriggerCache(final ConsoleController joystick) {
     this.joystick = joystick;
     this.usedTriggerNumbers = new ArrayList<>();
   }
