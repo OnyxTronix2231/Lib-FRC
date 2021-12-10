@@ -61,11 +61,6 @@ public class JoystickAxis extends Trigger {
   }
 
   public double getRawAxis() {
-    if (joystick instanceof PlayStation5Controller) {
-      if (axisNumber == 3 || axisNumber == 4) {
-        return (joystick.getRawAxis(axisNumber) + 1) / 2;
-      }
-    }
     return joystick.getRawAxis(axisNumber);
   }
 }
