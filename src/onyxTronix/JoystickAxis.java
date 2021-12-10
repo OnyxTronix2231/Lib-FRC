@@ -57,7 +57,7 @@ public class JoystickAxis extends Trigger {
    */
   @Override
   public boolean get() {
-    return Math.abs(joystick.getRawAxis(axisNumber)) >= deadBand;
+    return Math.abs(getRawAxis()) >= deadBand;
   }
 
   public double getRawAxis() {
