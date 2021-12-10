@@ -9,19 +9,19 @@ public class PlayStation5Controller extends ConsoleController {
      * Represents a digital button on an PS5 Controller.
      */
     public enum Button {
-        kSquare(1),
-        kX(2),
-        kCircle(3),
-        kTriangle(4),
-        kLeftBumper(5),
-        kRightBumper(6),
-        kShare(9),
-        kOptions(10),
-        kLeftStick(11),
-        kRightStick(12),
-        kPS(13),
-        kPadPress(14),
-        kMute(15);
+        kSquare(0),
+        kX(1),
+        kCircle(2),
+        kTriangle(3),
+        kLeftBumper(4),
+        kRightBumper(5),
+        kShare(8),
+        kOptions(9),
+        kLeftStick(10),
+        kRightStick(11),
+        kPS(12),
+        kPadPress(13),
+        kMute(14);
 
         public final int value;
 
