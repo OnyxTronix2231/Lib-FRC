@@ -1,6 +1,6 @@
 package vision.grip;
 
-import edu.wpi.cscore.VideoSource;
+import edu.wpi.first.cscore.VideoSource;
 import edu.wpi.first.vision.VisionRunner;
 import vision.*;
 import vision.grip.Calculations.*;

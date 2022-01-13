@@ -97,4 +97,8 @@ public abstract class CtreController extends AbstractController {
   }
 
   public abstract void update(double setpoint, double feedForward);
+
+  public void resetEncoder() {
+    ctreEncoder.reset();
+  }
 }
