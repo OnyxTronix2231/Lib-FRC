@@ -72,22 +72,8 @@ public abstract class CtreController extends AbstractController {
     ctreMotorController.config_kF(slotIdx, pidfTerms.getKf(), this.timeoutMs);
   }
 
-  @Override
-  public boolean isOnTarget(double tolerance) {
-    if (getCurrentError() == firstError) {
-      return false;
-    }
-    firstError = Integer.MIN_VALUE;
-    return Math.abs(this.getCurrentError()) < tolerance;
-  }
-
-  @Override
-  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
-    if (getCurrentError() == firstError) {
-      return false;
-    }
-    firstError = Integer.MIN_VALUE;
-    return this.getCurrentError() > belowTolerance && this.getCurrentError() < aboveTolerance;
+  protected boolean isFirstRun() {
+    return getCurrentError() == firstError;
   }
 
   @Override
@@ -111,4 +97,8 @@ public abstract class CtreController extends AbstractController {
   }
 
   public abstract void update(double setpoint, double feedForward);
+
+  public void resetEncoder() {
+    ctreEncoder.reset();
+  }
 }

@@ -95,6 +95,38 @@ public class CtrePIDController extends CtreController implements PIDController {
   }
 
   @Override
+  public boolean isOnTarget(double tolerance) {
+    if (pidControlMode == PIDControlMode.Velocity) {
+      if (isFirstRun()) {
+        return false;
+      }
+    }
+    else {
+      if (isFirstRun()) {
+        return Math.abs(firstError) < tolerance;
+      }
+      firstError = Integer.MIN_VALUE;
+    }
+    return super.isOnTarget(tolerance);
+  }
+
+  @Override
+  public boolean isOnTarget(double belowTolerance, double aboveTolerance) {
+    if (pidControlMode == PIDControlMode.Velocity) {
+      if (isFirstRun()) {
+        return false;
+      }
+    }
+    else {
+      if (isFirstRun()) {
+        return firstError > belowTolerance && firstError < aboveTolerance;
+      }
+      firstError = Integer.MIN_VALUE;
+    }
+    return super.isOnTarget(belowTolerance, aboveTolerance);
+  }
+
+  @Override
   public double getCurrentError() {
     return this.ctreMotorController.getClosedLoopError(pidIdx);
   }
