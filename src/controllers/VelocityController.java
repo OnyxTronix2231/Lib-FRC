@@ -4,8 +4,9 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
-public class VelocityController implements SpeedController {
+public class VelocityController implements MotorController {
 
   private final BaseTalon motor;
   private final double maxVelocity;
@@ -64,8 +65,4 @@ public class VelocityController implements SpeedController {
     motor.set(ControlMode.PercentOutput, 0);
   }
 
-  @Override
-  public void pidWrite(final double output) {
-    motor.set(ControlMode.PercentOutput, output);
-  }
 }
