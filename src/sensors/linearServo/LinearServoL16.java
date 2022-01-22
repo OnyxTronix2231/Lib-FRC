@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class LinearServoL16 extends Servo {
 
-    double m_speed;
-    double m_length;
-    double setPos;
-    double curPos;
+    private final double maxSpeed;
+    private final double maxLength;
+    private double setPos;
+    private double curPos;
 
     /**
      * Parameters for L16-R Actuonix Linear Actuators
@@ -21,38 +21,33 @@ public class LinearServoL16 extends Servo {
     public LinearServoL16(int channel, int length, int speed) {
         super(channel);
         setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
-        m_length = length;
-        m_speed = speed;
+        maxLength = length;
+        maxSpeed = speed;
+        curPos = maxLength * this.get();
     }
 
     /**
-     * Miniature Linear Servo Actuators -
-     * User Guide (Rev 1)
-     * Table of Contents Page 10
-     * wcproducts.com
-     * <p>
-     * Run this method in any periodic function to update the position estimation of your
-     * servo
-     *
      * @param setpoint the target position of the servo [mm]
      */
     public void setPosition(double setpoint) {
-        setPos = MathUtil.clamp(setpoint, 0, m_length);
-        setSpeed((setPos / m_length * 2) - 1);
+        setPos = MathUtil.clamp(setpoint, 0, maxLength);
+        setSpeed((setPos / maxLength * 2) - 1);
     }
 
-    double lastTime = 0;
+    private double lastTime = 0;
 
     /**
      * Run this method in any periodic function to update the position estimation of your
      * servo
      */
     public void updateCurPos() {
-        double dt = Timer.getFPGATimestamp() - lastTime;
-        if (curPos > setPos + m_speed * dt) {
-            curPos -= m_speed * dt;
-        } else if (curPos < setPos - m_speed * dt) {
-            curPos += m_speed * dt;
+        double timestamp = Timer.getFPGATimestamp();
+        double dt = timestamp - lastTime;
+        lastTime = timestamp;
+        if (curPos > setPos + maxSpeed * dt) {
+            curPos -= maxSpeed * dt;
+        } else if (curPos < setPos - maxSpeed * dt) {
+            curPos += maxSpeed * dt;
         } else {
             curPos = setPos;
         }
@@ -64,7 +59,7 @@ public class LinearServoL16 extends Servo {
      *
      * @return Servo Position [mm]
      */
-    public double getPosition() {
+    public double getPosition(){
         return curPos;
     }
 
@@ -74,7 +69,7 @@ public class LinearServoL16 extends Servo {
      *
      * @return true when servo is at its target
      */
-    public boolean isFinished() {
+    public boolean isOnTarget() {
         return curPos == setPos;
     }
 }
