@@ -6,24 +6,29 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class LinearServo extends Servo {
 
+    private final static double MAX_PWM_PULSE = 2.0;
+    private final static double DEADBAND_MAX = 1.8;
+    private final static double MIDDLE_PWM_PULSE = 1.5;
+    private final static double DEADBAND_MIN = 1.2;
+    private final static double MIN_PWM_PULSE = 1;
     private final double maxSpeed;
     private final double maxLength;
     private double setPos;
-    private double curPos;
+    private double currentPos;
 
     /**
      * Parameters for L16-R Actuonix Linear Actuators
      *
      * @param channel PWM channel used to control the servo
-     * @param length max length of the servo [mm]
-     * @param speed max speed of the servo [mm/second]
+     * @param maxLength max length of the servo [mm]
+     * @param maxSpeed max speed of the servo [mm/second]
      */
-    public LinearServo(int channel, int length, int speed) {
+    public LinearServo(int channel, int maxLength, int maxSpeed) {
         super(channel);
-        setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
-        maxLength = length;
-        maxSpeed = speed;
-        curPos = maxLength * this.get();
+        this.maxLength = maxLength;
+        this.maxSpeed = maxSpeed;
+        setBounds(MAX_PWM_PULSE, DEADBAND_MAX, MIDDLE_PWM_PULSE, DEADBAND_MIN, MIN_PWM_PULSE);
+        currentPos = this.maxLength * this.get();
     }
 
     /**
@@ -40,37 +45,38 @@ public class LinearServo extends Servo {
      * Run this method in any periodic function to update the position estimation of your
      * servo
      */
-    public void updateCurPos() {
+    public void updateCurrentPosition() {
         double timestamp = Timer.getFPGATimestamp();
         double dt = timestamp - lastTime;
-        lastTime = timestamp;
-        if (curPos > setPos + maxSpeed * dt) {
-            curPos -= maxSpeed * dt;
-        } else if (curPos < setPos - maxSpeed * dt) {
-            curPos += maxSpeed * dt;
+        double distance = maxSpeed * dt;
+        if (currentPos > setPos + distance) {
+            currentPos -= distance;
+        } else if (currentPos < setPos - distance) {
+            currentPos += distance;
         } else {
-            curPos = setPos;
+            currentPos = setPos;
         }
+        lastTime = timestamp;
     }
 
     /**
-     * Current position of the servo, must be calling {@link #updateCurPos()
+     * Current position of the servo, must be calling {@link #updateCurrentPosition()
      * updateCurPos()} periodically
      *
      * @return Servo Position [mm]
      */
-    public double getPosition(){
-        return curPos;
+    public double getPosition() {
+        return currentPos;
     }
 
     /**
-     * Checks if the servo is at its target position, must be calling {@link #updateCurPos()
+     * Checks if the servo is at its target position, must be calling {@link #updateCurrentPosition()
      * updateCurPos()} periodically
      *
      * @return true when servo is at its target
      */
     public boolean isOnTarget() {
-        return curPos == setPos;
+        return currentPos == setPos;
     }
 }
 
