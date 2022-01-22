@@ -4,7 +4,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
 
-public class LinearServoL16 extends Servo {
+public class LinearServo extends Servo {
 
     private final double maxSpeed;
     private final double maxLength;
@@ -18,7 +18,7 @@ public class LinearServoL16 extends Servo {
      * @param length  max length of the servo [mm]
      * @param speed   max speed of the servo [mm/second]
      */
-    public LinearServoL16(int channel, int length, int speed) {
+    public LinearServo(int channel, int length, int speed) {
         super(channel);
         setBounds(2.0, 1.8, 1.5, 1.2, 1.0);
         maxLength = length;
