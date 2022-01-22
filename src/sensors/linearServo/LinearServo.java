@@ -15,8 +15,8 @@ public class LinearServo extends Servo {
      * Parameters for L16-R Actuonix Linear Actuators
      *
      * @param channel PWM channel used to control the servo
-     * @param length  max length of the servo [mm]
-     * @param speed   max speed of the servo [mm/second]
+     * @param length max length of the servo [mm]
+     * @param speed max speed of the servo [mm/second]
      */
     public LinearServo(int channel, int length, int speed) {
         super(channel);
