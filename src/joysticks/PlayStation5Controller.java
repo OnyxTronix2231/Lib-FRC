@@ -13,8 +13,8 @@ public class PlayStation5Controller extends ConsoleController {
         kX(2),
         kCircle(3),
         kTriangle(4),
-        kRightBumper(5),
-        kLeftBumper(6),
+        kLeftBumper(5),
+        kRightBumper(6),
         kShare(9),
         kOptions(10),
         kLeftStick(11),
@@ -58,7 +58,7 @@ public class PlayStation5Controller extends ConsoleController {
         super(port, Button.kX.value, Button.kTriangle.value, Button.kSquare.value, Button.kCircle.value,
             Button.kOptions.value, Button.kShare.value, Button.kLeftStick.value, Button.kRightStick.value,
             Axis.kLeftX.value, Axis.kLeftY.value, Axis.KRightX.value, Axis.kRightY.value, Axis.kLeftTrigger.value,
-            Axis.kRightTrigger.value, Button.kLeftBumper.value, Button.kRightBumper.value);
+            Axis.kRightTrigger.value, Button.kRightBumper.value, Button.kLeftBumper.value);
 
         HAL.report(tResourceType.kResourceType_Joystick, port + 1);
     }
