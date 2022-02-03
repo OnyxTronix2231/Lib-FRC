@@ -3,6 +3,7 @@ package sensors.linearServo;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.motorcontrol.PWMMotorController;
 
 public class LinearServo extends Servo {
 
@@ -101,6 +102,11 @@ public class LinearServo extends Servo {
      */
     public boolean isOnTarget() {
         return currentPos == setPos;
+    }
+
+    /** disable motor and stop it */
+    public void stop(){
+        setDisabled();
     }
 }
 
