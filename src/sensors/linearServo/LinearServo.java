@@ -47,7 +47,7 @@ public class LinearServo extends Servo {
         super.setSpeed((setPos / maxLength * 2) - 1);
     }
 
-    /** move the linear servo forward or reverse according to thr speed sign
+    /** move the linear servo forward or reverse according to the speed sign
      *
      *@param speed determine the direction
      *
