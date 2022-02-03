@@ -31,12 +31,34 @@ public class LinearServo extends Servo {
         currentPos = this.maxLength * this.get();
     }
 
+    /** calibrate the linear servo
+     * you can override this function and use different position or use setPosition once.
+     *
+     * the calibrate position doesn't meter and you only need to do this once*/
+    public void calibrate(){
+        setPosition(0);
+    }
+
     /**
      * @param setpoint the target position of the servo [mm]
      */
     public void setPosition(double setpoint) {
         setPos = MathUtil.clamp(setpoint, 0, maxLength);
-        setSpeed((setPos / maxLength * 2) - 1);
+        super.setSpeed((setPos / maxLength * 2) - 1);
+    }
+
+    /** move the linear servo forward or reverse according to thr speed sign
+     *
+     *@param speed determine the direction
+     *
+     * speed equal to 0 stops the linear servo
+     * speed > 0 moves the linear servo forward
+     * speed < 0 moves the linear servo reverse
+     *
+     * dont forget to calibrate once the linearServo other wise it will not stop.
+     * */
+    public void setSpeed(double speed){
+        setPosition(speed == 0 ? currentPos : speed > 0 ? maxLength : 0);
     }
 
     private double lastTime = 0;
@@ -44,6 +66,7 @@ public class LinearServo extends Servo {
     /**
      * Run this method in any periodic function to update the position estimation of your
      * servo
+     *
      */
     public void updateCurrentPosition() {
         double timestamp = Timer.getFPGATimestamp();
@@ -60,8 +83,9 @@ public class LinearServo extends Servo {
     }
 
     /**
-     * Current position of the servo, must be calling {@link #updateCurrentPosition()
-     * updateCurPos()} periodically
+     * Current position of the servo, must be calling {@link #updateCurrentPosition()} periodically
+     *
+     * dont forget to calibrate the linear servo before reading the position
      *
      * @return Servo Position [mm]
      */
