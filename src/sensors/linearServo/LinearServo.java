@@ -3,7 +3,6 @@ package sensors.linearServo;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.motorcontrol.PWMMotorController;
 
 public class LinearServo extends Servo {
 
