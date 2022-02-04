@@ -68,7 +68,7 @@ public class LinearServo extends Servo {
      * */
     @Override
     public void setSpeed(double speed) {
-        setPosition(speed == 0 ? currentPos : Math.max(Math.min(speed, maxSpeed), 0));
+        setPosition(speed == 0 ? currentPos : MathUtil.clamp(speed, 0, maxLength));
     }
 
     private double lastTime = 0;
