@@ -67,7 +67,7 @@ public class LinearServo extends Servo {
      * dont forget to calibrate once the linearServo other wise it will not stop.
      * */
     @Override
-    public void setSpeed(double speed){
+    public void setSpeed(double speed) {
         setPosition(speed == 0 ? currentPos : Math.min(Math.max(Math.ceil(speed),0) * maxLength , maxLength));
     }
 
