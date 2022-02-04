@@ -31,20 +31,29 @@ public class LinearServo extends Servo {
         currentPos = this.maxLength * this.get();
     }
 
-    /** calibrate the linear servo
-     * you can override this function and use different position or use setPosition once.
+    /**
+     * convert setpoint[mm] to PWM value
      *
-     * the calibrate position doesn't meter and you only need to do this once*/
-    public void calibrate(){
-        setPosition(0);
+     * @param setpoint the target position of the servo [mm]
+     */
+    private double convertSetpointToPWM(double setpoint){
+        setPos = MathUtil.clamp(setpoint, 0, maxLength);
+        return (setPos / maxLength * 2) - 1;
     }
 
     /**
      * @param setpoint the target position of the servo [mm]
      */
     public void setPosition(double setpoint) {
-        setPos = MathUtil.clamp(setpoint, 0, maxLength);
-        super.setSpeed((setPos / maxLength * 2) - 1);
+        super.setSpeed(convertSetpointToPWM(setpoint));
+    }
+
+    /** calibrate the linear servo
+     * you can override this function and use different position or use setPosition once.
+     *
+     * the calibrate position doesn't meter and you only need to do this once*/
+    public void calibrate() {
+        setPosition(0);
     }
 
     /** move the linear servo forward or reverse according to the speed sign
@@ -57,8 +66,9 @@ public class LinearServo extends Servo {
      *
      * dont forget to calibrate once the linearServo other wise it will not stop.
      * */
+    @Override
     public void setSpeed(double speed){
-        setPosition(speed == 0 ? currentPos : speed > 0 ? maxLength : 0);
+        setPosition(speed == 0 ? currentPos : Math.min(Math.max(Math.ceil(speed),0) * maxLength , maxLength));
     }
 
     private double lastTime = 0;
