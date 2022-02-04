@@ -1,5 +1,6 @@
 package sensors.linearServo;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
@@ -32,18 +33,49 @@ public class LinearServo extends Servo {
     }
 
     /**
+     * convert setpoint[mm] to PWM value
+     *
+     * @param setpoint the target position of the servo [mm]
+     */
+    private double convertSetpointToPWM(double setpoint) {
+        setPos = MathUtil.clamp(setpoint, 0, maxLength);
+        return (setPos / maxLength * 2) - 1;
+    }
+
+    /**
      * @param setpoint the target position of the servo [mm]
      */
     public void setPosition(double setpoint) {
-        setPos = MathUtil.clamp(setpoint, 0, maxLength);
-        setSpeed((setPos / maxLength * 2) - 1);
+        super.setSpeed(convertSetpointToPWM(setpoint));
+    }
+
+    /** calibrate the linear servo
+     * you can override this function and use different position or use setPosition once.
+     *
+     * the calibrate position doesn't meter and you only need to do this once*/
+    public void calibrate() {
+        setPosition(0);
+    }
+
+    /** move the linear servo forward or reverse according to the speed sign
+     *
+     *@param speed determine the direction
+     *
+     * speed equal to 0 stops the linear servo
+     * speed > 0 moves the linear servo forward
+     * speed < 0 moves the linear servo reverse
+     *
+     * dont forget to calibrate once the linearServo other wise it will not stop.
+     * */
+    @Override
+    public void setSpeed(double speed) {
+        setPosition(speed == 0 ? currentPos : Math.min(Math.max(Math.ceil(speed),0) * maxLength , maxLength));
     }
 
     private double lastTime = 0;
 
     /**
-     * Run this method in any periodic function to update the position estimation of your
-     * servo
+     * Run this method in any periodic function to update the position estimation of your servo
      */
     public void updateCurrentPosition() {
         double timestamp = Timer.getFPGATimestamp();
@@ -60,8 +92,9 @@ public class LinearServo extends Servo {
     }
 
     /**
-     * Current position of the servo, must be calling {@link #updateCurrentPosition()
-     * updateCurPos()} periodically
+     * Current position of the servo, must be calling {@link #updateCurrentPosition()} periodically
+     *
+     * dont forget to calibrate the linear servo before reading the position
      *
      * @return Servo Position [mm]
      */
@@ -77,6 +110,11 @@ public class LinearServo extends Servo {
      */
     public boolean isOnTarget() {
         return currentPos == setPos;
+    }
+
+    /** disable motor and stop it */
+    public void disableLinearServo() {
+        setDisabled();
     }
 }
 
