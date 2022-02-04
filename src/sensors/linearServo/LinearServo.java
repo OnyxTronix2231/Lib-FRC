@@ -37,7 +37,7 @@ public class LinearServo extends Servo {
      *
      * @param setpoint the target position of the servo [mm]
      */
-    private double convertSetpointToPWM(double setpoint){
+    private double convertSetpointToPWM(double setpoint) {
         setPos = MathUtil.clamp(setpoint, 0, maxLength);
         return (setPos / maxLength * 2) - 1;
     }
@@ -113,7 +113,7 @@ public class LinearServo extends Servo {
     }
 
     /** disable motor and stop it */
-    public void disableLinearServo(){
+    public void disableLinearServo() {
         setDisabled();
     }
 }
