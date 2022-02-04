@@ -1,5 +1,6 @@
 package sensors.linearServo;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
@@ -74,9 +75,7 @@ public class LinearServo extends Servo {
     private double lastTime = 0;
 
     /**
-     * Run this method in any periodic function to update the position estimation of your
-     * servo
-     *
+     * Run this method in any periodic function to update the position estimation of your servo
      */
     public void updateCurrentPosition() {
         double timestamp = Timer.getFPGATimestamp();
@@ -114,7 +113,7 @@ public class LinearServo extends Servo {
     }
 
     /** disable motor and stop it */
-    public void stop(){
+    public void disableLinearServo(){
         setDisabled();
     }
 }
