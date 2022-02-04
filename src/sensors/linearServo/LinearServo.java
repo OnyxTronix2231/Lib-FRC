@@ -1,5 +1,6 @@
 package sensors.linearServo;
 
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
@@ -68,7 +69,7 @@ public class LinearServo extends Servo {
      * */
     @Override
     public void setSpeed(double speed) {
-        setPosition(speed == 0 ? currentPos : MathUtil.clamp(speed, 0, maxLength));
+        setPosition(speed == 0 ? currentPos : Math.min(Math.max(Math.ceil(speed),0) * maxLength , maxLength));
     }
 
     private double lastTime = 0;
