@@ -38,15 +38,22 @@ public class ConsoleController extends GenericHID {
         this.centerLeft = centerLeft;
         this.stickLeft = stickLeft;
         this.stickRight = stickRight;
-        this.axisLeftX = axisLeftX;
+        this.bumperRight = bumperRight;
+        this.bumperLeft = bumperLeft;
 
+        this.axisLeftX = axisLeftX;
         this.axisLeftY = axisLeftY;
         this.axisRightX = axisRightX;
         this.axisRightY = axisRightY;
         this.leftTrigger = leftTrigger;
         this.rightTrigger = rightTrigger;
-        this.bumperRight = bumperRight;
-        this.bumperLeft = bumperLeft;
+    }
+
+    /**
+     * Get the port of the controller.
+     */
+    public int getPort() {
+        return port;
     }
 
     /**
@@ -83,13 +90,6 @@ public class ConsoleController extends GenericHID {
      */
     public double getRightY() {
         return getRawAxis(axisRightY);
-    }
-
-    /**
-     * Get the port of the controller.
-     */
-    public int getPort(){
-        return port;
     }
 
     /**
@@ -382,48 +382,16 @@ public class ConsoleController extends GenericHID {
         return getRawButtonReleased(centerRight);
     }
 
-    public int getButtonDown() {
-        return buttonDown;
-    }
-
-    public int getButtonUp() {
-        return buttonUp;
-    }
-
-    public int getButtonLeft() {
-        return buttonLeft;
-    }
-
-    public int getButtonRight() {
-        return buttonRight;
-    }
-
-    public int getCenterRight() {
-        return centerRight;
-    }
-
-    public int getCenterLeft() {
-        return centerLeft;
-    }
-
-    public int getStickLeft() {
-        return stickLeft;
-    }
-
-    public int getStickRight() {
-        return stickRight;
-    }
-
     public int getAxisLeftX() {
         return axisLeftX;
     }
 
-    public int getAxisLeftY() {
-        return axisLeftY;
-    }
-
     public int getAxisRightX() {
         return axisRightX;
+    }
+
+    public int getAxisLeftY() {
+        return axisLeftY;
     }
 
     public int getAxisRightY() {
@@ -444,5 +412,37 @@ public class ConsoleController extends GenericHID {
 
     public int getBumperLeft() {
         return bumperLeft;
+    }
+
+    public int getStickLeft() {
+        return stickLeft;
+    }
+
+    public int getStickRight() {
+        return stickRight;
+    }
+
+    public int getButtonDown() {
+        return buttonDown;
+    }
+
+    public int getButtonRight() {
+        return buttonRight;
+    }
+
+    public int getButtonLeft() {
+        return buttonLeft;
+    }
+
+    public int getButtonUp() {
+        return buttonUp;
+    }
+
+    public int getCenterLeft() {
+        return centerLeft;
+    }
+
+    public int getCenterRight() {
+        return centerRight;
     }
 }

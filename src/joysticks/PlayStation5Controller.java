@@ -9,6 +9,7 @@ public class PlayStation5Controller extends ConsoleController {
      * Represents a digital button on an PS5 Controller.
      */
     public enum Button {
+
         kSquare(1),
         kX(2),
         kCircle(3),
@@ -34,6 +35,7 @@ public class PlayStation5Controller extends ConsoleController {
      * Represents an axis on an PS5 Controller.
      */
     public enum Axis {
+        
         kLeftX(0),
         kLeftY(1),
         KRightX(2),

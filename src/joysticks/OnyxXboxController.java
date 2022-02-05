@@ -9,16 +9,17 @@ public class OnyxXboxController extends ConsoleController {
      * Represents a digital button on an XboxController.
      */
     public enum Button {
-        kBumperLeft(5),
-        kBumperRight(6),
-        kStickLeft(9),
-        kStickRight(10),
+
         kA(1),
         kB(2),
         kX(3),
         kY(4),
+        kBumperLeft(5),
+        kBumperRight(6),
         kBack(7),
-        kStart(8);
+        kStart(8),
+        kStickLeft(9),
+        kStickRight(10);
 
         @SuppressWarnings({"MemberName", "PMD.SingularField"})
         public final int value;
@@ -32,12 +33,13 @@ public class OnyxXboxController extends ConsoleController {
      * Represents an axis on an XboxController.
      */
     public enum Axis {
+
         kLeftX(0),
-        kRightX(4),
         kLeftY(1),
-        kRightY(5),
         kLeftTrigger(2),
-        kRightTrigger(3);
+        kRightTrigger(3),
+        kRightX(4),
+        kRightY(5);
 
         @SuppressWarnings({"MemberName", "PMD.SingularField"})
         public final int value;
