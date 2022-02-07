@@ -11,7 +11,7 @@ import sensors.counter.CtreEncoder;
 public abstract class CtreController extends AbstractController {
 
   protected IMotorControllerEnhanced ctreMotorController;
-  protected CtreEncoder encoder;
+  protected CtreEncoder ctreEncoder;
   protected int slotIdx;
   protected int pidIdx;
   protected int timeoutMs;
@@ -41,7 +41,7 @@ public abstract class CtreController extends AbstractController {
                         PIDFTerms pidfTerms, int slotIdx,int pidIdx, int timeoutMs) {
     super(pidfTerms);
     this.ctreMotorController = motorControllerEnhanced;
-    this.encoder = ctreEncoder;
+    this.ctreEncoder = ctreEncoder;
     this.slotIdx = slotIdx;
     this.pidIdx = pidIdx;
     this.timeoutMs = timeoutMs;
@@ -53,7 +53,7 @@ public abstract class CtreController extends AbstractController {
   }
 
   public CtreEncoder getCtreEncoder() {
-    return encoder;
+    return ctreEncoder;
   }
 
   public int getTimeoutMs() {
@@ -100,6 +100,6 @@ public abstract class CtreController extends AbstractController {
   public abstract void update(double setpoint, double feedForward);
 
   public void resetEncoder() {
-    encoder.reset();
+    ctreEncoder.reset();
   }
 }
