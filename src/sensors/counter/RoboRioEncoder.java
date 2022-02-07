@@ -3,6 +3,7 @@ package sensors.counter;
 import edu.wpi.first.wpilibj.Encoder;
 
 public class RoboRioEncoder implements Counter {
+
     private final Encoder encoder;
 
     public RoboRioEncoder(final Encoder encoder) {
