@@ -9,33 +9,33 @@ import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.IMotorControllerEnhanced;
 import exceptions.UnsupportedControlModeException;
 import pid.interfaces.PIDController;
-import sensors.counter.Counter;
+import sensors.counter.CtreEncoder;
 
 public class CtrePIDController extends CtreController implements PIDController {
 
   protected final PIDControlMode pidControlMode;
 
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, Counter encoder,
+  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            PIDFTerms pidfTerms, PIDControlMode pidControlMode) {
-    this(ctreMotorController, encoder, pidfTerms, DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
+    this(ctreMotorController, ctreEncoder, pidfTerms, DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
             CTRE_DEVICE_CALLS_TIMEOUT, pidControlMode);
   }
 
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, Counter encoder,
+  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            double kP, double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs,
                            PIDControlMode pidControlMode) {
-    this(ctreMotorController, encoder, new PIDFTerms(kP, kI, kD, kF), slotIdx, pidIdx, timeoutMs, pidControlMode);
+    this(ctreMotorController, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), slotIdx, pidIdx, timeoutMs, pidControlMode);
   }
 
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, Counter encoder,
+  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            double kP, double kI, double kD, double kF, PIDControlMode pidControlMode) {
-    this(ctreMotorController, encoder, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
+    this(ctreMotorController, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
             CTRE_DEVICE_CALLS_TIMEOUT, pidControlMode);
   }
 
-  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, Counter encoder,
+  public CtrePIDController(IMotorControllerEnhanced ctreMotorController, CtreEncoder ctreEncoder,
                            PIDFTerms pidfTerms, int slotIdx, int pidIdx, int timeoutMs, PIDControlMode pidControlMode) {
-    super(ctreMotorController, encoder, pidfTerms, slotIdx, pidIdx, timeoutMs);
+    super(ctreMotorController, ctreEncoder, pidfTerms, slotIdx, pidIdx, timeoutMs);
     this.pidControlMode = pidControlMode;
   }
 

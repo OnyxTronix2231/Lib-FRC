@@ -3,6 +3,7 @@ package pid;
 import pid.interfaces.Controller;
 
 public abstract class AbstractController implements Controller {
+
   protected PIDFTerms pidfTerms;
   protected double setpoint;
 

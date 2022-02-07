@@ -1,6 +1,7 @@
 package sensors.counter;
 
 public class DistanceMeterEncoder implements Counter, DistanceMeter {
+
     private final Counter counter;
     private final double distancePerCount;
 

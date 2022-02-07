@@ -2,7 +2,7 @@ package sensors.counter;
 
 import com.ctre.phoenix.sensors.CANCoder;
 
-public class CtreCANCoder extends CANCoder implements Counter {
+public class CtreCANCoder extends CANCoder implements CtreEncoder {
 
     public CtreCANCoder(int deviceNumber, String canbus) {
         super(deviceNumber, canbus);
