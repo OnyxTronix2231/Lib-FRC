@@ -10,96 +10,96 @@ import sensors.counter.CtreEncoder;
 
 public abstract class CtreController extends AbstractController {
 
-  protected IMotorControllerEnhanced ctreMotorController;
-  protected CtreEncoder ctreEncoder;
-  protected int slotIdx;
-  protected int pidIdx;
-  protected int timeoutMs;
-  /**
-   To avoid returning true on the first calls of IsOnTarget due to the Talon's
-   slow update rate, we need to make sure that the error has been updated
-   */
-  protected double firstError;
+    protected IMotorControllerEnhanced ctreMotorController;
+    protected CtreEncoder ctreEncoder;
+    protected int slotIdx;
+    protected int pidIdx;
+    protected int timeoutMs;
+    /**
+     * To avoid returning true on the first calls of IsOnTarget due to the Talon's
+     * slow update rate, we need to make sure that the error has been updated
+     */
+    protected double firstError;
 
-  public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
-                        PIDFTerms pidfTerms) {
-    this(motorControllerEnhanced, ctreEncoder, pidfTerms, DEFAULT_SLOT_IDX, DEFAULT_PID_IDX, CTRE_DEVICE_CALLS_TIMEOUT);
-  }
+    public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
+                          PIDFTerms pidfTerms) {
+        this(motorControllerEnhanced, ctreEncoder, pidfTerms, DEFAULT_SLOT_IDX, DEFAULT_PID_IDX, CTRE_DEVICE_CALLS_TIMEOUT);
+    }
 
-  public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
-                        double kP, double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs) {
-    this(motorControllerEnhanced, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), slotIdx, pidIdx, timeoutMs);
-  }
+    public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
+                          double kP, double kI, double kD, double kF, int slotIdx, int pidIdx, int timeoutMs) {
+        this(motorControllerEnhanced, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), slotIdx, pidIdx, timeoutMs);
+    }
 
-  public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
-                        double kP, double kI, double kD, double kF) {
-    this(motorControllerEnhanced, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
-        CTRE_DEVICE_CALLS_TIMEOUT);
-  }
+    public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
+                          double kP, double kI, double kD, double kF) {
+        this(motorControllerEnhanced, ctreEncoder, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_IDX, DEFAULT_PID_IDX,
+                CTRE_DEVICE_CALLS_TIMEOUT);
+    }
 
-  public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
-                        PIDFTerms pidfTerms, int slotIdx,int pidIdx, int timeoutMs) {
-    super(pidfTerms);
-    this.ctreMotorController = motorControllerEnhanced;
-    this.ctreEncoder = ctreEncoder;
-    this.slotIdx = slotIdx;
-    this.pidIdx = pidIdx;
-    this.timeoutMs = timeoutMs;
-    configVariables();
-  }
+    public CtreController(IMotorControllerEnhanced motorControllerEnhanced, CtreEncoder ctreEncoder,
+                          PIDFTerms pidfTerms, int slotIdx, int pidIdx, int timeoutMs) {
+        super(pidfTerms);
+        this.ctreMotorController = motorControllerEnhanced;
+        this.ctreEncoder = ctreEncoder;
+        this.slotIdx = slotIdx;
+        this.pidIdx = pidIdx;
+        this.timeoutMs = timeoutMs;
+        configVariables();
+    }
 
-  public IMotorControllerEnhanced getCtreMotorController() {
-    return ctreMotorController;
-  }
+    public IMotorControllerEnhanced getCtreMotorController() {
+        return ctreMotorController;
+    }
 
-  public CtreEncoder getCtreEncoder() {
-    return ctreEncoder;
-  }
+    public CtreEncoder getCtreEncoder() {
+        return ctreEncoder;
+    }
 
-  public int getTimeoutMs() {
-    return timeoutMs;
-  }
+    public int getTimeoutMs() {
+        return timeoutMs;
+    }
 
-  public void setTimeoutMs(int timeoutMs) {
-    this.timeoutMs = timeoutMs;
-  }
+    public void setTimeoutMs(int timeoutMs) {
+        this.timeoutMs = timeoutMs;
+    }
 
-  @Override
-  public void setPIDFTerms(PIDFTerms pidfTerms) {
-    super.setPIDFTerms(pidfTerms);
-    ctreMotorController.config_kP(slotIdx, pidfTerms.getKp(), this.timeoutMs);
-    ctreMotorController.config_kI(slotIdx, pidfTerms.getKi(), this.timeoutMs);
-    ctreMotorController.config_kD(slotIdx, pidfTerms.getKd(), this.timeoutMs);
-    ctreMotorController.config_kF(slotIdx, pidfTerms.getKf(), this.timeoutMs);
-  }
+    @Override
+    public void setPIDFTerms(PIDFTerms pidfTerms) {
+        super.setPIDFTerms(pidfTerms);
+        ctreMotorController.config_kP(slotIdx, pidfTerms.getKp(), this.timeoutMs);
+        ctreMotorController.config_kI(slotIdx, pidfTerms.getKi(), this.timeoutMs);
+        ctreMotorController.config_kD(slotIdx, pidfTerms.getKd(), this.timeoutMs);
+        ctreMotorController.config_kF(slotIdx, pidfTerms.getKf(), this.timeoutMs);
+    }
 
-  protected boolean isFirstRun() {
-    return getCurrentError() == firstError;
-  }
+    protected boolean isFirstRun() {
+        return getCurrentError() == firstError;
+    }
 
-  @Override
-  public void disable() {
-    this.ctreMotorController.set(ControlMode.PercentOutput, 0);
-  }
+    @Override
+    public void disable() {
+        this.ctreMotorController.set(ControlMode.PercentOutput, 0);
+    }
 
-  public void enable(double feedForward){
-    firstError = getCurrentError();
-    configVariables();
-  }
+    public void enable(double feedForward) {
+        firstError = getCurrentError();
+        configVariables();
+    }
 
-  public void enable(){
-    firstError = getCurrentError();
-    configVariables();
-  }
+    public void enable() {
+        firstError = getCurrentError();
+        configVariables();
+    }
 
-  protected void configVariables() {
-    this.setPIDFTerms(pidfTerms);
-    ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
-  }
+    protected void configVariables() {
+        this.setPIDFTerms(pidfTerms);
+        ctreMotorController.selectProfileSlot(slotIdx, pidIdx);
+    }
 
-  public abstract void update(double setpoint, double feedForward);
+    public abstract void update(double setpoint, double feedForward);
 
-  public void resetEncoder() {
-    ctreEncoder.reset();
-  }
+    public void resetEncoder() {
+        ctreEncoder.reset();
+    }
 }

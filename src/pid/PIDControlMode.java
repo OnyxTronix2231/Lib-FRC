@@ -2,7 +2,7 @@ package pid;
 
 public enum PIDControlMode {
 
-  Position,
+    Position,
 
-  Velocity
+    Velocity
 }
