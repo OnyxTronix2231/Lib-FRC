@@ -10,12 +10,12 @@ public class TalonEncoder implements CtreEncoder {
   private final int slotIdx;
   private final int timeoutResetMs;
 
-  public TalonEncoder(IMotorControllerEnhanced baseTalon, int slotIdx) {
-    this(baseTalon, slotIdx, CTRE_DEVICE_CALLS_TIMEOUT);
+  public TalonEncoder(IMotorControllerEnhanced baseTalon) {
+    this(baseTalon, DEFAULT_SLOT_IDX);
   }
 
-  public TalonEncoder(IMotorControllerEnhanced baseTalon) {
-    this(baseTalon, DEFAULT_SLOT_IDX, CTRE_DEVICE_CALLS_TIMEOUT);
+  public TalonEncoder(IMotorControllerEnhanced baseTalon, int slotIdx) {
+    this(baseTalon, slotIdx, CTRE_DEVICE_CALLS_TIMEOUT);
   }
 
   public TalonEncoder(IMotorControllerEnhanced baseTalon, int slotIdx, int timeoutResetMs) {
@@ -23,7 +23,6 @@ public class TalonEncoder implements CtreEncoder {
     this.slotIdx = slotIdx;
     this.timeoutResetMs = timeoutResetMs;
   }
-
 
   @Override
   public double getCount() {
