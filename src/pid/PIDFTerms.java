@@ -1,48 +1,48 @@
 package pid;
 
 public class PIDFTerms {
-  private double kP;
-  private double kI;
-  private double kD;
-  private double kF;
 
-  public PIDFTerms(double kP, double kI, double kD, double kF) {
-    this.kP = kP;
-    this.kI = kI;
-    this.kD = kD;
-    this.kF = kF;
-  }
+    private double kP;
+    private double kI;
+    private double kD;
+    private double kF;
 
-  public double getKp() {
-    return kP;
-  }
+    public PIDFTerms(double kP, double kI, double kD, double kF) {
+        this.kP = kP;
+        this.kI = kI;
+        this.kD = kD;
+        this.kF = kF;
+    }
 
-  public double getKi() {
-    return kI;
-  }
+    public double getKp() {
+        return kP;
+    }
 
-  public double getKd() {
-    return kD;
-  }
+    public double getKi() {
+        return kI;
+    }
 
-  public double getKf() {
-    return kF;
-  }
+    public double getKd() {
+        return kD;
+    }
 
-  void setP(double kP) {
-    this.kP = kP;
-  }
+    public double getKf() {
+        return kF;
+    }
 
-  void setI(double kI) {
-    this.kI = kI;
-  }
+    void setP(double kP) {
+        this.kP = kP;
+    }
 
-  void setD(double kD) {
-    this.kD = kD;
-  }
+    void setI(double kI) {
+        this.kI = kI;
+    }
 
-  void setF(double kF) {
-    this.kF = kF;
-  }
+    void setD(double kD) {
+        this.kD = kD;
+    }
 
+    void setF(double kF) {
+        this.kF = kF;
+    }
 }
