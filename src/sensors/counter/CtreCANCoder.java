@@ -18,8 +18,7 @@ public class CtreCANCoder extends CANCoder implements CtreEncoder {
     }
 
     public CtreCANCoder(int deviceNumber, int timeoutResetMs) {
-        super(deviceNumber);
-        this.timeoutResetMs = timeoutResetMs;
+        this(deviceNumber, CTRE_CAN_CODER_BUS, timeoutResetMs);
     }
 
     public CtreCANCoder(int deviceNumber, String canbus, int timeoutResetMs) {
