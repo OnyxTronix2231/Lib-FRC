@@ -1,7 +1,7 @@
 package onyxTronix;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import joysticks.ConsoleController;
+import humanControls.ConsoleController;
+import humanControls.JoystickAxis;
 
 public class UniqueAxisCache extends UniqueTriggerCache<JoystickAxis> {
 

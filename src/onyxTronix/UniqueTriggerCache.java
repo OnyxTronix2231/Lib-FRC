@@ -1,8 +1,7 @@
 package onyxTronix;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import joysticks.ConsoleController;
+import humanControls.ConsoleController;
 
 import java.util.ArrayList;
 

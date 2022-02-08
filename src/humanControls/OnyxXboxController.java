@@ -1,4 +1,4 @@
-package joysticks;
+package humanControls;
 
 import edu.wpi.first.hal.FRCNetComm;
 
