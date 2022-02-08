@@ -1,5 +1,6 @@
 package joysticks;
 
+import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.GenericHID;
 
 public class ConsoleController extends GenericHID {
@@ -20,15 +21,14 @@ public class ConsoleController extends GenericHID {
     private final int rightTrigger;
     private final int bumperRight;
     private final int bumperLeft;
-    private final int port;
 
-    public ConsoleController(int port, int buttonDown, int buttonUp, int buttonLeft, int buttonRight, int centerRight,
-                             int centerLeft, int stickLeft, int stickRight, int axisLeftX, int axisLeftY,
-                             int axisRightX, int axisRightY, int leftTrigger, int rightTrigger, int bumperRight,
-                             int bumperLeft) {
+    public ConsoleController(int port, int resourceType, int buttonDown, int buttonUp, int buttonLeft, int buttonRight,
+                             int centerRight, int centerLeft, int stickLeft, int stickRight, int axisLeftX,
+                             int axisLeftY, int axisRightX, int axisRightY, int leftTrigger, int rightTrigger,
+                             int bumperRight, int bumperLeft) {
         super(port);
 
-        this.port = port;
+        HAL.report(resourceType, port + 1);
 
         this.buttonDown = buttonDown;
         this.buttonUp = buttonUp;
@@ -47,13 +47,6 @@ public class ConsoleController extends GenericHID {
         this.axisRightY = axisRightY;
         this.leftTrigger = leftTrigger;
         this.rightTrigger = rightTrigger;
-    }
-
-    /**
-     * Get the port of the controller.
-     */
-    public int getPort() {
-        return port;
     }
 
     /**

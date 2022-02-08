@@ -1,7 +1,6 @@
 package joysticks;
 
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
-import edu.wpi.first.hal.HAL;
 
 public class PlayStation5Controller extends ConsoleController {
 
@@ -10,19 +9,19 @@ public class PlayStation5Controller extends ConsoleController {
      */
     private enum Button {
 
-        kSquare(1),
-        kX(2),
-        kCircle(3),
-        kTriangle(4),
-        kLeftBumper(5),
-        kRightBumper(6),
-        kShare(9),
-        kOptions(10),
-        kLeftStick(11),
-        kRightStick(12),
-        kPS(13),
-        kPadPress(14),
-        kMute(15);
+        Square(1),
+        X(2),
+        Circle(3),
+        Triangle(4),
+        LeftBumper(5),
+        RightBumper(6),
+        Share(9),
+        Options(10),
+        LeftStick(11),
+        RightStick(12),
+        PS(13),
+        PadPress(14),
+        Mute(15);
 
         public final int value;
 
@@ -35,13 +34,13 @@ public class PlayStation5Controller extends ConsoleController {
      * Represents an axis on an PS5 Controller.
      */
     private enum Axis {
-        
-        kLeftX(0),
-        kLeftY(1),
-        KRightX(2),
-        kLeftTrigger(3),
-        kRightTrigger(4),
-        kRightY(5);
+
+        LeftX(0),
+        LeftY(1),
+        RightX(2),
+        LeftTrigger(3),
+        RightTrigger(4),
+        RightY(5);
 
         public final int value;
 
@@ -57,17 +56,15 @@ public class PlayStation5Controller extends ConsoleController {
      * @param port The port on the Driver Station that the joystick is plugged into.
      */
     public PlayStation5Controller(int port) {
-        super(port, Button.kX.value, Button.kTriangle.value, Button.kSquare.value, Button.kCircle.value,
-            Button.kOptions.value, Button.kShare.value, Button.kLeftStick.value, Button.kRightStick.value,
-            Axis.kLeftX.value, Axis.kLeftY.value, Axis.KRightX.value, Axis.kRightY.value, Axis.kLeftTrigger.value,
-            Axis.kRightTrigger.value, Button.kRightBumper.value, Button.kLeftBumper.value);
-
-        HAL.report(tResourceType.kResourceType_Joystick, port + 1);
+        super(port, tResourceType.kResourceType_Joystick, Button.X.value, Button.Triangle.value, Button.Square.value,
+                Button.Circle.value, Button.Options.value, Button.Share.value, Button.LeftStick.value,
+                Button.RightStick.value, Axis.LeftX.value, Axis.LeftY.value, Axis.RightX.value, Axis.RightY.value,
+                Axis.LeftTrigger.value, Axis.RightTrigger.value, Button.RightBumper.value, Button.LeftBumper.value);
     }
 
     @Override
     public double getRawAxis(int axis) {
-        if(axis == Axis.kLeftTrigger.value || axis == Axis.kRightTrigger.value) {
+        if (axis == Axis.LeftTrigger.value || axis == Axis.RightTrigger.value) {
             return (super.getRawAxis(axis) + 1) / 2;
         }
         return super.getRawAxis(axis);

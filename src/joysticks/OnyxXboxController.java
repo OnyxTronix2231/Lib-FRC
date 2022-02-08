@@ -1,7 +1,6 @@
 package joysticks;
 
 import edu.wpi.first.hal.FRCNetComm;
-import edu.wpi.first.hal.HAL;
 
 public class OnyxXboxController extends ConsoleController {
 
@@ -10,18 +9,17 @@ public class OnyxXboxController extends ConsoleController {
      */
     private enum Button {
 
-        kA(1),
-        kB(2),
-        kX(3),
-        kY(4),
-        kBumperLeft(5),
-        kBumperRight(6),
-        kBack(7),
-        kStart(8),
-        kStickLeft(9),
-        kStickRight(10);
+        A(1),
+        B(2),
+        X(3),
+        Y(4),
+        BumperLeft(5),
+        BumperRight(6),
+        Back(7),
+        Start(8),
+        StickLeft(9),
+        StickRight(10);
 
-        @SuppressWarnings({"MemberName", "PMD.SingularField"})
         public final int value;
 
         Button(int value) {
@@ -34,14 +32,13 @@ public class OnyxXboxController extends ConsoleController {
      */
     private enum Axis {
 
-        kLeftX(0),
-        kLeftY(1),
-        kLeftTrigger(2),
-        kRightTrigger(3),
-        kRightX(4),
-        kRightY(5);
+        LeftX(0),
+        LeftY(1),
+        LeftTrigger(2),
+        RightTrigger(3),
+        RightX(4),
+        RightY(5);
 
-        @SuppressWarnings({"MemberName", "PMD.SingularField"})
         public final int value;
 
         Axis(int value) {
@@ -56,11 +53,9 @@ public class OnyxXboxController extends ConsoleController {
      * @param port The port on the Driver Station that the joystick is plugged into.
      */
     public OnyxXboxController(final int port) {
-        super(port, Button.kA.value, Button.kY.value, Button.kX.value, Button.kB.value, Button.kStart.value,
-            Button.kBack.value, Button.kStickLeft.value, Button.kStickRight.value, Axis.kLeftX.value, Axis.kLeftY.value,
-            Axis.kRightX.value, Axis.kRightY.value, Axis.kLeftTrigger.value, Axis.kRightTrigger.value,
-            Button.kBumperRight.value, Button.kBumperLeft.value);
-
-        HAL.report(FRCNetComm.tResourceType.kResourceType_XboxController, port + 1);
+        super(port, FRCNetComm.tResourceType.kResourceType_XboxController, Button.A.value, Button.Y.value,
+                Button.X.value, Button.B.value, Button.Start.value, Button.Back.value, Button.StickLeft.value,
+                Button.StickRight.value, Axis.LeftX.value, Axis.LeftY.value, Axis.RightX.value, Axis.RightY.value,
+                Axis.LeftTrigger.value, Axis.RightTrigger.value, Button.BumperRight.value, Button.BumperLeft.value);
     }
 }
