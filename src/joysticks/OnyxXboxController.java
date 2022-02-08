@@ -8,7 +8,7 @@ public class OnyxXboxController extends ConsoleController {
     /**
      * Represents a digital button on an XboxController.
      */
-    public enum Button {
+    private enum Button {
 
         kA(1),
         kB(2),
@@ -32,7 +32,7 @@ public class OnyxXboxController extends ConsoleController {
     /**
      * Represents an axis on an XboxController.
      */
-    public enum Axis {
+    private enum Axis {
 
         kLeftX(0),
         kLeftY(1),
