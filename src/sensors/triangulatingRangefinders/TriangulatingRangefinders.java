@@ -15,7 +15,9 @@ public class TriangulatingRangefinders extends AnalogInput {
         super(channel);
     }
 
-    /** returns the distance[cm] from object */
+    /** returns the distance[cm] from object
+     * sensor range: 10 - 80 [cm]
+     */
     public double getDistance(){
         return FORMULA_MULTIPLIER_CONSTANT * Math.pow(this.getVoltage(), FORMULA_POW_CONSTANT);
     }
