@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj.AnalogInput;
 
 public class TriangulatingRangefinders extends AnalogInput {
 
-    private double FORMULA_MULTIPLIER_CONSTANT = 29.988;
-    private double FORMULA_POW_CONSTANT = -1.173;
+    private final static double FORMULA_MULTIPLIER_CONSTANT = 29.988;
+    private final static double FORMULA_POW_CONSTANT = -1.173;
 
     /**
      *this class work with GP2Y0A02YK0F IR sensor,
