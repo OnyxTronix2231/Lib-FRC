@@ -21,5 +21,4 @@ public class TriangulatingRangefinder extends AnalogInput {
     public double getDistance(){
         return FORMULA_MULTIPLIER_CONSTANT * Math.pow(this.getVoltage(), FORMULA_POW_CONSTANT);
     }
-
 }
