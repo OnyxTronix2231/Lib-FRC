@@ -16,6 +16,6 @@ public class TalonFxReverseMicroswitch implements Switch {
 
     @Override
     public boolean isOpen() {
-        return talonFX.getSensorCollection().isFwdLimitSwitchClosed() != 0;
+        return talonFX.getSensorCollection().isRevLimitSwitchClosed() != 0;
     }
 }
