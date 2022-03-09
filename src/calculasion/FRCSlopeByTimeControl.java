@@ -2,7 +2,7 @@ package calculasion;
 
 import edu.wpi.first.wpilibj.Timer;
 
-public class FRCSlopeControl {
+public class FRCSlopeByTimeControl {
 
     private int counter = 0;
     private double lastTime = 0;
