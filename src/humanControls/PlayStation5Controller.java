@@ -1,6 +1,7 @@
 package humanControls;
 
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class PlayStation5Controller extends ConsoleController {
 
@@ -64,6 +65,9 @@ public class PlayStation5Controller extends ConsoleController {
 
     @Override
     public double getRawAxis(int axis) {
+        if (!DriverStation.isJoystickConnected(getPort())) {
+            return 0;
+        }
         if (axis == Axis.LeftTrigger.value || axis == Axis.RightTrigger.value) {
             return (super.getRawAxis(axis) + 1) / 2;
         }
