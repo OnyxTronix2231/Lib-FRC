@@ -8,6 +8,7 @@ public class FRCAccelerasionControll {
     private double lastTime = 0;
     private double lastSpeed = 0;
     private double currentAcceleration = 0;
+    private double totalAcceleration = 0;
 
     /**
      * call this function on periodic
@@ -21,6 +22,7 @@ public class FRCAccelerasionControll {
         double dv = speed - lastSpeed;
         lastSpeed = speed;
         currentAcceleration = dv / dt;
+        totalAcceleration += currentAcceleration;
         lastTime = timestamp;
         counter++;
         return currentAcceleration;
@@ -31,8 +33,9 @@ public class FRCAccelerasionControll {
      */
     public double getAvgAcceleration() {
         if (counter != 0) {
-            return currentAcceleration / counter;
-        } else return 0;
+            return totalAcceleration / counter;
+        }
+        return 0;
     }
 
     /**
