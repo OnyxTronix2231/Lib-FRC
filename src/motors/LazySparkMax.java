@@ -11,7 +11,7 @@ public class LazySparkMax extends CANSparkMax {
     }
 
     /**
-     * wrapper method to mimic TalonSRX set method
+     * wrapper method to mimic CANSparkMax set method
      */
     public void set(ControlType type, double setpoint) {
         if (setpoint != mLastSet || type != mLastControlType) {

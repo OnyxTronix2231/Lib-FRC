@@ -16,6 +16,10 @@ public class LazyTalonFX extends WPI_TalonFX {
         return mLastSet;
     }
 
+    /**
+     * wrapper method to mimic WPI_TalonFX set method
+     */
+
     @Override
     public void set(ControlMode mode, double value) {
         if (value != mLastSet || mode != mLastControlMode) {

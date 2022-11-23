@@ -15,6 +15,10 @@ public class LazyTalonSRX extends WPI_TalonSRX {
         return mLastSet;
     }
 
+    /**
+     * wrapper method to mimic WPI_TalonSRX set method
+     */
+
     @Override
     public void set(ControlMode mode, double value) {
         if (value != mLastSet || mode != mLastControlMode) {
