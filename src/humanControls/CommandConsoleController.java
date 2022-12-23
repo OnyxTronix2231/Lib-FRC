@@ -1,10 +1,8 @@
 package humanControls;
 
 import edu.wpi.first.hal.HAL;
-import edu.wpi.first.wpilibj.event.EventLoop;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class CommandConsoleController extends CommandGenericHID {
@@ -151,6 +149,23 @@ public class CommandConsoleController extends CommandGenericHID {
      */
     public double getRightY() {
         return getRawAxis(axisRightY);
+    }
+
+
+    public CommandJoystickAxis leftTrigger() {
+        return new CommandJoystickAxis(this,leftTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
+    }
+
+    public CommandJoystickAxis leftTrigger(double deadBand) {
+        return new CommandJoystickAxis(this,leftTrigger, deadBand);
+    }
+
+    public CommandJoystickAxis rightTrigger() {
+        return new CommandJoystickAxis(this,rightTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
+    }
+
+    public CommandJoystickAxis rightTrigger(double deadBand) {
+        return new CommandJoystickAxis(this,rightTrigger, deadBand);
     }
 
     /**
