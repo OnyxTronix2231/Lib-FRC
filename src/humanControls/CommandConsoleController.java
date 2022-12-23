@@ -151,21 +151,24 @@ public class CommandConsoleController extends CommandGenericHID {
         return getRawAxis(axisRightY);
     }
 
+    public CommandJoystickAxis axis(int axisNumber, double deadBand) {
+        return new CommandJoystickAxis(this,axisNumber, deadBand);
+    }
 
     public CommandJoystickAxis leftTrigger() {
-        return new CommandJoystickAxis(this,leftTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
+        return this.axis(leftTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
     }
 
     public CommandJoystickAxis leftTrigger(double deadBand) {
-        return new CommandJoystickAxis(this,leftTrigger, deadBand);
+        return this.axis(leftTrigger, deadBand);
     }
 
     public CommandJoystickAxis rightTrigger() {
-        return new CommandJoystickAxis(this,rightTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
+        return this.axis(rightTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
     }
 
     public CommandJoystickAxis rightTrigger(double deadBand) {
-        return new CommandJoystickAxis(this,rightTrigger, deadBand);
+        return this.axis(rightTrigger, deadBand);
     }
 
     /**
