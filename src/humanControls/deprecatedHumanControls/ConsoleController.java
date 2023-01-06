@@ -1,8 +1,9 @@
-package humanControls;
+package humanControls.deprecatedHumanControls;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.GenericHID;
 
+@Deprecated
 public class ConsoleController extends GenericHID {
 
     private final int buttonDown;
