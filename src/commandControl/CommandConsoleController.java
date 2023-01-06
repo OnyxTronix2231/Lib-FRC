@@ -28,22 +28,6 @@ public abstract class CommandConsoleController extends CommandGenericHID {
      * Construct an instance of a device.
      *
      * @param port         The port index on the Driver Station that the device is plugged into.
-     * @param buttonDown
-     * @param buttonUp
-     * @param buttonLeft
-     * @param buttonRight
-     * @param centerRight
-     * @param centerLeft
-     * @param stickLeft
-     * @param stickRight
-     * @param axisLeftX
-     * @param axisLeftY
-     * @param axisRightX
-     * @param axisRightY
-     * @param leftTrigger
-     * @param rightTrigger
-     * @param bumperRight
-     * @param bumperLeft
      */
     public CommandConsoleController(int port,
                                     int resourceType,
