@@ -1,7 +1,7 @@
 package onyxTronix;
 
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import humanControls.deprecatedHumanControls.ConsoleController;
+import humanControls.ConsoleController;
 
 @Deprecated
 public class UniqueButtonCache extends UniqueTriggerCache<JoystickButton> {

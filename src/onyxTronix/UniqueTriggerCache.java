@@ -1,7 +1,7 @@
 package onyxTronix;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import humanControls.deprecatedHumanControls.ConsoleController;
+import humanControls.ConsoleController;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package humanControls.deprecatedHumanControls;
+package humanControls;
 
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.DriverStation;

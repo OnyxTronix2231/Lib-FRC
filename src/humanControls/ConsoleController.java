@@ -1,4 +1,4 @@
-package humanControls.deprecatedHumanControls;
+package humanControls;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.GenericHID;
