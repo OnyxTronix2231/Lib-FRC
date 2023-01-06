@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 public class CommandJoystickAxis extends Trigger {
 
-    final static double DEFAULT_DEAD_BAND = 0.08;
+    private final static double DEFAULT_DEAD_BAND = 0.08;
     private final CommandConsoleController joystick;
     private final int axisNumber;
 
