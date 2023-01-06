@@ -27,7 +27,7 @@ public abstract class CommandConsoleController extends CommandGenericHID {
     /**
      * Construct an instance of a device.
      *
-     * @param port         The port index on the Driver Station that the device is plugged into.
+     * @param port The port index on the Driver Station that the device is plugged into.
      */
     public CommandConsoleController(int port,
                                     int resourceType,
@@ -135,12 +135,8 @@ public abstract class CommandConsoleController extends CommandGenericHID {
         return getRawAxis(axisRightY);
     }
 
-    public CommandJoystickAxis axis(int axisNumber, double deadBand) {
-        return new CommandJoystickAxis(this,axisNumber, deadBand);
-    }
-
     public CommandJoystickAxis leftTrigger() {
-        return this.axis(leftTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
+        return this.axis(leftTrigger);
     }
 
     public CommandJoystickAxis leftTrigger(double deadBand) {
@@ -148,7 +144,7 @@ public abstract class CommandConsoleController extends CommandGenericHID {
     }
 
     public CommandJoystickAxis rightTrigger() {
-        return this.axis(rightTrigger, CommandJoystickAxis.DEFAULT_DEAD_BAND);
+        return this.axis(rightTrigger);
     }
 
     public CommandJoystickAxis rightTrigger(double deadBand) {
@@ -173,5 +169,13 @@ public abstract class CommandConsoleController extends CommandGenericHID {
      */
     public double getRightTriggerAxis() {
         return getRawAxis(rightTrigger);
+    }
+
+    public CommandJoystickAxis axis(int axisNumber, double deadBand) {
+        return new CommandJoystickAxis(this, axisNumber, deadBand);
+    }
+
+    public CommandJoystickAxis axis(int axisNumber) {
+        return new CommandJoystickAxis(this, axisNumber);
     }
 }
