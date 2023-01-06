@@ -1,9 +1,11 @@
 package onyxTronix;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import humanControls.ConsoleController;
+import humanControls.deprecatedHumanControls.ConsoleController;
 
 import java.util.ArrayList;
+
+@Deprecated
 
 public abstract class UniqueTriggerCache<T extends Trigger> {
 

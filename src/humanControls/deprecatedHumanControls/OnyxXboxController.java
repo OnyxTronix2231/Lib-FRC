@@ -1,7 +1,8 @@
-package humanControls;
+package humanControls.deprecatedHumanControls;
 
 import edu.wpi.first.hal.FRCNetComm;
 
+@Deprecated
 public class OnyxXboxController extends ConsoleController {
 
     /**

@@ -1,8 +1,9 @@
-package humanControls;
+package humanControls.deprecatedHumanControls;
 
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.DriverStation;
 
+@Deprecated
 public class PlayStation5Controller extends ConsoleController {
 
     /**

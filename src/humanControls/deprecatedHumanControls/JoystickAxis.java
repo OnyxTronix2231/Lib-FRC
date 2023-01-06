@@ -1,7 +1,8 @@
-package humanControls;
+package humanControls.deprecatedHumanControls;
 
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
+@Deprecated
 public class JoystickAxis extends Trigger {
 
   private final static double DEFAULT_DEAD_BAND = 0.08;

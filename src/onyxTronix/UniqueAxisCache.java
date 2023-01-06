@@ -1,8 +1,9 @@
 package onyxTronix;
 
-import humanControls.ConsoleController;
-import humanControls.JoystickAxis;
+import humanControls.deprecatedHumanControls.ConsoleController;
+import humanControls.deprecatedHumanControls.JoystickAxis;
 
+@Deprecated
 public class UniqueAxisCache extends UniqueTriggerCache<JoystickAxis> {
 
   public UniqueAxisCache(final ConsoleController joystick) {
