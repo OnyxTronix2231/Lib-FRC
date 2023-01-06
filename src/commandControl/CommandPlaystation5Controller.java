@@ -1,4 +1,4 @@
-package humanControls;
+package commandControl;
 
 import edu.wpi.first.hal.FRCNetComm;
 

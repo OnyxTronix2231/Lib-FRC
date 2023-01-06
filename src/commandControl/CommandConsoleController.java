@@ -1,4 +1,4 @@
-package humanControls;
+package commandControl;
 
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
