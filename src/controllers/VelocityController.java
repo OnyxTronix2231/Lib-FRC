@@ -1,9 +1,7 @@
 package controllers;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.BaseTalon;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public class VelocityController implements MotorController {
