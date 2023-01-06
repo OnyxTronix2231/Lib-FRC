@@ -33,7 +33,7 @@ public class JoystickAxis extends Trigger {
    *
    * @return The value of the joystick button
    */
-  @Override
+
   public boolean get() {
     return Math.abs(getRawAxis()) >= deadBand;
   }
