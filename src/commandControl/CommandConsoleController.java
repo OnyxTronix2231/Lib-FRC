@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-public class CommandConsoleController extends CommandGenericHID {
+public abstract class CommandConsoleController extends CommandGenericHID {
 
     private final int buttonDown;
     private final int buttonUp;
