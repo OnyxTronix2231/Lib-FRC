@@ -99,42 +99,6 @@ public abstract class CommandConsoleController extends CommandGenericHID {
         return this.button(bumperLeft, CommandScheduler.getInstance().getDefaultButtonLoop());
     }
 
-    /**
-     * Get the X axis value of left side of the controller.
-     *
-     * @return The axis value.
-     */
-    public double getLeftX() {
-        return getRawAxis(axisLeftX);
-    }
-
-    /**
-     * Get the X axis value of right side of the controller.
-     *
-     * @return The axis value.
-     */
-    public double getRightX() {
-        return getRawAxis(axisRightX);
-    }
-
-    /**
-     * Get the Y axis value of left side of the controller.
-     *
-     * @return The axis value.
-     */
-    public double getLeftY() {
-        return getRawAxis(axisLeftY);
-    }
-
-    /**
-     * Get the Y axis value of right side of the controller.
-     *
-     * @return The axis value.
-     */
-    public double getRightY() {
-        return getRawAxis(axisRightY);
-    }
-
     public CommandJoystickAxis leftTrigger() {
         return this.axis(leftTrigger);
     }
