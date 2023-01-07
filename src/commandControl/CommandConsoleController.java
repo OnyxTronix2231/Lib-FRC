@@ -151,6 +151,38 @@ public abstract class CommandConsoleController extends CommandGenericHID {
         return this.axis(rightTrigger, deadBand);
     }
 
+    public CommandJoystickAxis leftYAxis() {
+        return this.axis(axisLeftY);
+    }
+
+    public CommandJoystickAxis leftYAxis(double deadBand) {
+        return this.axis(axisLeftY, deadBand);
+    }
+
+    public CommandJoystickAxis leftXAxis() {
+        return this.axis(axisLeftX);
+    }
+
+    public CommandJoystickAxis leftXAxis(double deadBand) {
+        return this.axis(axisLeftX, deadBand);
+    }
+
+    public CommandJoystickAxis rightYAxis() {
+        return this.axis(axisRightY);
+    }
+
+    public CommandJoystickAxis rightYAxis(double deadBand) {
+        return this.axis(axisRightY, deadBand);
+    }
+
+    public CommandJoystickAxis rightXAxis() {
+        return this.axis(axisRightX);
+    }
+
+    public CommandJoystickAxis rightXAxis(double deadBand) {
+        return this.axis(axisRightX, deadBand);
+    }
+
     /**
      * Get the left trigger (LT) axis value of the controller. Note that this axis is bound to the
      * range of [0, 1] as opposed to the usual [-1, 1].
