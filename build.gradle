@@ -9,17 +9,17 @@ task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
 }
 
-//publishing {
-//    publications {
-//        mavenPublication(MavenPublication) {
-//            groupId libraryGroupId
-//            version libraryVersion
-//            artifactId libraryArtifactId
-//            from components.java
-//            artifact sourcesJar
-//        }
-//    }
-//}
+publishing {
+    publications {
+        mavenPublication(MavenPublication) {
+            groupId libraryGroupId
+            version libraryVersion
+            artifactId libraryArtifactId
+            from components.java
+            artifact sourcesJar
+        }
+    }
+}
 
 repositories {
     mavenCentral()
