@@ -3,7 +3,7 @@ package humanControls;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-@Deprecated
+@Deprecated(since = "2023", forRemoval = true)
 public class JoystickAxis extends Trigger {
 
   private final static double DEFAULT_DEAD_BAND = 0.08;
