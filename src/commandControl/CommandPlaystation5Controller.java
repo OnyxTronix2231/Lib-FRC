@@ -52,12 +52,13 @@ public class CommandPlaystation5Controller extends CommandConsoleController {
     /**
      * Construct an instance of a device.
      *
-     * @param port         The port index on the Driver Station that the device is plugged into.
+     * @param port The port index on the Driver Station that the device is plugged into.
      */
 
     public CommandPlaystation5Controller(int port) {
         super(port, FRCNetComm.tResourceType.kResourceType_Joystick, CommandPlaystation5Controller.Button.X.value, CommandPlaystation5Controller.Button.Triangle.value, CommandPlaystation5Controller.Button.Square.value,
                 CommandPlaystation5Controller.Button.Circle.value, CommandPlaystation5Controller.Button.Options.value, CommandPlaystation5Controller.Button.Share.value, CommandPlaystation5Controller.Button.LeftStick.value,
                 CommandPlaystation5Controller.Button.RightStick.value, CommandPlaystation5Controller.Axis.LeftX.value, CommandPlaystation5Controller.Axis.LeftY.value, CommandPlaystation5Controller.Axis.RightX.value, CommandPlaystation5Controller.Axis.RightY.value,
-                CommandPlaystation5Controller.Axis.LeftTrigger.value, CommandPlaystation5Controller.Axis.RightTrigger.value, CommandPlaystation5Controller.Button.RightBumper.value, CommandPlaystation5Controller.Button.LeftBumper.value);    }
+                CommandPlaystation5Controller.Axis.LeftTrigger.value, CommandPlaystation5Controller.Axis.RightTrigger.value, CommandPlaystation5Controller.Button.RightBumper.value, CommandPlaystation5Controller.Button.LeftBumper.value);
+    }
 }
