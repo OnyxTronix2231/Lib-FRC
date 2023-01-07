@@ -2,6 +2,7 @@ package humanControls;
 
 import edu.wpi.first.hal.FRCNetComm;
 
+@Deprecated(since = "2023", forRemoval = true)
 public class OnyxXboxController extends ConsoleController {
 
     /**
