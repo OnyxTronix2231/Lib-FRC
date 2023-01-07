@@ -1,5 +1,6 @@
 package humanControls;
 
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 @Deprecated
@@ -18,15 +19,14 @@ public class JoystickAxis extends Trigger {
    * @param axisNumber The axis number
    */
   public JoystickAxis(final ConsoleController joystick, final int axisNumber, final double deadBand) {
+    super(CommandScheduler.getInstance().getDefaultButtonLoop(), () -> Math.abs(joystick.getRawAxis(axisNumber)) >= deadBand);
     this.joystick = joystick;
     this.axisNumber = axisNumber;
     this.deadBand = deadBand;
   }
 
   public JoystickAxis(final ConsoleController joystick, final int axisNumber) {
-    this.joystick = joystick;
-    this.axisNumber = axisNumber;
-    this.deadBand = DEFAULT_DEAD_BAND;
+    this(joystick, axisNumber, DEFAULT_DEAD_BAND);
   }
 
   /**
