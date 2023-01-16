@@ -1,10 +1,10 @@
-package frc.robot.sparkPid;
+package pid;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import pid.PIDFTerms;
 
-import static frc.robot.sparkPid.RevConstant.*;
+import static pid.RevConstant.*;
 
 public class RevSmartMotionController extends RevController {
 
@@ -41,15 +41,10 @@ public class RevSmartMotionController extends RevController {
                                     int maxAcceleration, int maxVelocity, int minVelocity) {
         super(sparkMax, kP, kI, kD, kF, slotIdx);
         this.sparkMaxPIDController = sparkMax.getPIDController();
-        this.maxAcceleration = maxAcceleration;
-        this.maxVelocity = maxVelocity;
-        this.minVelocity = minVelocity;
-        this.minOutput = sparkMaxPIDController.getOutputMin();
-        this.maxOutput = sparkMaxPIDController.getOutputMax();
-        this.kIZ = sparkMaxPIDController.getIZone();
         setMaxAcceleration(maxAcceleration);
         setMaxAndMinVelocity(maxVelocity, minVelocity);
         setOutputRange(DEFAULT_MIN_OUTPUT, DEFAULT_MAX_OUTPUT);
+        setIZone(kIZ);
     }
 
     @Override
@@ -116,6 +111,7 @@ public class RevSmartMotionController extends RevController {
     }
 
     public void setMaxAcceleration(double maxAcceleration) {
+        this.maxAcceleration = maxAcceleration;
         this.sparkMaxPIDController.setSmartMotionMaxAccel(maxAcceleration, slotId);
     }
 
@@ -128,6 +124,8 @@ public class RevSmartMotionController extends RevController {
     }
 
     public void setMaxAndMinVelocity(double maxVelocity, double minVelocity) {
+        this.maxVelocity = maxVelocity;
+        this.maxVelocity = minVelocity;
         this.sparkMaxPIDController.setSmartMotionMaxVelocity(maxVelocity, slotId);
         this.sparkMaxPIDController.setSmartMotionMinOutputVelocity(minVelocity, slotId);
     }
@@ -137,10 +135,13 @@ public class RevSmartMotionController extends RevController {
     }
 
     public void setOutputRange(double min, double max) {
+        this.minOutput = min;
+        this.maxOutput = max;
         sparkMaxPIDController.setOutputRange(min, max);
     }
 
     public void setIZone(double kIZ) {
+        this.kIZ = kIZ;
         sparkMaxPIDController.setIZone(kIZ);
     }
 

@@ -1,4 +1,4 @@
-package frc.robot.sparkEncoder;
+package sensors.counter;
 
 import com.revrobotics.CANSparkMax;
 import sensors.counter.Counter;

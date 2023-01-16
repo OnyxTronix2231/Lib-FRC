@@ -1,7 +1,7 @@
-package frc.robot.sparkPid;
+package pid;
 
 import com.revrobotics.CANSparkMax;
-import frc.robot.sparkEncoder.RevEncoder;
+import sensors.counter.RevEncoder;
 import pid.AbstractController;
 import pid.PIDFTerms;
 
