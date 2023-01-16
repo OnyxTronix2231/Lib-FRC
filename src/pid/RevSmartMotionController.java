@@ -9,6 +9,12 @@ import static frc.robot.sparkPid.RevConstant.*;
 public class RevSmartMotionController extends RevController {
 
     private final SparkMaxPIDController sparkMaxPIDController;
+    private final double maxAcceleration;
+    private final double maxVelocity;
+    private final double minVelocity;
+    private final double minOutput;
+    private final double maxOutput;
+    private final double kIZ;
 
     public RevSmartMotionController(CANSparkMax sparkMax,
                                     PIDFTerms pidfTerms, int maxAcceleration, int maxVelocity, int minVelocity) {
@@ -35,6 +41,12 @@ public class RevSmartMotionController extends RevController {
                                     int maxAcceleration, int maxVelocity, int minVelocity) {
         super(sparkMax, kP, kI, kD, kF, slotIdx);
         this.sparkMaxPIDController = sparkMax.getPIDController();
+        this.maxAcceleration = maxAcceleration;
+        this.maxVelocity = maxVelocity;
+        this.minVelocity = minVelocity;
+        this.minOutput = sparkMaxPIDController.getOutputMin();
+        this.maxOutput = sparkMaxPIDController.getOutputMax();
+        this.kIZ = sparkMaxPIDController.getIZone();
         setMaxAcceleration(maxAcceleration);
         setMaxAndMinVelocity(maxVelocity, minVelocity);
         setOutputRange(DEFAULT_MIN_OUTPUT, DEFAULT_MAX_OUTPUT);
@@ -96,9 +108,14 @@ public class RevSmartMotionController extends RevController {
     @Override
     protected void configVariables() {
         super.configVariables();
+        setMaxAcceleration(maxAcceleration);
+        setMaxAndMinVelocity(maxVelocity, minVelocity);
+        setOutputRange(minOutput,maxOutput);
+        setIZone(kIZ);
+
     }
 
-    public void setMaxAcceleration(int maxAcceleration) {
+    public void setMaxAcceleration(double maxAcceleration) {
         this.sparkMaxPIDController.setSmartMotionMaxAccel(maxAcceleration, slotId);
     }
 
@@ -110,7 +127,7 @@ public class RevSmartMotionController extends RevController {
         return sparkMaxPIDController.getSmartMotionMaxVelocity(slotId);
     }
 
-    public void setMaxAndMinVelocity(int maxVelocity, int minVelocity) {
+    public void setMaxAndMinVelocity(double maxVelocity, double minVelocity) {
         this.sparkMaxPIDController.setSmartMotionMaxVelocity(maxVelocity, slotId);
         this.sparkMaxPIDController.setSmartMotionMinOutputVelocity(minVelocity, slotId);
     }
@@ -135,4 +152,4 @@ public class RevSmartMotionController extends RevController {
         return sparkMaxPIDController.getOutputMax();
     }
 }
-// By.Ben
+//by.Ben
