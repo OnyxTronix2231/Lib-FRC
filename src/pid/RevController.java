@@ -5,36 +5,35 @@ import frc.robot.sparkEncoder.RevEncoder;
 import pid.AbstractController;
 import pid.PIDFTerms;
 
-import static pid.CtreConstants.*;
+import static frc.robot.sparkPid.RevConstant.*;
 
 public abstract class RevController extends AbstractController {
 
     protected CANSparkMax sparkMax;
     protected RevEncoder revEncoder;
     protected int slotId;
-
     protected double firstError;
 
     public RevController(CANSparkMax canSparkMax,
                          PIDFTerms pidfTerms) {
-        this(canSparkMax, pidfTerms, DEFAULT_SLOT_IDX);
+        this(canSparkMax, pidfTerms, DEFAULT_SLOT_ID);
     }
 
     public RevController(CANSparkMax canSparkMax,
-                         double kP, double kI, double kD, double kF, int slotIdx) {
-        this(canSparkMax, new PIDFTerms(kP, kI, kD, kF), slotIdx);
+                         double kP, double kI, double kD, double kF, int slotId) {
+        this(canSparkMax, new PIDFTerms(kP, kI, kD, kF), slotId);
     }
 
     public RevController(CANSparkMax sparkMax,
                          double kP, double kI, double kD, double kF) {
-        this(sparkMax, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_IDX);
+        this(sparkMax, new PIDFTerms(kP, kI, kD, kF), DEFAULT_SLOT_ID);
     }
 
     public RevController(CANSparkMax sparkMax,
-                         PIDFTerms pidfTerms, int slotIdx) {
+                         PIDFTerms pidfTerms, int slotId) {
         super(pidfTerms);
         this.sparkMax = sparkMax;
-        this.slotId = slotIdx;
+        this.slotId = slotId;
         this.revEncoder = new RevEncoder(sparkMax);
     }
 
@@ -60,16 +59,16 @@ public abstract class RevController extends AbstractController {
     }
 
     protected void setReference(double setpoint, CANSparkMax.ControlType controlType, int slotId, double feedForward) {
-        this.sparkMax.getPIDController().setReference(setpoint / 42, controlType, slotId, feedForward);
+        this.sparkMax.getPIDController().setReference(setpoint / DEFAULT_ENCODER_UNITS_PER_ROTATION, controlType, slotId, feedForward);
     }
 
     protected void setReference(double setpoint, CANSparkMax.ControlType controlType) {
-        setReference(setpoint,controlType,0,0);
+        setReference(setpoint, controlType, ZERO, ZERO);
     }
 
     @Override
     public void disable() {
-        this.sparkMax.getPIDController().setReference(0, CANSparkMax.ControlType.kVoltage);
+        this.sparkMax.getPIDController().setReference(ZERO, CANSparkMax.ControlType.kVoltage);
     }
 
     public void enable(double feedForward) {
@@ -92,3 +91,4 @@ public abstract class RevController extends AbstractController {
         revEncoder.reset();
     }
 }
+//by.Ben

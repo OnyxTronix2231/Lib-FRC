@@ -4,7 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import pid.PIDFTerms;
 
-import static pid.CtreConstants.DEFAULT_SLOT_IDX;
+import static frc.robot.sparkPid.RevConstant.*;
 
 public class RevSmartMotionController extends RevController {
 
@@ -13,14 +13,14 @@ public class RevSmartMotionController extends RevController {
     public RevSmartMotionController(CANSparkMax sparkMax,
                                     PIDFTerms pidfTerms, int maxAcceleration, int maxVelocity, int minVelocity) {
         this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
-                pidfTerms.getKf(), DEFAULT_SLOT_IDX, maxAcceleration,
+                pidfTerms.getKf(), DEFAULT_SLOT_ID, maxAcceleration,
                 maxVelocity, minVelocity);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax, double kP,
                                     double kI, double kD, double kF, int maxAcceleration,
                                     int maxVelocity, int minVelocity) {
-        this(sparkMax, kP, kI, kD, kF, DEFAULT_SLOT_IDX, maxAcceleration, maxVelocity, minVelocity);
+        this(sparkMax, kP, kI, kD, kF, DEFAULT_SLOT_ID, maxAcceleration, maxVelocity, minVelocity);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax,
@@ -37,7 +37,7 @@ public class RevSmartMotionController extends RevController {
         this.sparkMaxPIDController = sparkMax.getPIDController();
         setMaxAcceleration(maxAcceleration);
         setMaxAndMinVelocity(maxVelocity, minVelocity);
-        setOutPutRange(-1, 1);
+        setOutputRange(DEFAULT_MIN_OUTPUT, DEFAULT_MAX_OUTPUT);
     }
 
     @Override
@@ -119,7 +119,7 @@ public class RevSmartMotionController extends RevController {
         this.sparkMaxPIDController.setSmartMotionAllowedClosedLoopError(tolerance, slotId);
     }
 
-    public void setOutPutRange(double min, double max) {
+    public void setOutputRange(double min, double max) {
         sparkMaxPIDController.setOutputRange(min, max);
     }
 
@@ -135,3 +135,4 @@ public class RevSmartMotionController extends RevController {
         return sparkMaxPIDController.getOutputMax();
     }
 }
+// By.Ben
