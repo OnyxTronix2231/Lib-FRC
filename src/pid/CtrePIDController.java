@@ -85,6 +85,11 @@ public class CtrePIDController extends CtreController implements PIDController {
     }
 
     @Override
+    public void setIntegralZone(double iZone) {
+        this.ctreMotorController.config_IntegralZone(this.slotIdx,iZone,this.timeoutMs);
+    }
+
+    @Override
     public void update(double setpoint, double feedForward) {
         this.setSetpoint(setpoint);
         if (pidControlMode == PIDControlMode.Position) {
@@ -128,4 +133,6 @@ public class CtrePIDController extends CtreController implements PIDController {
     public double getCurrentError() {
         return this.ctreMotorController.getClosedLoopError(pidIdx);
     }
+
+
 }

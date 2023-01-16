@@ -24,4 +24,6 @@ public interface Controller {
   void update(double setpoint);
 
   void disable();
+
+  void setIntegralZone(double iZone);
 }
