@@ -2,10 +2,9 @@ package pid;
 
 import com.revrobotics.CANSparkMax;
 import sensors.counter.RevEncoder;
-import pid.AbstractController;
-import pid.PIDFTerms;
 
-import static frc.robot.sparkPid.RevConstant.*;
+import static pid.RevConstant.DEFAULT_ENCODER_UNITS_PER_ROTATION;
+import static pid.RevConstant.DEFAULT_SLOT_ID;
 
 public abstract class RevController extends AbstractController {
 
@@ -58,17 +57,17 @@ public abstract class RevController extends AbstractController {
         return getCurrentError() == firstError;
     }
 
-    protected void setReference(double setpoint, CANSparkMax.ControlType controlType, int slotId, double feedForward) {
+    protected void setReference(double setpoint, CANSparkMax.ControlType controlType, double feedForward) {
         this.sparkMax.getPIDController().setReference(setpoint / DEFAULT_ENCODER_UNITS_PER_ROTATION, controlType, slotId, feedForward);
     }
 
     protected void setReference(double setpoint, CANSparkMax.ControlType controlType) {
-        setReference(setpoint, controlType, ZERO, ZERO);
+        setReference(setpoint, controlType, 0);
     }
 
     @Override
     public void disable() {
-        this.sparkMax.getPIDController().setReference(ZERO, CANSparkMax.ControlType.kVoltage);
+        this.sparkMax.getPIDController().setReference(0, CANSparkMax.ControlType.kVoltage);
     }
 
     public void enable(double feedForward) {
