@@ -10,5 +10,4 @@ public class RevConstant {
 
     public static final int DEFAULT_ENCODER_UNITS_PER_ROTATION = 42;
 
-    public static final int ZERO = 0;
 }
