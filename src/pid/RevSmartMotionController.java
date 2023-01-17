@@ -17,29 +17,29 @@ public class RevSmartMotionController extends RevController {
     private final double kIZ;
 
     public RevSmartMotionController(CANSparkMax sparkMax,
-                                    PIDFTerms pidfTerms, int maxAcceleration, int maxVelocity, int minVelocity) {
+                                    PIDFTerms pidfTerms, double maxAcceleration, double maxVelocity, double minVelocity) {
         this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
                 pidfTerms.getKf(), DEFAULT_SLOT_ID, maxAcceleration,
                 maxVelocity, minVelocity);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax, double kP,
-                                    double kI, double kD, double kF, int maxAcceleration,
-                                    int maxVelocity, int minVelocity) {
+                                    double kI, double kD, double kF, double maxAcceleration,
+                                    double maxVelocity, double minVelocity) {
         this(sparkMax, kP, kI, kD, kF, DEFAULT_SLOT_ID, maxAcceleration, maxVelocity, minVelocity);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax,
-                                    PIDFTerms pidfTerms, int slotIdx, int maxAcceleration,
+                                    PIDFTerms pidfTerms, int slotId, int maxAcceleration,
                                     int maxVelocity, int minVelocity) {
         this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
-                pidfTerms.getKf(), slotIdx, maxAcceleration, maxVelocity, minVelocity);
+                pidfTerms.getKf(), slotId, maxAcceleration, maxVelocity, minVelocity);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax, double kP,
-                                    double kI, double kD, double kF, int slotIdx,
+                                    double kI, double kD, double kF, int slotId,
                                     int maxAcceleration, int maxVelocity, int minVelocity) {
-        super(sparkMax, kP, kI, kD, kF, slotIdx);
+        super(sparkMax, kP, kI, kD, kF, slotId);
         this.sparkMaxPIDController = sparkMax.getPIDController();
         setMaxAcceleration(maxAcceleration);
         setMaxAndMinVelocity(maxVelocity, minVelocity);
