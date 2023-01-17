@@ -14,36 +14,38 @@ public class RevSmartMotionController extends RevController {
     private double minOutput;
     private double maxOutput;
     private double kIZ;
+    private int tolerance;
 
     public RevSmartMotionController(CANSparkMax sparkMax,
-                                    PIDFTerms pidfTerms, double maxAcceleration, double maxVelocity, double minVelocity) {
+                                    PIDFTerms pidfTerms, double maxAcceleration, double maxVelocity, double minVelocity, int tolerance) {
         this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
                 pidfTerms.getKf(), DEFAULT_SLOT_ID, maxAcceleration,
-                maxVelocity, minVelocity);
+                maxVelocity, minVelocity, tolerance);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax, double kP,
                                     double kI, double kD, double kF, double maxAcceleration,
-                                    double maxVelocity, double minVelocity) {
-        this(sparkMax, kP, kI, kD, kF, DEFAULT_SLOT_ID, maxAcceleration, maxVelocity, minVelocity);
+                                    double maxVelocity, double minVelocity, int tolerance) {
+        this(sparkMax, kP, kI, kD, kF, DEFAULT_SLOT_ID, maxAcceleration, maxVelocity, minVelocity, tolerance);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax,
-                                    PIDFTerms pidfTerms, int slotId, int maxAcceleration,
-                                    int maxVelocity, int minVelocity) {
+                                    PIDFTerms pidfTerms, int slotId, double maxAcceleration,
+                                    double maxVelocity, double minVelocity, int tolerance) {
         this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
-                pidfTerms.getKf(), slotId, maxAcceleration, maxVelocity, minVelocity);
+                pidfTerms.getKf(), slotId, maxAcceleration, maxVelocity, minVelocity, tolerance);
     }
 
     public RevSmartMotionController(CANSparkMax sparkMax, double kP,
                                     double kI, double kD, double kF, int slotId,
-                                    int maxAcceleration, int maxVelocity, int minVelocity) {
+                                    double maxAcceleration, double maxVelocity, double minVelocity, int tolerance) {
         super(sparkMax, kP, kI, kD, kF, slotId);
-        this.sparkMaxPIDController = sparkMax.getPIDController();
+        this.controller = sparkMax.getPIDController();
         setMaxAcceleration(maxAcceleration);
         setMaxAndMinVelocity(maxVelocity,minVelocity);
         setOutputRange(DEFAULT_MIN_OUTPUT,DEFAULT_MAX_OUTPUT);
         setIZone(kIZ);
+        setTolerance(tolerance);
     }
 
     @Override
