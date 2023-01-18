@@ -3,7 +3,6 @@ package pid;
 import com.revrobotics.CANSparkMax;
 import motors.RevMotorType;
 import sensors.counter.Counter;
-import sensors.counter.RevEncoder;
 
 public abstract class RevController extends AbstractController {
 
@@ -15,20 +14,20 @@ public abstract class RevController extends AbstractController {
 
     public RevController(CANSparkMax canSparkMax, RevMotorType revMotorType, Counter encoder,
                          PIDFTerms pidfTerms) {
-        this(canSparkMax, revMotorType,encoder, pidfTerms, 0);
+        this(canSparkMax, revMotorType, encoder, pidfTerms, 0);
     }
 
     public RevController(CANSparkMax canSparkMax, RevMotorType revMotorType, Counter encoder,
                          double kP, double kI, double kD, double kF, int slotId) {
-        this(canSparkMax, revMotorType,encoder, new PIDFTerms(kP, kI, kD, kF), slotId);
+        this(canSparkMax, revMotorType, encoder, new PIDFTerms(kP, kI, kD, kF), slotId);
     }
 
     public RevController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter encoder,
                          double kP, double kI, double kD, double kF) {
-        this(sparkMax, revMotorType, encoder,new PIDFTerms(kP, kI, kD, kF), 0);
+        this(sparkMax, revMotorType, encoder, new PIDFTerms(kP, kI, kD, kF), 0);
     }
 
-    public RevController(CANSparkMax sparkMax, RevMotorType revMotorType,Counter encoder,
+    public RevController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter encoder,
                          PIDFTerms pidfTerms, int slotId) {
         super(pidfTerms);
         this.sparkMax = sparkMax;
