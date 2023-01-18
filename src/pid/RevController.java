@@ -33,8 +33,8 @@ public abstract class RevController extends AbstractController {
         super(pidfTerms);
         this.sparkMax = sparkMax;
         this.revMotorType = revMotorType;
-        this.slotId = slotId;
         this.encoder = encoder;
+        this.slotId = slotId;
     }
 
     public CANSparkMax getSparkMax() {
