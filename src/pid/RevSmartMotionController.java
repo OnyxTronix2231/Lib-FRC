@@ -2,8 +2,9 @@ package pid;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
+import motors.RevMotorType;
 
-import static pid.RevConstant.*;
+import static pid.RevConstants.DEFAULT_SLOT_ID;
 
 public class RevSmartMotionController extends RevController {
 
@@ -14,36 +15,36 @@ public class RevSmartMotionController extends RevController {
     private double minOutput;
     private double maxOutput;
     private double kIZ;
-    private int tolerance;
+    private double tolerance;
 
-    public RevSmartMotionController(CANSparkMax sparkMax,
-                                    PIDFTerms pidfTerms, double maxAcceleration, double maxVelocity, double minVelocity, int tolerance) {
-        this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
+    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType,
+                                    PIDFTerms pidfTerms, double maxAcceleration, double maxVelocity, double minVelocity, double tolerance) {
+        this(sparkMax, revMotorType, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
                 pidfTerms.getKf(), DEFAULT_SLOT_ID, maxAcceleration,
                 maxVelocity, minVelocity, tolerance);
     }
 
-    public RevSmartMotionController(CANSparkMax sparkMax, double kP,
-                                    double kI, double kD, double kF, double maxAcceleration,
-                                    double maxVelocity, double minVelocity, int tolerance) {
-        this(sparkMax, kP, kI, kD, kF, DEFAULT_SLOT_ID, maxAcceleration, maxVelocity, minVelocity, tolerance);
+    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType,
+                                    double kP, double kI, double kD, double kF, double maxAcceleration,
+                                    double maxVelocity, double minVelocity, double tolerance) {
+        this(sparkMax, revMotorType, kP, kI, kD, kF, DEFAULT_SLOT_ID, maxAcceleration, maxVelocity, minVelocity, tolerance);
     }
 
-    public RevSmartMotionController(CANSparkMax sparkMax,
+    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType,
                                     PIDFTerms pidfTerms, int slotId, double maxAcceleration,
-                                    double maxVelocity, double minVelocity, int tolerance) {
-        this(sparkMax, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
+                                    double maxVelocity, double minVelocity, double tolerance) {
+        this(sparkMax, revMotorType, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
                 pidfTerms.getKf(), slotId, maxAcceleration, maxVelocity, minVelocity, tolerance);
     }
 
-    public RevSmartMotionController(CANSparkMax sparkMax, double kP,
-                                    double kI, double kD, double kF, int slotId,
-                                    double maxAcceleration, double maxVelocity, double minVelocity, int tolerance) {
-        super(sparkMax, kP, kI, kD, kF, slotId);
+    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType,
+                                    double kP, double kI, double kD, double kF, int slotId,
+                                    double maxAcceleration, double maxVelocity, double minVelocity, double tolerance) {
+        super(sparkMax, revMotorType, kP, kI, kD, kF, slotId);
         this.controller = sparkMax.getPIDController();
         setMaxAcceleration(maxAcceleration);
-        setMaxAndMinVelocity(maxVelocity,minVelocity);
-        setOutputRange(DEFAULT_MIN_OUTPUT,DEFAULT_MAX_OUTPUT);
+        setMaxAndMinVelocity(maxVelocity, minVelocity);
+        setOutputRange(controller.getOutputMin(), controller.getOutputMax());
         setIZone(kIZ);
         setTolerance(tolerance);
     }
@@ -108,6 +109,7 @@ public class RevSmartMotionController extends RevController {
         setMaxAndMinVelocity(maxVelocity, minVelocity);
         setOutputRange(minOutput, maxOutput);
         setIZone(kIZ);
+        setTolerance(tolerance);
 
     }
 
@@ -132,6 +134,7 @@ public class RevSmartMotionController extends RevController {
     }
 
     public void setTolerance(double tolerance) {
+        this.tolerance = tolerance;
         this.controller.setSmartMotionAllowedClosedLoopError(tolerance, slotId);
     }
 
@@ -154,4 +157,3 @@ public class RevSmartMotionController extends RevController {
         return controller.getOutputMax();
     }
 }
-//by.Ben
