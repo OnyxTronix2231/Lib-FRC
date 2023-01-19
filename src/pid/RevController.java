@@ -1,37 +1,35 @@
 package pid;
 
 import com.revrobotics.CANSparkMax;
-import motors.RevMotorType;
 import sensors.counter.Counter;
+import sensors.counter.RevCounter;
 
 public abstract class RevController extends AbstractController {
 
     protected CANSparkMax sparkMax;
-    protected Counter encoder;
-    protected RevMotorType revMotorType;
+    protected RevCounter encoder;
     protected int slotId;
     protected double firstError;
 
-    public RevController(CANSparkMax canSparkMax, RevMotorType revMotorType, Counter encoder,
+    public RevController(CANSparkMax canSparkMax, RevCounter encoder,
                          PIDFTerms pidfTerms) {
-        this(canSparkMax, revMotorType, encoder, pidfTerms, 0);
+        this(canSparkMax, encoder, pidfTerms, 0);
     }
 
-    public RevController(CANSparkMax canSparkMax, RevMotorType revMotorType, Counter encoder,
+    public RevController(CANSparkMax canSparkMax, RevCounter encoder,
                          double kP, double kI, double kD, double kF, int slotId) {
-        this(canSparkMax, revMotorType, encoder, new PIDFTerms(kP, kI, kD, kF), slotId);
+        this(canSparkMax, encoder, new PIDFTerms(kP, kI, kD, kF), slotId);
     }
 
-    public RevController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter encoder,
+    public RevController(CANSparkMax sparkMax, RevCounter encoder,
                          double kP, double kI, double kD, double kF) {
-        this(sparkMax, revMotorType, encoder, new PIDFTerms(kP, kI, kD, kF), 0);
+        this(sparkMax, encoder, new PIDFTerms(kP, kI, kD, kF), 0);
     }
 
-    public RevController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter encoder,
+    public RevController(CANSparkMax sparkMax, RevCounter encoder,
                          PIDFTerms pidfTerms, int slotId) {
         super(pidfTerms);
         this.sparkMax = sparkMax;
-        this.revMotorType = revMotorType;
         this.encoder = encoder;
         this.slotId = slotId;
     }
@@ -58,7 +56,7 @@ public abstract class RevController extends AbstractController {
     }
 
     protected void setReference(double setpoint, CANSparkMax.ControlType controlType, double feedForward) {
-        this.sparkMax.getPIDController().setReference(setpoint / revMotorType.getEncoderUnitsPerRotation(), controlType, slotId, feedForward);
+        this.sparkMax.getPIDController().setReference(setpoint / encoder.getRevCounterType().getEncoderUnitsPerRotation(), controlType, slotId, feedForward);
     }
 
     protected void setReference(double setpoint, CANSparkMax.ControlType controlType) {

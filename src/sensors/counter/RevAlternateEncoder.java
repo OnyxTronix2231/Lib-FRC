@@ -2,28 +2,27 @@ package sensors.counter;
 
 import com.revrobotics.CANSparkMax;
 
-public class RevAlternateEncoder implements Counter {
+public class RevAlternateEncoder extends RevCounter {
 
-    private final CANSparkMax sparkMax;
-    private final int countPerRev;
 
-    public RevAlternateEncoder(CANSparkMax sparkMax, int countPerRev) {
+    public RevAlternateEncoder(CANSparkMax sparkMax,RevCounterType revCounterType) {
+        super(sparkMax, revCounterType);
         this.sparkMax = sparkMax;
-        this.countPerRev = countPerRev;
+        this.revCounterType = revCounterType;
     }
 
     @Override
     public double getCount() {
-        return sparkMax.getAlternateEncoder(countPerRev).getPosition();
+        return sparkMax.getAlternateEncoder(revCounterType.getEncoderUnitsPerRotation()).getPosition();
     }
 
     @Override
     public double getRate() {
-        return sparkMax.getAlternateEncoder(countPerRev).getVelocity();
+        return sparkMax.getAlternateEncoder(revCounterType.getEncoderUnitsPerRotation()).getVelocity();
     }
 
     @Override
     public void reset() {
-        sparkMax.getAlternateEncoder(countPerRev).setPosition(0);
+        sparkMax.getAlternateEncoder(revCounterType.getEncoderUnitsPerRotation()).setPosition(0);
     }
 }

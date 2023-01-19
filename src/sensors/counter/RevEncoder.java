@@ -3,11 +3,12 @@ package sensors.counter;
 import com.revrobotics.CANSparkMax;
 import sensors.counter.Counter;
 
-public class RevEncoder implements Counter {
+public class RevEncoder extends RevCounter {
 
     private final CANSparkMax sparkMax;
 
     public RevEncoder(CANSparkMax sparkMax) {
+        super(sparkMax, RevCounterType.Neo550);
         this.sparkMax = sparkMax;
     }
 

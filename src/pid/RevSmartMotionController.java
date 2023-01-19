@@ -2,8 +2,7 @@ package pid;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
-import motors.RevMotorType;
-import sensors.counter.Counter;
+import sensors.counter.RevCounter;
 
 public class RevSmartMotionController extends RevController {
 
@@ -16,30 +15,30 @@ public class RevSmartMotionController extends RevController {
     private double kIZ;
     private double tolerance;
 
-    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter counter,
+    public RevSmartMotionController(CANSparkMax sparkMax, RevCounter counter,
                                     PIDFTerms pidfTerms, double maxAcceleration, double minVelocity, double maxVelocity, double tolerance) {
-        this(sparkMax, revMotorType, counter, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
+        this(sparkMax, counter, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
                 pidfTerms.getKf(), 0, maxAcceleration,
                 minVelocity, maxVelocity, tolerance);
     }
 
-    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter counter,
+    public RevSmartMotionController(CANSparkMax sparkMax, RevCounter counter,
                                     double kP, double kI, double kD, double kF, double maxAcceleration,
                                     double minVelocity, double maxVelocity, double tolerance) {
-        this(sparkMax, revMotorType, counter, kP, kI, kD, kF, 0, maxAcceleration, minVelocity, maxVelocity, tolerance);
+        this(sparkMax, counter, kP, kI, kD, kF, 0, maxAcceleration, minVelocity, maxVelocity, tolerance);
     }
 
-    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter counter,
+    public RevSmartMotionController(CANSparkMax sparkMax, RevCounter counter,
                                     PIDFTerms pidfTerms, int slotId, double maxAcceleration,
                                     double minVelocity, double maxVelocity, double tolerance) {
-        this(sparkMax, revMotorType, counter, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
+        this(sparkMax, counter, pidfTerms.getKp(), pidfTerms.getKi(), pidfTerms.getKd(),
                 pidfTerms.getKf(), slotId, maxAcceleration, minVelocity, maxVelocity, tolerance);
     }
 
-    public RevSmartMotionController(CANSparkMax sparkMax, RevMotorType revMotorType, Counter counter,
+    public RevSmartMotionController(CANSparkMax sparkMax, RevCounter counter,
                                     double kP, double kI, double kD, double kF, int slotId,
                                     double maxAcceleration, double minVelocity, double maxVelocity, double tolerance) {
-        super(sparkMax, revMotorType, counter, kP, kI, kD, kF, slotId);
+        super(sparkMax, counter, kP, kI, kD, kF, slotId);
         this.controller = sparkMax.getPIDController();
         setMaxAcceleration(maxAcceleration);
         setMinAndMaxVelocity(minVelocity, maxVelocity);
