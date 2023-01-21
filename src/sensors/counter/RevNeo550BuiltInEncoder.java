@@ -3,17 +3,19 @@ package sensors.counter;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
-public class RevAlternateEncoder extends RevCounter {
+public class RevNeo550BuiltInEncoder extends RevCounter {
 
-    public RevAlternateEncoder(CANSparkMax sparkMax, CounterType counterType) {
-        super(sparkMax, counterType);
+    private final CANSparkMax sparkMax;
+
+    public RevNeo550BuiltInEncoder(CANSparkMax sparkMax) {
+        super(sparkMax, CounterType.Neo550);
         this.sparkMax = sparkMax;
-        this.counterType = counterType;
     }
+
 
     @Override
     protected RelativeEncoder getEncoder() {
-        return sparkMax.getAlternateEncoder(counterType.getEncoderUnitsPerRotation());
+        return sparkMax.getEncoder();
     }
 
     @Override

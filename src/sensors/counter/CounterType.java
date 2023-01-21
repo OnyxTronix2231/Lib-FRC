@@ -1,12 +1,12 @@
 package sensors.counter;
 
-public enum RevCounterType {
+public enum CounterType {
     Neo550(42),
-    MagEncoder(1024);
+    MagEncoder(4096);
 
     private final int encoderUnitsPerRotation;
 
-    RevCounterType(int value) {
+    CounterType(int value) {
         this.encoderUnitsPerRotation = value;
     }
 

@@ -1,5 +1,6 @@
 package pid;
 
+import com.revrobotics.CANSensor;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import sensors.counter.RevCounter;
