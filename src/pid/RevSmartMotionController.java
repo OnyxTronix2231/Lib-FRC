@@ -97,32 +97,9 @@ public class RevSmartMotionController extends RevController {
         return super.isOnTarget(tolerance);
     }
 
-    private void setVariables(double maxAcceleration, double minVelocity, double maxVelocity,
-                              double minOutput, double maxOutput, double kIZ, double tolerance) {
-        setMaxAcceleration(maxAcceleration);
-        setMinAndMaxVelocity(minVelocity, maxVelocity);
-        setOutputRange(minOutput, maxOutput);
-        setIZone(kIZ);
-        setTolerance(tolerance);
-    }
-
-    @Override
-    protected void configVariables() {
-        super.configVariables();
-        setVariables(maxAcceleration, minVelocity, maxVelocity, minOutput, maxOutput, kIZ, tolerance);
-    }
-
     public void setMaxAcceleration(double maxAcceleration) {
         this.maxAcceleration = maxAcceleration;
         this.controller.setSmartMotionMaxAccel(maxAcceleration, slotId);
-    }
-
-    public double getMaxAcceleration() {
-        return controller.getSmartMotionMaxAccel(slotId);
-    }
-
-    public double getMaxVelocity() {
-        return controller.getSmartMotionMaxVelocity(slotId);
     }
 
     public void setMinAndMaxVelocity(double minVelocity, double maxVelocity) {
@@ -148,11 +125,34 @@ public class RevSmartMotionController extends RevController {
         controller.setIZone(kIZ);
     }
 
+    public double getMaxAcceleration() {
+        return controller.getSmartMotionMaxAccel(slotId);
+    }
+
+    public double getMaxVelocity() {
+        return controller.getSmartMotionMaxVelocity(slotId);
+    }
+
     public double getMinOutputRange() {
         return controller.getOutputMin();
     }
 
     public double getMaxOutputRange() {
         return controller.getOutputMax();
+    }
+
+    @Override
+    protected void configVariables() {
+        super.configVariables();
+        setVariables(maxAcceleration, minVelocity, maxVelocity, minOutput, maxOutput, kIZ, tolerance);
+    }
+
+    private void setVariables(double maxAcceleration, double minVelocity, double maxVelocity,
+                              double minOutput, double maxOutput, double kIZ, double tolerance) {
+        setMaxAcceleration(maxAcceleration);
+        setMinAndMaxVelocity(minVelocity, maxVelocity);
+        setOutputRange(minOutput, maxOutput);
+        setIZone(kIZ);
+        setTolerance(tolerance);
     }
 }
