@@ -1,6 +1,5 @@
 package pid;
 
-import com.revrobotics.CANSensor;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkMaxPIDController;
 import sensors.counter.RevCounter;
@@ -41,11 +40,8 @@ public class RevSmartMotionController extends RevController {
                                     double maxAcceleration, double minVelocity, double maxVelocity, double tolerance) {
         super(sparkMax, counter, kP, kI, kD, kF, slotId);
         this.controller = sparkMax.getPIDController();
-        setMaxAcceleration(maxAcceleration);
-        setMinAndMaxVelocity(minVelocity, maxVelocity);
-        setOutputRange(controller.getOutputMin(), controller.getOutputMax());
-        setIZone(kIZ);
-        setTolerance(tolerance);
+        setVariables(maxAcceleration, minVelocity, maxVelocity, minOutput, maxOutput, kIZ, tolerance);
+
     }
 
     @Override
@@ -101,14 +97,19 @@ public class RevSmartMotionController extends RevController {
         return super.isOnTarget(tolerance);
     }
 
-    @Override
-    protected void configVariables() {
-        super.configVariables();
+    private void setVariables(double maxAcceleration, double minVelocity, double maxVelocity,
+                              double minOutput, double maxOutput, double kIZ, double tolerance) {
         setMaxAcceleration(maxAcceleration);
         setMinAndMaxVelocity(minVelocity, maxVelocity);
         setOutputRange(minOutput, maxOutput);
         setIZone(kIZ);
         setTolerance(tolerance);
+    }
+
+    @Override
+    protected void configVariables() {
+        super.configVariables();
+        setVariables(maxAcceleration, minVelocity, maxVelocity, minOutput, maxOutput, kIZ, tolerance);
     }
 
     public void setMaxAcceleration(double maxAcceleration) {

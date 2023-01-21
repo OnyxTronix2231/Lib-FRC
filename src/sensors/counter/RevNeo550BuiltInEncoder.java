@@ -12,12 +12,6 @@ public class RevNeo550BuiltInEncoder extends RevCounter {
         this.sparkMax = sparkMax;
     }
 
-
-    @Override
-    protected RelativeEncoder getEncoder() {
-        return sparkMax.getEncoder();
-    }
-
     @Override
     public double getCount() {
         return encoder.getPosition();
@@ -31,5 +25,10 @@ public class RevNeo550BuiltInEncoder extends RevCounter {
     @Override
     public void reset() {
         encoder.setPosition(0);
+    }
+
+    @Override
+    protected RelativeEncoder getEncoder() {
+        return sparkMax.getEncoder();
     }
 }

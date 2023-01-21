@@ -12,11 +12,6 @@ public class RevAlternateEncoder extends RevCounter {
     }
 
     @Override
-    protected RelativeEncoder getEncoder() {
-        return sparkMax.getAlternateEncoder(counterType.getEncoderUnitsPerRotation());
-    }
-
-    @Override
     public double getCount() {
         return encoder.getPosition();
     }
@@ -29,5 +24,10 @@ public class RevAlternateEncoder extends RevCounter {
     @Override
     public void reset() {
         encoder.setPosition(0);
+    }
+
+    @Override
+    protected RelativeEncoder getEncoder() {
+        return sparkMax.getAlternateEncoder(counterType.getEncoderUnitsPerRotation());
     }
 }
