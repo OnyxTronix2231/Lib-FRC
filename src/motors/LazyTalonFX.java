@@ -11,7 +11,7 @@ public class LazyTalonFX extends WPI_TalonFX {
         super(deviceNumber);
     }
 
-    public LazyTalonFX(int deviceNumber, String canBus){
+    public LazyTalonFX(int deviceNumber, String canBus) {
         super(deviceNumber, canBus);
     }
 
