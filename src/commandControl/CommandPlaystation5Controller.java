@@ -1,6 +1,7 @@
 package commandControl;
 
 import edu.wpi.first.hal.FRCNetComm;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class CommandPlaystation5Controller extends CommandConsoleController {
 
@@ -60,5 +61,16 @@ public class CommandPlaystation5Controller extends CommandConsoleController {
                 CommandPlaystation5Controller.Button.Circle.value, CommandPlaystation5Controller.Button.Options.value, CommandPlaystation5Controller.Button.Share.value, CommandPlaystation5Controller.Button.LeftStick.value,
                 CommandPlaystation5Controller.Button.RightStick.value, CommandPlaystation5Controller.Axis.LeftX.value, CommandPlaystation5Controller.Axis.LeftY.value, CommandPlaystation5Controller.Axis.RightX.value, CommandPlaystation5Controller.Axis.RightY.value,
                 CommandPlaystation5Controller.Axis.LeftTrigger.value, CommandPlaystation5Controller.Axis.RightTrigger.value, CommandPlaystation5Controller.Button.RightBumper.value, CommandPlaystation5Controller.Button.LeftBumper.value);
+    }
+
+    @Override
+    public double getRawAxis(int axis) {
+        if (!DriverStation.isJoystickConnected(getHID().getPort())) {
+            return 0;
+        }
+        if (axis == CommandPlaystation5Controller.Axis.LeftTrigger.value || axis == CommandPlaystation5Controller.Axis.RightTrigger.value) {
+            return (super.getRawAxis(axis) + 1) / 2;
+        }
+        return super.getRawAxis(axis);
     }
 }
