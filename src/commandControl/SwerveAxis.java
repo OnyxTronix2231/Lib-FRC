@@ -4,20 +4,15 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import frc.robot.utils.GeomUtil;
+import utils.GeomUtil;
+
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 public class SwerveAxis {
-    double leftX;
-    double leftY;
-    double rightX;
-
-    public SwerveAxis(double leftX, double leftY, double rightX) {
-        this.leftX = leftX;
-        this.leftY = leftY;
-        this.rightX = rightX;
-    }
-
-    public Translation2d calculate() {
+    public static Translation2d calculate(double leftX, double leftY, double rightX) {
         // Get direction and magnitude of linear axes
         double linearMagnitude = Math.hypot(leftX, leftY);
         Rotation2d linearDirection = new Rotation2d(leftX, leftY);
@@ -37,5 +32,3 @@ public class SwerveAxis {
         return linearVelocity;
     }
 }
-
-
