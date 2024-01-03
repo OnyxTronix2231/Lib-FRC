@@ -2,29 +2,26 @@ package logging;
 
 public class LogManager {
 
-    private boolean isLoggingEnabled;
+    private boolean loggingEnabled;
 
     private LogManager() {
-        isLoggingEnabled = false;
+        loggingEnabled = false;
     }
 
-    public void enableLogging() {
-        isLoggingEnabled = true;
-    }
-
-    public void disableLogging() {
-        isLoggingEnabled = false;
+    public void setLoggingEnabled(boolean enable) {
+        loggingEnabled = enable;
     }
 
     public boolean isLoggingEnabled() {
-        return isLoggingEnabled;
+        return loggingEnabled;
     }
 
     private static LogManager instance;
 
     public static LogManager getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new LogManager();
+        }
         return instance;
     }
 }

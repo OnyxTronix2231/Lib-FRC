@@ -7,29 +7,21 @@ public class LoggedCommand extends Command {
     private String name = getClass().toString();
     private String requirements = getRequirements().toString();
 
-    private boolean isStart = true;
-
-    private void printLog() {
+    private void printLog(String state) {
         if (LogManager.getInstance().isLoggingEnabled()) {
-            if (isStart) {
-                System.out.println("[" + System.currentTimeMillis() + "] - (" + requirements + ") " + name);
-                isStart = false;
-            } else {
-                System.out.println("[" + System.currentTimeMillis() + "] - (" + requirements + ") " + name + " - end");
-                isStart = true;
-            }
-            log();
+            System.out.println("[" + System.currentTimeMillis() + "] - (" + requirements + ") " + name + " --" + state);
         }
+        log();
     }
 
     @Override
     public void initialize() {
-        printLog();
+        printLog("start");
     }
 
     @Override
     public void end(boolean interrupted) {
-        printLog();
+        printLog("end");
     }
 
     public void log() {
