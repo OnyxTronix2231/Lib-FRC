@@ -7,21 +7,21 @@ public class LoggedCommand extends Command {
     private String name = getClass().toString();
     private String requirements = getRequirements().toString();
 
-    private void printLog(String state) {
+    private void logFormatted(String state) {
         if (LogManager.getInstance().isLoggingEnabled()) {
             System.out.println("[" + System.currentTimeMillis() + "] - (" + requirements + ") " + name + " --" + state);
+            log();
         }
-        log();
     }
 
     @Override
     public void initialize() {
-        printLog("start");
+        logFormatted("start");
     }
 
     @Override
     public void end(boolean interrupted) {
-        printLog("end");
+        logFormatted("end");
     }
 
     public void log() {
