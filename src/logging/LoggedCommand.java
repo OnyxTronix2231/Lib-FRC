@@ -1,7 +1,6 @@
 package logging;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import static logging.LogManager.isLoggingEnabled;
 
 public class LoggedCommand extends Command {
 
@@ -10,7 +9,7 @@ public class LoggedCommand extends Command {
 
     @Override
     public void initialize() {
-        if (isLoggingEnabled) {
+        if (LogManager.getInstance().isLoggingEnabled()) {
             System.out.println("[" + System.currentTimeMillis() + "] - (" + requirements + ") " + name);
             log();
         }
@@ -18,7 +17,7 @@ public class LoggedCommand extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        if (isLoggingEnabled) {
+        if (LogManager.getInstance().isLoggingEnabled()) {
             System.out.println("[" + System.currentTimeMillis() + "] - (" + requirements + ") " + name + " - end");
             log();
         }
