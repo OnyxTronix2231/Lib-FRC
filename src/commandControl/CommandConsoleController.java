@@ -1,6 +1,7 @@
 package commandControl;
 
 import edu.wpi.first.hal.HAL;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -209,5 +210,9 @@ public abstract class CommandConsoleController extends CommandGenericHID {
 
     public CommandJoystickAxis axis(int axisNumber) {
         return new CommandJoystickAxis(this, axisNumber);
+    }
+
+    public void setRumble(double value) {
+        getHID().setRumble(GenericHID.RumbleType.kBothRumble, value);
     }
 }
